@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.30 - 2024-03-29
+
+### What's Changed
+
+* remove column classes in browse entries by @atmonshi in https://github.com/lara-zeus/bolt/pull/267
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.29...v3.0.30
+
 ## v3.0.29 - 2024-03-27
 
 ### What's Changed
@@ -212,7 +220,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.5...v3.0.6
 ## v3.0.5 - 2024-01-11
 ### What's Changed
-
 * add form ID column in form table but hidden by default by @atmonshi in https://github.com/lara-zeus/bolt/pull/235
 
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.4...v3.0.5
