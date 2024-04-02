@@ -113,7 +113,6 @@ trait Designer
 
         if (optional($zeusForm->options)['show-as'] === 'wizard') {
             $component = Step::make($section->name)
-                ->live()
                 ->description($section->description)
                 ->icon($section->icon ?? null);
         }
@@ -135,7 +134,7 @@ trait Designer
                 return in_array($relatedFieldValues, $get('zeusData.' . $relatedField));
             }
 
-            return $relatedFieldValues === $get('zeusData.' . $relatedField);
+            return $relatedFieldValues == $get('zeusData.' . $relatedField);
         });
 
         return $component
