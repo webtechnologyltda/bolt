@@ -2,8 +2,10 @@
 
 namespace LaraZeus\Bolt\Fields\Classes;
 
+use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Hidden;
+use Filament\Support\Colors\Color;
 use Filament\Tables\Columns\Column;
 use Filament\Tables\Columns\IconColumn;
 use Guava\FilamentIconPicker\Forms\IconPicker;
@@ -62,6 +64,11 @@ class Toggle extends FieldsContract
                                             '2xl' => 5,
                                         ])
                                         ->label(__('Off Icon')),
+
+                                    ColorPicker::make('options.on-color')->hex(),
+                                    ColorPicker::make('options.off-color')->hex(),
+
+                                    \Filament\Forms\Components\Toggle::make('options.is-inline'),
                                 ]),
                             self::required(),
                             self::columnSpanFull(),
@@ -83,6 +90,9 @@ class Toggle extends FieldsContract
             self::hiddenColumnSpanFull(),
             Hidden::make('options.on-icon'),
             Hidden::make('options.off-icon'),
+            Hidden::make('options.on-color'),
+            Hidden::make('options.off-color'),
+            Hidden::make('options.is-inline'),
         ];
     }
 
@@ -97,6 +107,18 @@ class Toggle extends FieldsContract
 
         if (optional($zeusField->options)['off-icon']) {
             $component = $component->offIcon($zeusField->options['off-icon']);
+        }
+
+        if (optional($zeusField->options)['on-color']) {
+            $component = $component->onColor(Color::hex($zeusField->options['on-color']));
+        }
+
+        if (optional($zeusField->options)['off-color']) {
+            $component = $component->offColor(Color::hex($zeusField->options['off-color']));
+        }
+
+        if (optional($zeusField->options)['is-inline']) {
+            $component = $component->inline($zeusField->options['is-inline']);
         }
 
         return $component->live();
