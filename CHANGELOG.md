@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.31 - 2024-04-02
+
+### What's Changed
+
+* improve toggle options adding color and inline. fix section visibility by @atmonshi in https://github.com/lara-zeus/bolt/pull/268
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.30...v3.0.31
+
 ## v3.0.30 - 2024-03-29
 
 ### What's Changed
@@ -221,7 +229,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 ## v3.0.5 - 2024-01-11
 ### What's Changed
 * add form ID column in form table but hidden by default by @atmonshi in https://github.com/lara-zeus/bolt/pull/235
-
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.4...v3.0.5
 
 ## v3.0.4 - 2024-01-10
