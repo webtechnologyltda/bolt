@@ -60,10 +60,10 @@ class FillForms extends Component implements Forms\Contracts\HasForms
      * @throws \Throwable
      */
     public function mount(
-         $slug,
-         $extensionSlug = null,
-         $inline = false,
-         $extensionData = [],
+        mixed $slug,
+        mixed $extensionSlug = null,
+        mixed $extensionData = [],
+        mixed $inline = false,
     ): void
     {
         $this->inline = $inline;
