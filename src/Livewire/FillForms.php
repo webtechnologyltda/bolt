@@ -64,8 +64,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         mixed $extensionSlug = null,
         mixed $extensionData = [],
         mixed $inline = false,
-    ): void
-    {
+    ): void {
         $this->inline = $inline;
 
         $this->zeusForm = config('zeus-bolt.models.Form')::query()
