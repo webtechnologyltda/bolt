@@ -2,6 +2,7 @@
 
 namespace LaraZeus\Bolt\Concerns;
 
+use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Repeater;
@@ -140,6 +141,7 @@ trait HasOptions
         return Grid::make()
             ->schema([
                 Select::make('options.dataSource')
+                    ->createOptionAction(fn (Action $action) => $action->hidden(auth()->user()->cannot('create', BoltPlugin::getModel('Collection'))))
                     ->required()
                     ->createOptionForm([
                         TextInput::make('name')
