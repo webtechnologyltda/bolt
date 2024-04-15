@@ -208,7 +208,8 @@ trait Schemata
                                 }),
                             TextInput::make('slug')->required()->maxLength(255)->label(__('slug')),
                         ])
-                        ->getOptionLabelFromRecordUsing(fn (Category $record) => "{$record->name}"),
+                        ->createOptionAction(fn(Action $action)=>$action->hidden(auth()->user()->cannot('create', BoltPlugin::getModel('Category'))))
+                        ->getOptionLabelFromRecordUsing(fn (Category $record) => $record->name),
                 ]),
 
             Tabs\Tab::make('text-details-tab')
