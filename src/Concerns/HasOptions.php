@@ -16,7 +16,6 @@ use LaraZeus\Accordion\Forms\Accordion;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Fields\FieldsContract;
-use LaraZeus\Bolt\Models\Category;
 
 trait HasOptions
 {
@@ -142,7 +141,7 @@ trait HasOptions
         return Grid::make()
             ->schema([
                 Select::make('options.dataSource')
-                    ->createOptionAction(fn(Action $action)=>$action->hidden(auth()->user()->cannot('create', BoltPlugin::getModel('Collection'))))
+                    ->createOptionAction(fn (Action $action) => $action->hidden(auth()->user()->cannot('create', BoltPlugin::getModel('Collection'))))
                     ->required()
                     ->createOptionForm([
                         TextInput::make('name')

@@ -208,7 +208,7 @@ trait Schemata
                                 }),
                             TextInput::make('slug')->required()->maxLength(255)->label(__('slug')),
                         ])
-                        ->createOptionAction(fn(Action $action)=>$action->hidden(auth()->user()->cannot('create', BoltPlugin::getModel('Category'))))
+                        ->createOptionAction(fn (Action $action) => $action->hidden(auth()->user()->cannot('create', BoltPlugin::getModel('Category'))))
                         ->getOptionLabelFromRecordUsing(fn (Category $record) => $record->name),
                 ]),
 
