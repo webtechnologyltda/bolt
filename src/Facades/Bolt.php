@@ -25,7 +25,7 @@ class Bolt extends Facade
 
         return Cache::remember('bolt.fields', Carbon::parse('1 month'), function () {
             $coreFields = Collectors::collectClasses(__DIR__ . '/../Fields/Classes', 'LaraZeus\\Bolt\\Fields\\Classes\\');
-            $appFields = Collectors::collectClasses(app_path('Zeus/Fields'), 'App\\Zeus\\Fields\\');
+            $appFields = Collectors::collectClasses(base_path(config('zeus-bolt.fields.path')), config('zeus-bolt.fields.namespace'));
 
             $fields = collect();
 
@@ -56,8 +56,8 @@ class Bolt extends Facade
 
         return Cache::remember('bolt.dataSources', Carbon::parse('1 month'), function () {
             return Collectors::collectClasses(
-                app_path('Zeus/DataSources'),
-                'App\\Zeus\\DataSources\\'
+                base_path(config('zeus-bolt.dataSources.path')), 
+                config('zeus-bolt.dataSources.namespace')
             )
                 ->sortBy('sort');
         });
