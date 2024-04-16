@@ -39,13 +39,13 @@ return [
     ],
 
     'fields' => [
-        'path'      => 'app/Zeus/Fields',
-        'namespace' => '\\App\\Zeus\\Fields\\'
+        'path' => 'app/Zeus/Fields',
+        'namespace' => '\\App\\Zeus\\Fields\\',
     ],
 
     'dataSources' => [
-        'path'      => 'app/Zeus/DataSources',
-        'namespace' => 'App\\Zeus\\DataSources\\'
+        'path' => 'app/Zeus/DataSources',
+        'namespace' => 'App\\Zeus\\DataSources\\',
     ],
 
     'defaultMailable' => \LaraZeus\Bolt\Mail\FormSubmission::class,

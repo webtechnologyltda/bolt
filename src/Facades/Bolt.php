@@ -56,7 +56,7 @@ class Bolt extends Facade
 
         return Cache::remember('bolt.dataSources', Carbon::parse('1 month'), function () {
             return Collectors::collectClasses(
-                base_path(config('zeus-bolt.dataSources.path')), 
+                base_path(config('zeus-bolt.dataSources.path')),
                 config('zeus-bolt.dataSources.namespace')
             )
                 ->sortBy('sort');
