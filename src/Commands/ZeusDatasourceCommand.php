@@ -30,8 +30,11 @@ class ZeusDatasourceCommand extends Command
     {
         $filamentPluginFullNamespace = $this->argument('name');
 
-        $this->copyStubToApp('ZeusDataSources', 'app/Zeus/DataSources/' . $filamentPluginFullNamespace . '.php', [
-            'namespace' => 'App\\Zeus\\DataSources',
+        $path = config('zeus-bolt.dataSources.path');
+        $namespace = str_replace('\\\\', '\\', trim(config('zeus-bolt.dataSources.namespace'), '\\'));
+
+        $this->copyStubToApp('ZeusDataSources', "{$path}/{$filamentPluginFullNamespace}.php", [
+            'namespace' =>  $namespace,
             'class' => $filamentPluginFullNamespace,
         ]);
 
