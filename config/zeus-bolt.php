@@ -38,6 +38,18 @@ return [
         'Section' => \LaraZeus\Bolt\Models\Section::class,
     ],
 
+    'collectors' => [
+        'fields' => [
+            'path' => 'app/Zeus/Fields',
+            'namespace' => '\\App\\Zeus\\Fields\\',
+        ],
+
+        'dataSources' => [
+            'path' => 'app/Zeus/DataSources',
+            'namespace' => 'App\\Zeus\\DataSources\\',
+        ],
+    ],
+
     'defaultMailable' => \LaraZeus\Bolt\Mail\FormSubmission::class,
 
     'uploadDisk' => 'public',
