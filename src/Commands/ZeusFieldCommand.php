@@ -31,8 +31,8 @@ class ZeusFieldCommand extends Command
         $filamentPluginFullNamespace = $this->argument('plugin');
         $fieldClassName = str($filamentPluginFullNamespace)->explode('\\')->last();
 
-        $path = config('zeus-bolt.fields.path');
-        $namespace = str_replace('\\\\', '\\', trim(config('zeus-bolt.fields.namespace'), '\\'));
+        $path = config('zeus-bolt.collectors.fields.path');
+        $namespace = str_replace('\\\\', '\\', trim(config('zeus-bolt.collectors.fields.namespace'), '\\'));
 
         $this->copyStubToApp('ZeusField', "{$path}/{$fieldClassName}.php", [
             'namespace' => $namespace,
