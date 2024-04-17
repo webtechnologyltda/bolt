@@ -38,14 +38,16 @@ return [
         'Section' => \LaraZeus\Bolt\Models\Section::class,
     ],
 
-    'fields' => [
-        'path' => 'app/Zeus/Fields',
-        'namespace' => '\\App\\Zeus\\Fields\\',
-    ],
+    'collectors' => [
+        'fields' => [
+            'path' => 'app/Zeus/Fields',
+            'namespace' => '\\App\\Zeus\\Fields\\',
+        ],
 
-    'dataSources' => [
-        'path' => 'app/Zeus/DataSources',
-        'namespace' => 'App\\Zeus\\DataSources\\',
+        'dataSources' => [
+            'path' => 'app/Zeus/DataSources',
+            'namespace' => 'App\\Zeus\\DataSources\\',
+        ],
     ],
 
     'defaultMailable' => \LaraZeus\Bolt\Mail\FormSubmission::class,
