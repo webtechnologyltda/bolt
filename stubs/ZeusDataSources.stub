@@ -3,6 +3,7 @@
 namespace {{ namespace }};
 
 use LaraZeus\Bolt\DataSources\DataSourceContract;
+use Illuminate\Database\Eloquent\Builder;
 
 class {{ class }} extends DataSourceContract
 {
@@ -24,6 +25,11 @@ class {{ class }} extends DataSourceContract
     public function getModel(): string
     {
         return \App\Models\{{ class }}::class;
+    }
+
+    public function getQuery(): Builder
+    {
+        return resolve($this->getModel())->query();
     }
 }
 
