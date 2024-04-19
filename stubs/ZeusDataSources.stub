@@ -4,6 +4,7 @@ namespace {{ namespace }};
 
 use LaraZeus\Bolt\DataSources\DataSourceContract;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 
 class {{ class }} extends DataSourceContract
 {
@@ -27,7 +28,7 @@ class {{ class }} extends DataSourceContract
         return \App\Models\{{ class }}::class;
     }
 
-    public function getQuery(): Builder
+    public function getQuery(): Builder | Collection
     {
         return resolve($this->getModel())->query();
     }

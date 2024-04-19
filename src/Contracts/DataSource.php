@@ -3,6 +3,7 @@
 namespace LaraZeus\Bolt\Contracts;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 
 interface DataSource
 {
@@ -16,5 +17,5 @@ interface DataSource
 
     public function getModel(): string;
 
-    public function getQuery(): Builder;
+    public function getQuery(): Builder | Collection;
 }
