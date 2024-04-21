@@ -3,9 +3,9 @@
 namespace LaraZeus\Bolt\DataSources;
 
 use Illuminate\Contracts\Support\Arrayable;
-use LaraZeus\Bolt\Contracts\DataSource;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
+use LaraZeus\Bolt\Contracts\DataSource;
 
 abstract class DataSourceContract implements Arrayable, DataSource
 {
