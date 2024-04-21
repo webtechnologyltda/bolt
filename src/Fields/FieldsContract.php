@@ -163,7 +163,7 @@ abstract class FieldsContract implements Arrayable, Fields
                 ->join(', ');
         } else {
             $dataSourceClass = new $field->options['dataSource'];
-            $response = $dataSourceClass->getModel()::query()
+            $response = $dataSourceClass->getQuery()
                 ->whereIn($dataSourceClass->getKeysUsing(), $response)
                 ->pluck($dataSourceClass->getValuesUsing())
                 ->join(', ');
@@ -218,7 +218,7 @@ abstract class FieldsContract implements Arrayable, Fields
             if (class_exists($zeusField->options['dataSource'])) {
                 //@phpstan-ignore-next-line
                 $dataSourceClass = new $zeusField->options['dataSource'];
-                $getCollection = $dataSourceClass->getModel()::pluck(
+                $getCollection = $dataSourceClass->getQuery()->pluck(
                     $dataSourceClass->getValuesUsing(),
                     $dataSourceClass->getKeysUsing()
                 );
