@@ -3,8 +3,6 @@
 namespace {{ namespace }};
 
 use LaraZeus\Bolt\DataSources\DataSourceContract;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Collection;
 
 class {{ class }} extends DataSourceContract
 {
