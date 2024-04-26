@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create(config('zeus-bolt.table-prefix').'collections', function (Blueprint $table) {
-            $table->id();
+            $table->ulid('id')->primary();
             $table->text('name');
             $table->longText('values')->nullable();
             $table->timestamps();

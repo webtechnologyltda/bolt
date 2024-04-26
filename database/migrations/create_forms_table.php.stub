@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create(config('zeus-bolt.table-prefix').'forms', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('category_id')->nullable()->constrained(config('zeus-bolt.table-prefix').'categories');
+            $table->ulid('id')->primary();
+            $table->foreignUlid('user_id')->constrained('users');
+            $table->foreignUlid('category_id')->nullable()->constrained(config('zeus-bolt.table-prefix').'categories');
             $table->text('name');
             $table->text('description')->nullable();
             $table->string('slug');

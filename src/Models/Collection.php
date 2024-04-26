@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use LaraZeus\Bolt\Concerns\HasUpdates;
 use LaraZeus\Bolt\Database\Factories\CollectionFactory;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 
 /**
  * @property string $updated_at
@@ -18,6 +19,7 @@ class Collection extends Model
     use HasFactory;
     use HasUpdates;
     use SoftDeletes;
+    use HasUlids;
 
     protected $guarded = [];
 
