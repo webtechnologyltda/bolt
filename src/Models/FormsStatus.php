@@ -2,7 +2,9 @@
 
 namespace LaraZeus\Bolt\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Model;
+use Sushi\Sushi;
 
 /**
  * @property string $key
@@ -15,7 +17,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class FormsStatus extends Model
 {
-    use \Sushi\Sushi;
+    use HasUlids;
+    use Sushi;
 
     public function getRows(): array
     {

@@ -223,11 +223,6 @@ class FormResource extends BoltResource
             FormResource\Widgets\ResponsesPerFields::class,
         ];
 
-        if (class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class)) {
-            //@phpstan-ignore-next-line
-            $widgets[] = \LaraZeus\BoltPro\Widgets\ResponsesPerCollection::class;
-        }
-
         return $widgets;
     }
 
@@ -254,22 +249,6 @@ class FormResource extends BoltResource
 
         $advancedActions = $moreActions = [];
 
-        if (class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class)) {
-            $advancedActions[] = Action::make('prefilledLink')
-                ->label(__('Prefilled Link'))
-                ->icon('iconpark-formone-o')
-                ->tooltip(__('Get Prefilled Link'))
-                ->visible(class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class))
-                ->url(fn (ZeusForm $record): string => FormResource::getUrl('prefilled', ['record' => $record]));
-        }
-
-        if (class_exists(\LaraZeus\Helen\HelenServiceProvider::class)) {
-            //@phpstan-ignore-next-line
-            $advancedActions[] = \LaraZeus\Helen\Actions\ShortUrlAction::make('get-link')
-                ->label(__('Short Link'))
-                ->distUrl(fn (ZeusForm $record) => route('bolt.form.show', $record));
-        }
-
         $moreActions[] = ActionGroup::make($advancedActions)->dropdown(false);
 
         return [ActionGroup::make(array_merge($action, $moreActions))];
@@ -281,11 +260,6 @@ class FormResource extends BoltResource
             Pages\ViewForm::class,
             Pages\EditForm::class,
         ];
-
-        if (class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class)) {
-            //@phpstan-ignore-next-line
-            $formNavs[] = \LaraZeus\BoltPro\Livewire\ShareForm::class;
-        }
 
         $respNavs = [
             Pages\ManageResponses::class,

@@ -2,6 +2,7 @@
 
 namespace LaraZeus\Bolt\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -23,6 +24,7 @@ class Section extends Model
 {
     use HasFactory;
     use HasTranslations;
+    use HasUlids;
     use SoftDeletes;
 
     public array $translatable = ['name'];
@@ -32,11 +34,6 @@ class Section extends Model
     protected $casts = [
         'options' => 'array',
     ];
-
-    public function getTable()
-    {
-        return config('zeus-bolt.table-prefix') . 'sections';
-    }
 
     protected static function booted(): void
     {
@@ -59,15 +56,20 @@ class Section extends Model
         });
     }
 
+    /** @phpstan-return hasMany<Field> */
+    public function fields(): HasMany
+    {
+        return $this->hasMany(config('zeus-bolt.models.Field'), 'section_id', 'id');
+    }
+
     protected static function newFactory(): SectionFactory
     {
         return SectionFactory::new();
     }
 
-    /** @phpstan-return hasMany<Field> */
-    public function fields(): HasMany
+    public function getTable()
     {
-        return $this->hasMany(config('zeus-bolt.models.Field'), 'section_id', 'id');
+        return config('zeus-bolt.table-prefix').'sections';
     }
 
     /** @return BelongsTo<Form, Section> */

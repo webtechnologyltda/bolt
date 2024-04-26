@@ -2,6 +2,7 @@
 
 namespace LaraZeus\Bolt\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -22,17 +23,13 @@ use LaraZeus\Bolt\Database\Factories\ResponseFactory;
 class Response extends Model
 {
     use HasFactory;
+    use HasUlids;
     use HasUpdates;
     use SoftDeletes;
 
     protected $with = ['form', 'user'];
 
     protected $guarded = [];
-
-    public function getTable()
-    {
-        return config('zeus-bolt.table-prefix') . 'responses';
-    }
 
     protected static function booted(): void
     {
@@ -49,15 +46,20 @@ class Response extends Model
         });
     }
 
+    /** @phpstan-return HasMany<FieldResponse> */
+    public function fieldsResponses(): HasMany
+    {
+        return $this->hasMany(config('zeus-bolt.models.FieldResponse'));
+    }
+
     protected static function newFactory(): ResponseFactory
     {
         return ResponseFactory::new();
     }
 
-    /** @phpstan-return HasMany<FieldResponse> */
-    public function fieldsResponses(): HasMany
+    public function getTable()
     {
-        return $this->hasMany(config('zeus-bolt.models.FieldResponse'));
+        return config('zeus-bolt.table-prefix').'responses';
     }
 
     public function user(): BelongsTo

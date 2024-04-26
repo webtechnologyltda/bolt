@@ -37,7 +37,7 @@ class EditForm extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            LocaleSwitcher::make(),
+            // LocaleSwitcher::make(),
             Action::make('open')
                 ->label(__('Open'))
                 ->icon('heroicon-o-arrow-top-right-on-square')

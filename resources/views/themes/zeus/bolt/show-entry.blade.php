@@ -7,7 +7,7 @@
     <x-slot name="breadcrumbs">
         <li class="flex items-center">
             <a href="{{ route('bolt.entries.list') }}">{{ __('My Entries') }}</a>
-            @svg('iconpark-rightsmall-o','fill-current w-4 h-4 mx-3')
+            @svg('iconpark-rightsmall-o', 'fill-current w-4 h-4 mx-3')
         </li>
 
         <li class="flex items-center">
@@ -19,11 +19,11 @@
         <div class="md:col-span-2 space-y-4">
             <x-filament::section>
                 <div class="grid grid-cols-1">
-                    @foreach($response->fieldsResponses as $resp)
+                    @foreach ($response->fieldsResponses as $resp)
                         <div class="py-2 text-ellipsis overflow-auto">
                             <p>{{ $resp->field->name }}</p>
-                            <p class="font-semibold mb-2">{!! ( new $resp->field->type )->getResponse($resp->field, $resp) !!}</p>
-                            <hr/>
+                            <p class="font-semibold mb-2">{!! (new $resp->field->type())->getResponse($resp->field, $resp) !!}</p>
+                            <hr />
                         </div>
                     @endforeach
                 </div>
@@ -36,15 +36,16 @@
                 </x-slot>
                 <p>
                     <span class="text-base font-light">{{ __('By') }}</span>:
-                    @if($response->user_id === null)
+                    @if ($response->user_id === null)
                         {{ __('Visitor') }}
                     @else
-                        {{ ($response->user->name) ?? '' }}
+                        {{ $response->user->name ?? '' }}
                     @endif
                 </p>
                 <p class="flex flex-col">
                     <span class="text-base font-light">{{ __('created at') }}:</span>
-                    <span class="font-semibold">{{ $response->created_at->format(\Filament\Infolists\Infolist::$defaultDateDisplayFormat) }}-{{ $response->created_at->format(\Filament\Infolists\Infolist::$defaultTimeDisplayFormat) }}</span>
+                    <span
+                        class="font-semibold">{{ $response->created_at->format(\Filament\Infolists\Infolist::$defaultDateDisplayFormat) }}-{{ $response->created_at->format(\Filament\Infolists\Infolist::$defaultTimeDisplayFormat) }}</span>
                 </p>
             </x-filament::section>
             <div>
@@ -62,12 +63,12 @@
                         <div>
                             <span>{{ __('status') }}</span>
                             @php $getStatues = $response->statusDetails() @endphp
-                            <span class="{{ $getStatues['class']}}"
-                                  x-tooltip="{
+                            <span class="{{ $getStatues['class'] }}"
+                                x-tooltip="{
                                     content: @js(__('status')),
                                     theme: $store.theme,
                                   }">
-                                @svg($getStatues['icon'],'w-4 h-4 inline')
+                                @svg($getStatues['icon'], 'w-4 h-4 inline')
                                 {{ $getStatues['label'] }}
                             </span>
                         </div>

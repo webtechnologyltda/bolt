@@ -31,11 +31,11 @@ class ViewForm extends ViewRecord
     protected function getHeaderActions(): array
     {
         return [
-            LocaleSwitcher::make(),
+            // LocaleSwitcher::make(),
             Action::make('open')
-                ->label(__('Open'))
+                ->label(__('View Form'))
                 ->icon('heroicon-o-arrow-top-right-on-square')
-                ->tooltip(__('open form'))
+                ->tooltip(__('View Form'))
                 ->color('warning')
                 ->url(fn () => route('bolt.form.show', $this->record))
                 ->visible(fn (Form $record) => $record->extensions === null)
@@ -51,11 +51,6 @@ class ViewForm extends ViewRecord
             FormResource\Widgets\ResponsesPerStatus::class,
             FormResource\Widgets\ResponsesPerFields::class,
         ];
-
-        if (class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class)) {
-            //@phpstan-ignore-next-line
-            $widgets[] = \LaraZeus\BoltPro\Widgets\ResponsesCharts::class;
-        }
 
         return $widgets;
     }
