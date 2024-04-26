@@ -59,8 +59,12 @@ class FillForms extends Component implements Forms\Contracts\HasForms
     /**
      * @throws \Throwable
      */
-    public function mount(string $slug, ?string $extensionSlug = null, bool $inline = false, array $extensionData = []): void
-    {
+    public function mount(
+        mixed $slug,
+        mixed $extensionSlug = null,
+        mixed $extensionData = [],
+        mixed $inline = false,
+    ): void {
         $this->inline = $inline;
 
         $this->zeusForm = config('zeus-bolt.models.Form')::query()

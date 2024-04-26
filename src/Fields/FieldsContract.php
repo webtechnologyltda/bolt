@@ -124,15 +124,16 @@ abstract class FieldsContract implements Arrayable, Fields
                     return true;
                 }
 
-                if (is_array($get('zeusData.' . $relatedField))) {
-                    return in_array($relatedFieldValues, $get('zeusData.' . $relatedField));
+                $relatedFieldArray = Arr::wrap($get('zeusData.' . $relatedField));
+                if (in_array($relatedFieldValues, $relatedFieldArray)) {
+                    return true;
                 }
 
-                return $relatedFieldValues === $get('zeusData.' . $relatedField);
+                return false;
             });
 
         if ($hasVisibility) {
-            return $component->live(onBlur: $hasVisibility);
+            return $component->live();
         }
 
         return $component;
@@ -162,7 +163,7 @@ abstract class FieldsContract implements Arrayable, Fields
                 ->join(', ');
         } else {
             $dataSourceClass = new $field->options['dataSource'];
-            $response = $dataSourceClass->getModel()::query()
+            $response = $dataSourceClass->getQuery()
                 ->whereIn($dataSourceClass->getKeysUsing(), $response)
                 ->pluck($dataSourceClass->getValuesUsing())
                 ->join(', ');
@@ -217,7 +218,7 @@ abstract class FieldsContract implements Arrayable, Fields
             if (class_exists($zeusField->options['dataSource'])) {
                 //@phpstan-ignore-next-line
                 $dataSourceClass = new $zeusField->options['dataSource'];
-                $getCollection = $dataSourceClass->getModel()::pluck(
+                $getCollection = $dataSourceClass->getQuery()->pluck(
                     $dataSourceClass->getValuesUsing(),
                     $dataSourceClass->getKeysUsing()
                 );

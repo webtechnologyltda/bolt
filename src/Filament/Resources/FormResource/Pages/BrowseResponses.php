@@ -29,7 +29,6 @@ class BrowseResponses extends ManageRelatedRecords
     {
         return $table
             ->paginated([1])
-            ->recordClasses('!bg-gray-50')
             ->query(BoltPlugin::getModel('Response')::query()->where('form_id', $this->record->id))
             ->columns([
                 ViewColumn::make('response')
