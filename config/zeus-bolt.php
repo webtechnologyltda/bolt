@@ -37,7 +37,7 @@ return [
      * ->skyModels([ ... ])
      */
     'models' => [
-        'models' => Category::class,
+        'Category' => Category::class,
         'Collection' => Collection::class,
         'Field' => Field::class,
         'FieldResponse' => FieldResponse::class,
