@@ -2,6 +2,140 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.37 - 2024-04-21
+
+### What's Changed
+
+* [Feature] Add getQuery Method by @mohaphez in https://github.com/lara-zeus/bolt/pull/277
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.36...v3.0.37
+
+## v3.0.3٦ - 2024-04-17
+
+### What's Changed
+
+* Bump aglipanci/laravel-pint-action from 2.3.1 to 2.4 by @dependabot in https://github.com/lara-zeus/bolt/pull/273
+* [Feature] Configuration Enhancement: Enable customization of the collectors paths for fields and datasources by @mohaphez in https://github.com/lara-zeus/bolt/pull/275
+
+### New Contributors
+
+* @mohaphez made their first contribution in https://github.com/lara-zeus/bolt/pull/275
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.35...v3.0.3%D9%A6
+
+## v3.0.35 - 2024-04-15
+
+### What's Changed
+
+* check for policies in create option for Collection and Category by @atmonshi in https://github.com/lara-zeus/bolt/pull/272
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.34...v3.0.35
+
+## v3.0.34 - 2024-04-07
+
+### What's Changed
+
+* fix  datasource in checklist by @atmonshi in https://github.com/lara-zeus/bolt/pull/271
+  fix datasource in checklist
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.33...v3.0.34
+
+## v3.0.33 - 2024-04-07
+
+### What's Changed
+
+* Ditch type hint by @atmonshi in https://github.com/lara-zeus/bolt/pull/270
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.32...v3.0.33
+
+## v3.0.32 - 2024-04-04
+
+### What's Changed
+
+* Fix category tenant by @atmonshi in https://github.com/lara-zeus/bolt/pull/269
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.31...v3.0.32
+
+## v3.0.31 - 2024-04-02
+
+### What's Changed
+
+* improve toggle options adding color and inline. fix section visibility by @atmonshi in https://github.com/lara-zeus/bolt/pull/268
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.30...v3.0.31
+
+## v3.0.30 - 2024-03-29
+
+### What's Changed
+
+* remove column classes in browse entries by @atmonshi in https://github.com/lara-zeus/bolt/pull/267
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.29...v3.0.30
+
+## v3.0.29 - 2024-03-27
+
+### What's Changed
+
+* add sticky form actions by @atmonshi in https://github.com/lara-zeus/bolt/pull/266
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.28...v3.0.29
+
+## v3.0.28 - 2024-03-26
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 1.6.0 to 2.0.0 by @dependabot in https://github.com/lara-zeus/bolt/pull/264
+* Fix section icon when shoe the form as a page by @atmonshi in https://github.com/lara-zeus/bolt/pull/265
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.27...v3.0.28
+
+## v3.0.27 - 2024-03-14
+
+### What's Changed
+
+* updating laravel trend to support laravel 11 by @atmonshi in https://github.com/lara-zeus/bolt/pull/263
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.26...v3.0.27
+
+## v3.0.26 - 2024-03-07
+
+### What's Changed
+
+* Bump ramsey/composer-install from 2 to 3 by @dependabot in https://github.com/lara-zeus/bolt/pull/261
+* better response view for Textarea field by @atmonshi in https://github.com/lara-zeus/bolt/pull/262
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.25...v3.0.26
+
+## v3.0.25 - 2024-03-02
+
+### What's Changed
+
+* adding a new trait for user attribute by @atmonshi in https://github.com/lara-zeus/bolt/pull/260
+
+#### Breaking change:
+
+I added a new trait for getting the user name
+
+so you have to add this to your user model:
+
+`use \LaraZeus\Bolt\Models\Concerns\BelongToBolt;`
+
+This will allow you to get the user name by another attribute like `full_name`
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.24...v3.0.25
+
+## v3.0.24 - 2024-03-01
+
+### What's Changed
+
+* Update fill-forms.blade.php fix for livewire by @brkfun in https://github.com/lara-zeus/bolt/pull/259
+
+### New Contributors
+
+* @brkfun made their first contribution in https://github.com/lara-zeus/bolt/pull/259
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.23...v3.0.24
+
 ## v3.0.23 - 2024-02-16
 
 ### What's Changed
@@ -142,33 +276,19 @@ and you can remove the fork for `alperenersoy/filament-export`
 ### New Contributors
 * @Edsardio made their first contribution in https://github.com/lara-zeus/bolt/pull/237
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.6...v3.0.7
-
 ## v3.0.6 - 2024-01-12
-
 ### What's Changed
-
 * add Share Form for Bolt Pro by @atmonshi in https://github.com/lara-zeus/bolt/pull/236
-
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.5...v3.0.6
-
 ## v3.0.5 - 2024-01-11
-
 ### What's Changed
-
 * add form ID column in form table but hidden by default by @atmonshi in https://github.com/lara-zeus/bolt/pull/235
-
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.4...v3.0.5
-
 ## v3.0.4 - 2024-01-10
-
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v2.1.32...v3.0.4
-
 ## v2.1.32 - 2024-01-10
-
 ### What's Changed
-
 * fix pre-filled link for tenant by @atmonshi in https://github.com/lara-zeus/bolt/pull/233
-
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.3...v2.1.32
 
 ## v3.0.3 - 2024-01-10

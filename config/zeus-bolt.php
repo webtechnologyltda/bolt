@@ -46,8 +46,19 @@ return [
         'Response' => \LaraZeus\Bolt\Models\Response::class,
         'Section' => Section::class,
     ],
+    'collectors' => [
+        'fields' => [
+            'path' => 'app/Zeus/Fields',
+            'namespace' => '\\App\\Zeus\\Fields\\',
+        ],
 
-    'defaultMailable' => FormSubmission::class,
+        'dataSources' => [
+            'path' => 'app/Zeus/DataSources',
+            'namespace' => 'App\\Zeus\\DataSources\\',
+        ],
+    ],
+
+    'defaultMailable' => \LaraZeus\Bolt\Mail\FormSubmission::class,
 
     'uploadDisk' => 'public',
 

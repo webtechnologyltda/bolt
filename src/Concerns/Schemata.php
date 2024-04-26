@@ -2,6 +2,7 @@
 
 namespace LaraZeus\Bolt\Concerns;
 
+use Filament\Facades\Filament;
 use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
@@ -21,6 +22,7 @@ use Filament\Forms\Components\ViewField;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Guava\FilamentIconPicker\Forms\IconPicker;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 use LaraZeus\Accordion\Forms\Accordion;
 use LaraZeus\Accordion\Forms\Accordions;
@@ -180,7 +182,17 @@ trait Schemata
                         ->label(__('Category'))
                         ->searchable()
                         ->preload()
-                        ->relationship('category', 'name')
+                        ->relationship(
+                            'category',
+                            'name',
+                            modifyQueryUsing: function (Builder $query) {
+                                if (Filament::getTenant() === null) {
+                                    return $query;
+                                }
+
+                                return BoltPlugin::getModel('Category')::query()->whereBelongsTo(Filament::getTenant());
+                            },
+                        )
                         ->helperText(__('optional, organize your forms into categories'))
                         ->createOptionForm([
                             TextInput::make('name')
@@ -196,7 +208,8 @@ trait Schemata
                                 }),
                             TextInput::make('slug')->required()->maxLength(255)->label(__('slug')),
                         ])
-                        ->getOptionLabelFromRecordUsing(fn (Category $record) => "{$record->name}"),
+                        ->createOptionAction(fn (Action $action) => $action->hidden(auth()->user()->cannot('create', BoltPlugin::getModel('Category'))))
+                        ->getOptionLabelFromRecordUsing(fn (Category $record) => $record->name),
                 ]),
 
             Tabs\Tab::make('text-details-tab')

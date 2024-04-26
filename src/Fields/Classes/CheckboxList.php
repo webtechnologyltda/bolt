@@ -52,6 +52,7 @@ class CheckboxList extends FieldsContract
     public static function getOptionsHidden(): array
     {
         return [
+            self::hiddenDataSource(),
             self::hiddenVisibility(),
             self::hiddenHtmlID(),
             self::hiddenHintOptions(),
