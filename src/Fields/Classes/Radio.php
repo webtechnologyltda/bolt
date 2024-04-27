@@ -16,21 +16,6 @@ class Radio extends FieldsContract
 
     public int $sort = 4;
 
-    public function title(): string
-    {
-        return __('Radio');
-    }
-
-    public function icon(): string
-    {
-        return 'tabler-circle-check';
-    }
-
-    public function description(): string
-    {
-        return __('single choice from a datasource');
-    }
-
     public static function getOptions(?array $sections = null): array
     {
         return [
@@ -52,6 +37,11 @@ class Radio extends FieldsContract
         ];
     }
 
+    public function icon(): string
+    {
+        return 'iconpark-radiotwo';
+    }
+
     public static function getOptionsHidden(): array
     {
         return [
@@ -63,6 +53,16 @@ class Radio extends FieldsContract
             Hidden::make('options.dataSource'),
             Hidden::make('options.is_inline')->default(false),
         ];
+    }
+
+    public function title(): string
+    {
+        return __('Radio');
+    }
+
+    public function description(): string
+    {
+        return __('single choice from a datasource');
     }
 
     public function getResponse(Field $field, FieldResponse $resp): string

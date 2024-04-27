@@ -13,21 +13,6 @@ class Paragraph extends FieldsContract
 
     public int $sort = 10;
 
-    public function title(): string
-    {
-        return __('Paragraph');
-    }
-
-    public function icon(): string
-    {
-        return 'tabler-text-recognition';
-    }
-
-    public function description(): string
-    {
-        return __('display a paragraph in your form');
-    }
-
     public static function getOptions(): array
     {
         return [
@@ -45,11 +30,26 @@ class Paragraph extends FieldsContract
         ];
     }
 
+    public function icon(): string
+    {
+        return 'untitledui-message-text-square';
+    }
+
     public static function getOptionsHidden(): array
     {
         return [
             self::hiddenHintOptions(),
             self::hiddenColumnSpanFull(),
         ];
+    }
+
+    public function title(): string
+    {
+        return __('Paragraph');
+    }
+
+    public function description(): string
+    {
+        return __('display a paragraph in your form');
     }
 }

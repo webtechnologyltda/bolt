@@ -16,21 +16,6 @@ class Select extends FieldsContract
 
     public int $sort = 2;
 
-    public function title(): string
-    {
-        return __('Select Menu');
-    }
-
-    public function icon(): string
-    {
-        return 'tabler-selector';
-    }
-
-    public function description(): string
-    {
-        return __('select single or multiple items from a dropdown list');
-    }
-
     public static function getOptions(?array $sections = null): array
     {
         return [
@@ -54,6 +39,11 @@ class Select extends FieldsContract
         ];
     }
 
+    public function icon(): string
+    {
+        return 'tabler-select';
+    }
+
     public static function getOptionsHidden(): array
     {
         return [
@@ -65,6 +55,16 @@ class Select extends FieldsContract
             Hidden::make('options.dataSource'),
             Hidden::make('options.allow_multiple')->default(false),
         ];
+    }
+
+    public function title(): string
+    {
+        return __('Select Menu');
+    }
+
+    public function description(): string
+    {
+        return __('select single or multiple items from a dropdown list');
     }
 
     public function getResponse(Field $field, FieldResponse $resp): string

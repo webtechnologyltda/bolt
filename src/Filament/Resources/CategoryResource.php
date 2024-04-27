@@ -35,9 +35,9 @@ use LaraZeus\Bolt\Models\Category;
 
 class CategoryResource extends BoltResource
 {
-    protected static ?string $navigationIcon = 'clarity-tags-line';
+    protected static ?string $navigationIcon = 'iconpark-camp';
 
-    protected static ?int $navigationSort = 4;
+    protected static ?int $navigationSort = 0;
 
     protected static ?string $recordTitleAttribute = 'name';
 

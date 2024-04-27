@@ -12,7 +12,7 @@
                             <p class="font-semibold mb-2">
                                 {!! (new $resp->field->type())->getResponse($resp->field, $resp) !!}
                             </p>
-                            <hr />
+                            <hr/>
                         </div>
                     @endif
                 @endforeach
@@ -27,8 +27,10 @@
                     <span>{{ __('By') }} {{ __('Visitor') }}</span>
                 @else
                     <div class="flex gap-2 items-center">
-                        <x-filament::avatar class="rounded-full" size="lg" :src="$getRecord->user->avatar" :alt="$getRecord->user
-                            ->{config('auth.providers.users.model')::getUserFullNameAttribute()} ?? ''" />
+                        @if($getRecord->user->avatar)
+                            <x-filament::avatar class="rounded-full" size="lg" :src="$getRecord->user->avatar" :alt="$getRecord->user
+                                ->{config('auth.providers.users.model')::getUserFullNameAttribute()} ?? ''"/>
+                        @endif
                         <p class="flex flex-col gap-1">
                             <span>{{ $getRecord->user->{config('auth.providers.users.model')::getUserFullNameAttribute()} ?? '' }}</span>
                             <span>{{ $getRecord->user->email ?? '' }}</span>
@@ -54,7 +56,7 @@
                     <span>{{ __('status') }}</span>
                     @php $getStatues = $getRecord->statusDetails() @endphp
                     <span class="{{ $getStatues['class'] }}"
-                        x-tooltip="{
+                          x-tooltip="{
                                     content: @js(__('status')),
                                     theme: $store.theme,
                                   }">
