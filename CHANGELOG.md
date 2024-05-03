@@ -2,6 +2,15 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.38 - 2024-05-03
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.0.0 to 2.1.0 by @dependabot in https://github.com/lara-zeus/bolt/pull/279
+* support upload visibility by @atmonshi in https://github.com/lara-zeus/bolt/pull/280
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.37...v3.0.38
+
 ## v3.0.37 - 2024-04-21
 
 ### What's Changed
@@ -290,7 +299,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 ### What's Changed
 * fix pre-filled link for tenant by @atmonshi in https://github.com/lara-zeus/bolt/pull/233
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.3...v2.1.32
-
 ## v3.0.3 - 2024-01-10
 
 ### What's Changed
