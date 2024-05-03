@@ -335,13 +335,15 @@ trait Schemata
                         ->view('zeus::filament.components.color-picker'),
                     FileUpload::make('options.logo')
                         ->disk(config('zeus-bolt.uploadDisk'))
-                        ->directory(config('zeus-bolt.uploadDisk'))
+                        ->directory(config('zeus-bolt.uploadDirectory'))
+                        ->visibility(config('zeus-bolt.uploadVisibility'))
                         ->image()
                         ->imageEditor()
                         ->label(__('Logo')),
                     FileUpload::make('options.cover')
                         ->disk(config('zeus-bolt.uploadDisk'))
-                        ->directory(config('zeus-bolt.uploadDisk'))
+                        ->directory(config('zeus-bolt.uploadDirectory'))
+                        ->visibility(config('zeus-bolt.uploadVisibility'))
                         ->image()
                         ->imageEditor()
                         ->label(__('Cover')),
