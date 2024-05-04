@@ -36,6 +36,7 @@ class TimePicker extends FieldsContract
                         ->label(__('General Options'))
                         ->icon('iconpark-checklist-o')
                         ->schema([
+                            self::isActive(),
                             self::required(),
                             self::columnSpanFull(),
                             self::htmlID(),
@@ -49,6 +50,7 @@ class TimePicker extends FieldsContract
     public static function getOptionsHidden(): array
     {
         return [
+            self::hiddenIsActive(),
             self::hiddenVisibility(),
             self::hiddenHtmlID(),
             self::hiddenHintOptions(),

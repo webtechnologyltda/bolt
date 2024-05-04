@@ -81,6 +81,17 @@ trait HasOptions
             ->columns(1);
     }
 
+    public static function isActive(): Grid
+    {
+        return Grid::make()
+            ->schema([
+                Toggle::make('options.is_active')
+                    ->default(1)
+                    ->label(__('Is Active')),
+            ])
+            ->columns(1);
+    }
+
     public static function hintOptions(): Accordion
     {
         return Accordion::make('hint-options')

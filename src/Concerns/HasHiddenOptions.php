@@ -22,6 +22,13 @@ trait HasHiddenOptions
         ];
     }
 
+    public static function hiddenIsActive(): array
+    {
+        return [
+            Hidden::make('options.is_active')->default(true),
+        ];
+    }
+
     public static function hiddenHintOptions(): array
     {
         return [

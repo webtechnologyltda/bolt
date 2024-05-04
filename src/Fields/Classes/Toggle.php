@@ -70,6 +70,7 @@ class Toggle extends FieldsContract
 
                                     \Filament\Forms\Components\Toggle::make('options.is-inline'),
                                 ]),
+                            self::isActive(),
                             self::required(),
                             self::columnSpanFull(),
                             self::htmlID(),
@@ -83,6 +84,7 @@ class Toggle extends FieldsContract
     public static function getOptionsHidden(): array
     {
         return [
+            self::hiddenIsActive(),
             self::hiddenVisibility(),
             self::hiddenHtmlID(),
             self::hiddenHintOptions(),

@@ -43,6 +43,7 @@ class FileUpload extends FieldsContract
                         ->icon('iconpark-checklist-o')
                         ->schema([
                             \Filament\Forms\Components\Toggle::make('options.allow_multiple')->label(__('Allow Multiple')),
+                            self::isActive(),
                             self::required(),
                             self::columnSpanFull(),
                             self::htmlID(),
@@ -56,6 +57,7 @@ class FileUpload extends FieldsContract
     public static function getOptionsHidden(): array
     {
         return [
+            self::hiddenIsActive(),
             self::hiddenHtmlID(),
             self::hiddenHintOptions(),
             self::hiddenRequired(),

@@ -75,7 +75,7 @@ trait Designer
             $fields[] = Bolt::renderHook('zeus-form-section.before');
         }
 
-        foreach ($section->fields->sortBy('ordering') as $zeusField) {
+        foreach ($section->fields->where('options.is_active', 1)->sortBy('ordering') as $zeusField) {
             if (! $inline) {
                 $fields[] = Bolt::renderHook('zeus-form-field.before');
             }
