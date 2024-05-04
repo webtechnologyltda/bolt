@@ -3,6 +3,7 @@
 namespace LaraZeus\Bolt;
 
 use LaraZeus\Bolt\Commands\InstallCommand;
+use LaraZeus\Bolt\Commands\MakeAllFieldsActive;
 use LaraZeus\Bolt\Commands\PublishCommand;
 use LaraZeus\Bolt\Commands\ZeusDatasourceCommand;
 use LaraZeus\Bolt\Commands\ZeusFieldCommand;
@@ -49,6 +50,7 @@ class BoltServiceProvider extends PackageServiceProvider
             ZeusFieldCommand::class,
             ZeusDatasourceCommand::class,
             InstallCommand::class,
+            MakeAllFieldsActive::class,
         ];
     }
 

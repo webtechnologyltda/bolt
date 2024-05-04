@@ -39,6 +39,7 @@ class CheckboxList extends FieldsContract
                         ->label(__('General Options'))
                         ->icon('iconpark-checklist-o')
                         ->schema([
+                            self::isActive(),
                             self::required(),
                             self::columnSpanFull(),
                             self::htmlID(),
@@ -52,6 +53,7 @@ class CheckboxList extends FieldsContract
     public static function getOptionsHidden(): array
     {
         return [
+            self::hiddenIsActive(),
             self::hiddenDataSource(),
             self::hiddenVisibility(),
             self::hiddenHtmlID(),

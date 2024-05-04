@@ -44,6 +44,7 @@ class Select extends FieldsContract
                         ->icon('iconpark-checklist-o')
                         ->columns()
                         ->schema([
+                            self::isActive(),
                             self::required(),
                             self::columnSpanFull(),
                             self::htmlID(),
@@ -57,6 +58,7 @@ class Select extends FieldsContract
     public static function getOptionsHidden(): array
     {
         return [
+            self::hiddenIsActive(),
             self::hiddenVisibility(),
             self::hiddenHtmlID(),
             self::hiddenHintOptions(),

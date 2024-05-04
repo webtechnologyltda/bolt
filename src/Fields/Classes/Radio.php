@@ -41,6 +41,7 @@ class Radio extends FieldsContract
                         ->label(__('General Options'))
                         ->icon('iconpark-checklist-o')
                         ->schema([
+                            self::isActive(),
                             self::required(),
                             Toggle::make('options.is_inline')->label(__('Is inline')),
                             self::columnSpanFull(),
@@ -55,6 +56,8 @@ class Radio extends FieldsContract
     public static function getOptionsHidden(): array
     {
         return [
+            self::hiddenIsActive(),
+            self::hiddenIsActive(),
             self::hiddenVisibility(),
             self::hiddenHtmlID(),
             self::hiddenHintOptions(),

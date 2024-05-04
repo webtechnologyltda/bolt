@@ -58,6 +58,7 @@ class Textarea extends FieldsContract
                             TextInput::make('options.maxLength')
                                 ->label(__('max length')),
 
+                            self::isActive(),
                             self::required(),
                             self::columnSpanFull(),
                             self::htmlID(),
@@ -71,6 +72,7 @@ class Textarea extends FieldsContract
     public static function getOptionsHidden(): array
     {
         return [
+            self::hiddenIsActive(),
             self::hiddenVisibility(),
             self::hiddenHtmlID(),
             self::hiddenHintOptions(),

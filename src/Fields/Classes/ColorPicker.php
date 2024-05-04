@@ -45,6 +45,7 @@ class ColorPicker extends FieldsContract
                                     'rgb' => 'rgb',
                                     'rgba' => 'rgba',
                                 ]),
+                            self::isActive(),
                             self::required(),
                             self::columnSpanFull(),
                             self::htmlID(),
@@ -58,6 +59,7 @@ class ColorPicker extends FieldsContract
     public static function getOptionsHidden(): array
     {
         return [
+            self::hiddenIsActive(),
             Hidden::make('options.colorType'),
             self::hiddenHtmlID(),
             self::hiddenHintOptions(),

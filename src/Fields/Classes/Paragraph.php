@@ -37,6 +37,7 @@ class Paragraph extends FieldsContract
                         ->label(__('General Options'))
                         ->icon('iconpark-checklist-o')
                         ->schema([
+                            self::isActive(),
                             self::columnSpanFull(),
                             self::hintOptions(),
                         ]),
@@ -48,6 +49,7 @@ class Paragraph extends FieldsContract
     public static function getOptionsHidden(): array
     {
         return [
+            self::hiddenIsActive(),
             self::hiddenHintOptions(),
             self::hiddenColumnSpanFull(),
         ];

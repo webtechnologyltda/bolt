@@ -75,6 +75,7 @@ class TextInput extends FieldsContract
                                 ->visible(fn (Get $get): bool => $get('options.dateType') === 'numeric')
                                 ->label(__('max value')),
 
+                            self::isActive(),
                             self::required(),
                         ]),
 
@@ -120,6 +121,7 @@ class TextInput extends FieldsContract
     public static function getOptionsHidden(): array
     {
         return [
+            self::hiddenIsActive(),
             self::hiddenVisibility(),
             self::hiddenHtmlID(),
             self::hiddenHintOptions(),
