@@ -5,8 +5,7 @@ weight: 3
 
 ## Prerequisites
 
-Bolt is built on top of [laravel](https://laravel.com/docs/master) and
-uses [filament](https://filamentphp.com/docs/3.x/panels/installation) as an admin panel to manage everything.
+Bolt is built on top of [laravel](https://laravel.com/docs/master) and uses [filament](https://filamentphp.com/docs/3.x/panels/installation) as an admin panel to manage everything.
 
 And for the frontend, it uses [Tall stack](https://tallstack.dev/).
 
@@ -53,17 +52,13 @@ This will allow you to get the user name by another attribute like `full_name`
 
 To access the forms, visit the URL `/admin` , and `/bolt`.
 
-## **Production**
+## Deploying to Production
 
-Note that in the production environment. In order not to fall into the problem of performance
-Make sure you put these commands in the composer.json file
+to Improve performance in the production environment, make sure to run these commands with your deployment workflow:
 
-```php
-    "post-autoload-dump": [
-            // Other commands
-            "@php artisan filament:clear-cached-components",
-            "@php artisan icons:clear",
-            "@php artisan icons:cache",
-            "@php artisan filament:cache-components"
-  ],
+```bash
+php artisan filament:cache-components
+php artisan icons:cache
 ```
+
+To learn more about performance in the production, check out [filament docs](https://filamentphp.com/docs/3.x/panels/installation#improving-filament-panel-performance).
