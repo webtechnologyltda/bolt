@@ -57,7 +57,6 @@ To access the forms, visit the URL `/admin` , and `/bolt`.
 to Improve performance in the production environment, make sure to run these commands with your deployment workflow:
 
 ```bash
-php artisan filament:cache-components
 php artisan icons:cache
 ```
 
