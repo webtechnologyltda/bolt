@@ -125,6 +125,7 @@ trait HasOptions
                     ],
                 ];
             })
+            ->toBase()
             ->merge(
                 Bolt::availableDataSource()
                     ->mapWithKeys(function ($item, $key) {
