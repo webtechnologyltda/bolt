@@ -85,16 +85,16 @@ abstract class FieldsContract implements Arrayable, Fields
         $component
             ->label($zeusField->name)
             ->id($htmlId)
-            ->hint(function() use($zeusField){
-                if(!Bolt::hasPro()){
+            ->hint(function () use ($zeusField) {
+                if (! Bolt::hasPro()) {
                     return null;
                 }
 
-                if($zeusField->section->form->extensions !== 'LaraZeus\\BoltPro\\Extensions\\Grades'){
+                if ($zeusField->section->form->extensions !== 'LaraZeus\\BoltPro\\Extensions\\Grades') {
                     return null;
                 }
 
-                return $zeusField->options['grades']['points'] .' '.__('marks');
+                return $zeusField->options['grades']['points'] . ' ' . __('marks');
             })
             ->helperText($zeusField->description);
 

@@ -27,11 +27,11 @@ class BrowseResponses extends ManageRelatedRecords
 
     public array $grades = [];
 
-    public function mount(int|string $record): void
+    public function mount(int | string $record): void
     {
         parent::mount($record);
 
-        $this->grades = $this->getRecord()->fieldsResponses->pluck('grade','id')->toArray();
+        $this->grades = $this->getRecord()->fieldsResponses->pluck('grade', 'id')->toArray();
     }
 
     public function table(Table $table): Table
@@ -73,7 +73,7 @@ class BrowseResponses extends ManageRelatedRecords
             $grade = (int) optional($this->grades)[$response->id];
 
             $response->update([
-                'grade' => $grade
+                'grade' => $grade,
             ]);
         }
     }
