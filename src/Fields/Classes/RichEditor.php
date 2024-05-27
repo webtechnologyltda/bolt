@@ -4,6 +4,7 @@ namespace LaraZeus\Bolt\Fields\Classes;
 
 use LaraZeus\Accordion\Forms\Accordion;
 use LaraZeus\Accordion\Forms\Accordions;
+use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Fields\FieldsContract;
 
 class RichEditor extends FieldsContract
@@ -27,7 +28,7 @@ class RichEditor extends FieldsContract
         return __('Text editor with styling');
     }
 
-    public static function getOptions(?array $sections = null): array
+    public static function getOptions(?array $sections = null, ?array $field = null): array
     {
         return [
             Accordions::make('check-list-options')
@@ -42,6 +43,8 @@ class RichEditor extends FieldsContract
                         ]),
                     self::hintOptions(),
                     self::visibility($sections),
+                    // @phpstan-ignore-next-line
+                    Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::schema($field) : null,
                 ]),
         ];
     }
@@ -49,6 +52,8 @@ class RichEditor extends FieldsContract
     public static function getOptionsHidden(): array
     {
         return [
+            // @phpstan-ignore-next-line
+            Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::hidden() : null,
             self::hiddenVisibility(),
             self::hiddenHtmlID(),
             self::hiddenHintOptions(),

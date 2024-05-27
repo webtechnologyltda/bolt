@@ -25,6 +25,15 @@ class BrowseResponses extends ManageRelatedRecords
 
     protected static ?string $navigationIcon = 'heroicon-o-eye';
 
+    public array $grades = [];
+
+    public function mount(int|string $record): void
+    {
+        parent::mount($record);
+
+        $this->grades = $this->getRecord()->fieldsResponses->pluck('grade','id')->toArray();
+    }
+
     public function table(Table $table): Table
     {
         return $table
@@ -53,5 +62,19 @@ class BrowseResponses extends ManageRelatedRecords
     public function getTitle(): string
     {
         return __('Browse Entries');
+    }
+
+    public function saveGrades(): void
+    {
+        /** @var Form $record */
+        $record = $this->getRecord();
+
+        foreach ($record->fieldsResponses as $response) {
+            $grade = (int) optional($this->grades)[$response->id];
+
+            $response->update([
+                'grade' => $grade
+            ]);
+        }
     }
 }

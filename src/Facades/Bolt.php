@@ -37,8 +37,12 @@ class Bolt extends Facade
                 $fields = $fields->merge($appFields);
             }
 
-            if (class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class)) {
-                $boltProFields = Collectors::collectClasses(base_path('vendor/lara-zeus/bolt-pro/src/Fields'), 'LaraZeus\\BoltPro\\Fields\\');
+            if (static::hasPro()) {
+                $boltProFields = Collectors::collectClasses(
+                    base_path('vendor/lara-zeus/bolt-pro/src/Fields'),
+                    'LaraZeus\\BoltPro\\Fields\\'
+                );
+
                 if ($boltProFields->isNotEmpty()) {
                     $fields = $fields->merge($boltProFields);
                 }
@@ -101,5 +105,10 @@ class Bolt extends Facade
         }
 
         return true;
+    }
+
+    public static function hasPro(): bool
+    {
+        return class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class);
     }
 }

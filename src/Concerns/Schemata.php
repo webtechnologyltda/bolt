@@ -12,7 +12,6 @@ use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Textarea;
@@ -102,14 +101,6 @@ trait Schemata
                 ->tabs(static::getTabsSchema())
                 ->columnSpan(2),
 
-            /*Section::make()
-                ->columnSpan(2)
-                ->schema([
-                    Placeholder::make('section-title-placeholder')
-                        ->label(__('Sections'))
-                        ->helperText(__('sections are here to group the fields, and you can display it as pages from the Form options. if you have one section, it wont show in the form')),
-                ]),*/
-
             Repeater::make('sections')
                 ->hiddenLabel()
                 ->schema(static::getSectionsSchema())
@@ -118,9 +109,12 @@ trait Schemata
                 ->addActionLabel(__('Add Section'))
                 ->cloneable()
                 ->collapsible()
-                //->collapsed(fn (string $operation) => $operation === 'edit')
+                ->collapsed(fn (string $operation) => $operation === 'edit')
                 ->minItems(1)
                 ->extraItemActions([
+                    // @phpstan-ignore-next-line
+                    Bolt::hasPro() ? \LaraZeus\BoltPro\Actions\SectionMarkAction::make('marks') : null,
+
                     Action::make('options')
                         ->label(__('section options'))
                         ->slideOver()
@@ -159,8 +153,6 @@ trait Schemata
                 ->columns()
                 ->schema([
                     TextInput::make('name')
-                        //->hint(__('Translatable'))
-                        //->hintIcon('heroicon-s-language')
                         ->required()
                         ->maxLength(255)
                         ->live(onBlur: true)
@@ -216,13 +208,9 @@ trait Schemata
                 ->label(__('Text & Details'))
                 ->schema([
                     Textarea::make('description')
-                        //->hint(__('Translatable'))
-                        //->hintIcon('heroicon-s-language')
                         ->label(__('Form Description'))
                         ->helperText(__('shown under the title of the form and used in SEO')),
                     RichEditor::make('details')
-                        //->hint(__('Translatable'))
-                        //->hintIcon('heroicon-s-language')
                         ->label(__('Form Details'))
                         ->helperText(__('a highlighted section above the form, to show some instructions or more details')),
                     RichEditor::make('options.confirmation-message')
@@ -234,7 +222,6 @@ trait Schemata
                 ->label(__('Display & Access'))
                 ->columns()
                 ->schema([
-
                     Grid::make()
                         ->columnSpan(1)
                         ->columns(1)
@@ -313,6 +300,7 @@ trait Schemata
                     Select::make('extensions')
                         ->label(__('Extensions'))
                         ->preload()
+                        ->live()
                         ->options(function () {
                             // @phpstan-ignore-next-line
                             return collect(BoltPlugin::get()->getExtensions())
@@ -328,7 +316,7 @@ trait Schemata
 
             Tabs\Tab::make('design')
                 ->label(__('Design'))
-                ->visible(class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class) && config('zeus-bolt.allow_design'))
+                ->visible(Bolt::hasPro() && config('zeus-bolt.allow_design'))
                 ->schema([
                     ViewField::make('options.primary_color')
                         ->hiddenLabel()
@@ -367,8 +355,6 @@ trait Schemata
                     Hidden::make('options.visibility.values'),
                     TextInput::make('name')
                         ->columnSpanFull()
-                        //->hint(__('Translatable'))
-                        //->hintIcon('heroicon-s-language')
                         ->required()
                         ->lazy()
                         ->label(__('Section Name')),
@@ -381,7 +367,7 @@ trait Schemata
                 ->cloneable()
                 ->minItems(1)
                 ->collapsible()
-                //->collapsed(fn (string $operation) => $operation === 'edit')
+                ->collapsed(fn (string $operation) => $operation === 'edit')
                 ->grid([
                     'default' => 1,
                     'md' => 2,
@@ -392,6 +378,9 @@ trait Schemata
                 ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
                 ->addActionLabel(__('Add field'))
                 ->extraItemActions([
+                    // @phpstan-ignore-next-line
+                    Bolt::hasPro() ? \LaraZeus\BoltPro\Actions\FieldMarkAction::make('marks') : null,
+
                     Action::make('fields options')
                         ->slideOver()
                         ->color('warning')
@@ -404,7 +393,7 @@ trait Schemata
                             array $arguments,
                             Repeater $component
                         ) => $component->getItemState($arguments['item']))
-                        ->form(function (Get $get, array $arguments) {
+                        ->form(function (Get $get, array $arguments, Repeater $component) {
                             $allSections = self::getVisibleFields($get('../../sections'), $arguments);
 
                             return [
@@ -416,12 +405,12 @@ trait Schemata
                                         'lg' => 2,
                                     ])
                                     ->label(__('Field Options'))
-                                    ->schema(function (Get $get) use ($allSections) {
+                                    ->schema(function (Get $get) use ($allSections, $component, $arguments) {
                                         $class = $get('type');
                                         if (class_exists($class)) {
                                             $newClass = (new $class);
                                             if ($newClass->hasOptions()) {
-                                                return $newClass->getOptions($allSections);
+                                                return $newClass->getOptions($allSections, $component->getState()[$arguments['item']]);
                                             }
                                         }
 
@@ -453,8 +442,6 @@ trait Schemata
         return [
             Hidden::make('description'),
             TextInput::make('name')
-                //->hint(__('Translatable'))
-                //->hintIcon('heroicon-s-language')
                 ->required()
                 ->lazy()
                 ->label(__('Field Name')),
@@ -462,8 +449,6 @@ trait Schemata
                 ->required()
                 ->searchable()
                 ->preload()
-                //->options(Bolt::availableFields()->pluck('title', 'class'))
-
                 /*->getSearchResultsUsing(function (string $search) {
                     $users = Bolt::availableFields()->where('title', 'like', "%{$search}%");
 
