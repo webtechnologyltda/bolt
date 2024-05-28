@@ -157,10 +157,10 @@ abstract class FieldsContract implements Arrayable, Fields
         if ((int) $field->options['dataSource'] !== 0) {
             $response = BoltPlugin::getModel('Collection')::query()
                 ->find($field->options['dataSource'])
-                ->values
+                ?->values
                 ->whereIn('itemKey', $response)
                 ->pluck('itemValue')
-                ->join(', ');
+                ->join(', ') ?? '';
         } else {
             $dataSourceClass = new $field->options['dataSource'];
             $response = $dataSourceClass->getQuery()
