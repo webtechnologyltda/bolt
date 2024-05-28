@@ -57,12 +57,6 @@ class Field extends Model
         return FieldFactory::new();
     }
 
-    /** @return BelongsTo<Form, Field> */
-    public function form(): BelongsTo
-    {
-        return $this->belongsTo(config('zeus-bolt.models.Form'));
-    }
-
     /** @return BelongsTo<Section, Field> */
     public function section(): BelongsTo
     {

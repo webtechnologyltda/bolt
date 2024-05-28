@@ -5,6 +5,7 @@ namespace LaraZeus\Bolt\Fields\Classes;
 use Filament\Forms\Components\Placeholder;
 use LaraZeus\Accordion\Forms\Accordion;
 use LaraZeus\Accordion\Forms\Accordions;
+use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Fields\FieldsContract;
 
 class Paragraph extends FieldsContract
@@ -28,7 +29,7 @@ class Paragraph extends FieldsContract
         return __('display a paragraph in your form');
     }
 
-    public static function getOptions(): array
+    public static function getOptions(?array $sections = null, ?array $field = null): array
     {
         return [
             Accordions::make('check-list-options')
@@ -40,7 +41,8 @@ class Paragraph extends FieldsContract
                             self::columnSpanFull(),
                             self::hintOptions(),
                         ]),
-
+                    // @phpstan-ignore-next-line
+                    Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::schema($field) : null,
                 ]),
         ];
     }
@@ -48,6 +50,8 @@ class Paragraph extends FieldsContract
     public static function getOptionsHidden(): array
     {
         return [
+            // @phpstan-ignore-next-line
+            Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::hidden() : null,
             self::hiddenHintOptions(),
             self::hiddenColumnSpanFull(),
         ];

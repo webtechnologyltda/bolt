@@ -12,6 +12,7 @@ use Guava\FilamentIconPicker\Forms\IconPicker;
 use Illuminate\Database\Eloquent\Builder;
 use LaraZeus\Accordion\Forms\Accordion;
 use LaraZeus\Accordion\Forms\Accordions;
+use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Fields\FieldsContract;
 use LaraZeus\Bolt\Models\Field;
 use LaraZeus\Bolt\Models\Response;
@@ -37,7 +38,7 @@ class Toggle extends FieldsContract
         return __('toggle');
     }
 
-    public static function getOptions(?array $sections = null): array
+    public static function getOptions(?array $sections = null, ?array $field = null): array
     {
         return [
             Accordions::make('check-list-options')
@@ -76,6 +77,8 @@ class Toggle extends FieldsContract
                         ]),
                     self::hintOptions(),
                     self::visibility($sections),
+                    // @phpstan-ignore-next-line
+                    Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::schema($field) : null,
                 ]),
         ];
     }
@@ -83,6 +86,8 @@ class Toggle extends FieldsContract
     public static function getOptionsHidden(): array
     {
         return [
+            // @phpstan-ignore-next-line
+            Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::hidden() : null,
             self::hiddenVisibility(),
             self::hiddenHtmlID(),
             self::hiddenHintOptions(),
