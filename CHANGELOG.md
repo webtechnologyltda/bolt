@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.41 - 2024-05-28
+
+### What's Changed
+
+* fix collection not found by @atmonshi in https://github.com/lara-zeus/bolt/pull/287
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.40...v3.0.41
+
 ## v3.0.40 - 2024-05-27
 
 ### What's Changed
@@ -318,7 +326,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 ## v3.0.3 - 2024-01-10
 ### What's Changed
 * improve Conditional Visibility by @atmonshi in https://github.com/lara-zeus/bolt/pull/232
-
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.2...v3.0.3
 
 ## v2.1.30 - 2024-01-08
