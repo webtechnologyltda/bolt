@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.42 - 2024-05-28
+
+### What's Changed
+
+* improvements on how to check if pro version installed by @atmonshi in https://github.com/lara-zeus/bolt/pull/288
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.41...v3.0.42
+
 ## v3.0.41 - 2024-05-28
 
 ### What's Changed
@@ -327,7 +335,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 ### What's Changed
 * improve Conditional Visibility by @atmonshi in https://github.com/lara-zeus/bolt/pull/232
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.2...v3.0.3
-
 ## v2.1.30 - 2024-01-08
 
 ### What's Changed
