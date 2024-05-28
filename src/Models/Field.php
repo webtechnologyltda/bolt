@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use LaraZeus\Bolt\Database\Factories\FieldFactory;
 use Spatie\Translatable\HasTranslations;
@@ -56,20 +55,6 @@ class Field extends Model
     protected static function newFactory(): FieldFactory
     {
         return FieldFactory::new();
-    }
-
-    public function form(): HasOneThrough
-    {
-        return $this->hasOneThrough(
-            config('zeus-bolt.models.Section'),
-            config('zeus-bolt.models.Form'),
-            'id', // Foreign key on the cars table...
-            'id', // Foreign key on the owners table...
-            'id', // Local key on the mechanics table...
-            'id' // Local key on the cars table...
-        );
-
-        return $this->belongsTo(config('zeus-bolt.models.Form'));
     }
 
     /** @return BelongsTo<Section, Field> */

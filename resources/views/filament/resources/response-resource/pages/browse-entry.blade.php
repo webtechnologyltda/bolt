@@ -5,47 +5,24 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div class="md:col-span-2">
             <x-filament::section>
-                <form>
-                    @foreach($getRecord->fieldsResponses as $resp)
-                        @if($resp->field !== null)
-                            <div class="py-2 text-ellipsis overflow-auto">
-                                <p>{{ $resp->field->name ?? '' }}</p>
+                @foreach($getRecord->fieldsResponses as $resp)
+                    @if($resp->field !== null)
+                        <div class="py-2 text-ellipsis overflow-auto">
+                            <p>{{ $resp->field->name ?? '' }}</p>
 
-                                <div class="items-center flex justify-between">
-                                    <p class="font-semibold mb-2">
-                                        {!! ( new $resp->field->type )->getResponse($resp->field, $resp) !!}
-                                    </p>
-                                    @if($resp->form->extensions === 'LaraZeus\\BoltPro\\Extensions\\Grades')
-                                        <div class="items-center flex justify-end p-2">
-                                            <x-filament::input.wrapper
-                                                    inline-suffix
-                                                    suffix="/ {{ $resp->field->options['grades']['points'] }}"
-                                            >
-                                                <x-filament::input class="!w-10"
-                                                        type="text"
-                                                        name="grade"
-                                                        wire:model="grades.{{ $resp->id }}"
-                                                />
-                                            </x-filament::input.wrapper>
-                                        </div>
-                                    @endif
-                                </div>
-
-                                <hr/>
+                            <div class="items-center flex justify-between">
+                                <p class="font-semibold mb-2">
+                                    {!! ( new $resp->field->type )->getResponse($resp->field, $resp) !!}
+                                </p>
+                                @if($resp->form->extensions === 'LaraZeus\\BoltPro\\Extensions\\Grades')
+                                    <livewire:bolt-pro.grading :response="$resp" />
+                                @endif
                             </div>
-                        @endif
-                    @endforeach
 
-                    @if($resp->form->extensions === 'LaraZeus\\BoltPro\\Extensions\\Grades')
-                        <div class="text-right">
-                            <x-filament::button
-                                size="sm"
-                                wire:click.prevent="saveGrades">
-                                {{ __('save grades') }}
-                            </x-filament::button>
+                            <hr/>
                         </div>
                     @endif
-                </form>
+                @endforeach
             </x-filament::section>
         </div>
         <div class="space-y-4">

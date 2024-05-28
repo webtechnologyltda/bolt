@@ -18,6 +18,7 @@ use LaraZeus\Bolt\Database\Factories\ResponseFactory;
  * @property string $notes
  * @property string $response
  * @property Form $form
+ * @property FieldResponse $fieldsResponses
  */
 class Response extends Model
 {
