@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.43 - 2024-05-29
+
+### What's Changed
+
+* fix response action url by @atmonshi in https://github.com/lara-zeus/bolt/pull/289
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.42...v3.0.43
+
 ## v3.0.42 - 2024-05-28
 
 ### What's Changed
@@ -336,7 +344,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 * improve Conditional Visibility by @atmonshi in https://github.com/lara-zeus/bolt/pull/232
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.2...v3.0.3
 ## v2.1.30 - 2024-01-08
-
 ### What's Changed
 
 * Bump aglipanci/laravel-pint-action from 2.3.0 to 2.3.1 by @dependabot in https://github.com/lara-zeus/bolt/pull/221
