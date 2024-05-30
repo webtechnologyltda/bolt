@@ -94,7 +94,7 @@ abstract class FieldsContract implements Arrayable, Fields
                     return null;
                 }
 
-                return $zeusField->options['grades']['points'] . ' ' . __('marks');
+                return optional($zeusField->options)['grades']['points'] ?? 0 . ' ' . __('marks');
             })
             ->helperText($zeusField->description);
 

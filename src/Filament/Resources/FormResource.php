@@ -157,8 +157,8 @@ class FormResource extends BoltResource
                 IconColumn::make('is_active')->boolean()->label(__('Is Active'))->sortable()->toggleable(),
                 TextColumn::make('start_date')->dateTime()->searchable()->sortable()->label(__('Start Date'))->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('end_date')->dateTime()->searchable()->sortable()->label(__('End Date'))->toggleable(isToggledHiddenByDefault: true),
-                IconColumn::make('responses_exists')->boolean()->exists('responses')->label(__('Responses Exists'))->sortable()->toggleable(),
-                TextColumn::make('responses_count')->counts('responses')->label(__('Responses Count'))->sortable()->toggleable(),
+                IconColumn::make('responses_exists')->boolean()->exists('responses')->label(__('Responses Exists'))->sortable()->toggleable()->searchable(false),
+                TextColumn::make('responses_count')->counts('responses')->label(__('Responses Count'))->sortable()->toggleable()->searchable(false),
             ])
             ->actions(static::getActions())
             ->filters([

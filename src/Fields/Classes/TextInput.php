@@ -152,7 +152,7 @@ class TextInput extends FieldsContract
         parent::appendFilamentComponentsOptions($component, $zeusField, $hasVisibility);
 
         if (! empty($zeusField['options']['dateType'])) {
-            call_user_func([$component, $zeusField['options']['dateType']]);
+            call_user_func([$component, optional($zeusField['options'])['dateType'] ?? 'string']);
         }
 
         if (isset($zeusField->options['prefix']) && $zeusField->options['prefix'] !== null) {
