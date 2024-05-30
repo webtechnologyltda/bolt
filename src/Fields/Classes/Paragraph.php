@@ -3,6 +3,7 @@
 namespace LaraZeus\Bolt\Fields\Classes;
 
 use Filament\Forms\Components\Placeholder;
+use Illuminate\Support\HtmlString;
 use LaraZeus\Accordion\Forms\Accordion;
 use LaraZeus\Accordion\Forms\Accordions;
 use LaraZeus\Bolt\Facades\Bolt;
@@ -55,5 +56,13 @@ class Paragraph extends FieldsContract
             self::hiddenHintOptions(),
             self::hiddenColumnSpanFull(),
         ];
+    }
+
+    // @phpstan-ignore-next-line
+    public function appendFilamentComponentsOptions($component, $zeusField, bool $hasVisibility = false)
+    {
+        parent::appendFilamentComponentsOptions($component, $zeusField, $hasVisibility);
+
+        return $component->content(new HtmlString($zeusField->description));
     }
 }
