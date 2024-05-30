@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.45 - 2024-05-30
+
+### What's Changed
+
+* fixes and improvements for grading and disable searchable for counts … by @atmonshi in https://github.com/lara-zeus/bolt/pull/292
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.44...v3.0.45
+
 ## v3.0.44 - 2024-05-30
 
 ### What's Changed
@@ -355,7 +363,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 ### What's Changed
 * Bump aglipanci/laravel-pint-action from 2.3.0 to 2.3.1 by @dependabot in https://github.com/lara-zeus/bolt/pull/221
 * fix badge count for multi tenant by @atmonshi in https://github.com/lara-zeus/bolt/pull/226
-
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v2.1.29...v2.1.30
 
 ## v2.1.29 - 2023-12-14
