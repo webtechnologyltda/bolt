@@ -63,6 +63,8 @@ class Paragraph extends FieldsContract
     {
         parent::appendFilamentComponentsOptions($component, $zeusField, $hasVisibility);
 
-        return $component->content(new HtmlString($zeusField->description));
+        return $component
+            ->helperText('')
+            ->content(new HtmlString($zeusField->description));
     }
 }
