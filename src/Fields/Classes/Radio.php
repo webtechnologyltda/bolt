@@ -50,7 +50,7 @@ class Radio extends FieldsContract
                     self::hintOptions(),
                     self::visibility($sections),
                     // @phpstan-ignore-next-line
-                    Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::schema($field) : null,
+                    ...Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::schema($field) : [],
                 ]),
         ];
     }

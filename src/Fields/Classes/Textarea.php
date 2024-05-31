@@ -66,7 +66,7 @@ class Textarea extends FieldsContract
                     self::hintOptions(),
                     self::visibility($sections),
                     // @phpstan-ignore-next-line
-                    Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::schema($field) : null,
+                    ...Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::schema($field) : [],
                 ]),
         ];
     }
@@ -75,7 +75,7 @@ class Textarea extends FieldsContract
     {
         return [
             // @phpstan-ignore-next-line
-            Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::hidden() : null,
+            Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::hidden() : [],
             self::hiddenVisibility(),
             self::hiddenHtmlID(),
             self::hiddenHintOptions(),
