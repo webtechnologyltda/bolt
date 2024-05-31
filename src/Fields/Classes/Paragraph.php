@@ -43,7 +43,7 @@ class Paragraph extends FieldsContract
                             self::hintOptions(),
                         ]),
                     // @phpstan-ignore-next-line
-                    Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::schema($field) : null,
+                    ...Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::schema($field) : [],
                 ]),
         ];
     }
@@ -52,7 +52,7 @@ class Paragraph extends FieldsContract
     {
         return [
             // @phpstan-ignore-next-line
-            Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::hidden() : null,
+            Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::hidden() : [],
             self::hiddenHintOptions(),
             self::hiddenColumnSpanFull(),
         ];
