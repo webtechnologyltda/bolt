@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.47 - 2024-05-31
+
+### What's Changed
+
+* fix for is pro not installed by @atmonshi in https://github.com/lara-zeus/bolt/pull/295
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.46...v3.0.47
+
 ## v3.0.46 - 2024-05-30
 
 ### What's Changed
@@ -373,7 +381,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 * fix badge count for multi tenant by @atmonshi in https://github.com/lara-zeus/bolt/pull/226
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v2.1.29...v2.1.30
 ## v2.1.29 - 2023-12-14
-
 ### What's Changed
 
 * update docs by @atmonshi in https://github.com/lara-zeus/bolt/pull/219
