@@ -243,6 +243,7 @@ abstract class FieldsContract implements Arrayable, Fields
     {
         return TextColumn::make('zeusData.' . $field->id)
             ->label($field->name)
+            ->sortable(false)
             ->searchable(query: function (Builder $query, string $search): Builder {
                 return $query
                     ->whereHas('fieldsResponses', function ($query) use ($search) {

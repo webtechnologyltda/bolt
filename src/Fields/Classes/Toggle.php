@@ -132,6 +132,7 @@ class Toggle extends FieldsContract
     public function TableColumn(Field $field): ?Column
     {
         return IconColumn::make('zeusData.' . $field->id)
+            ->sortable(false)
             ->label($field->name)
             ->boolean()
             ->searchable(query: function (Builder $query, string $search): Builder {
