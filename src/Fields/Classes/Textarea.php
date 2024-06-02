@@ -117,6 +117,7 @@ class Textarea extends FieldsContract
     public function TableColumn(Field $field): ?Column
     {
         return TextColumn::make('zeusData.' . $field->id)
+            ->sortable(false)
             ->label($field->name)
             ->searchable(query: function (Builder $query, string $search): Builder {
                 return $query

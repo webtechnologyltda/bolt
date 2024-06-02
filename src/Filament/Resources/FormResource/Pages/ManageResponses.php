@@ -34,6 +34,8 @@ class ManageResponses extends ManageRelatedRecords
 
         $mainColumns = [
             ImageColumn::make('user.avatar')
+                ->sortable(false)
+                ->searchable(false)
                 ->label(__('Avatar'))
                 ->circular()
                 ->toggleable(),
