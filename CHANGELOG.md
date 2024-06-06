@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.49 - 2024-06-06
+
+### What's Changed
+
+* fix return type for Factory by @atmonshi in https://github.com/lara-zeus/bolt/pull/297
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.48...v3.0.49
+
 ## v3.0.48 - 2024-06-02
 
 ### What's Changed
@@ -391,7 +399,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 ## v2.1.29 - 2023-12-14
 ### What's Changed
 * update docs by @atmonshi in https://github.com/lara-zeus/bolt/pull/219
-
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v2.1.28...v2.1.29
 
 ## v2.1.28 - 2023-12-14
