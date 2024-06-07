@@ -27,7 +27,6 @@ use Illuminate\Support\Str;
 use LaraZeus\Accordion\Forms\Accordion;
 use LaraZeus\Accordion\Forms\Accordions;
 use LaraZeus\Bolt\BoltPlugin;
-use LaraZeus\Bolt\Contracts\CustomSchema;
 use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Models\Category;
 
@@ -61,7 +60,7 @@ trait Schemata
                 ->label(__('Section Description')),
 
             Accordions::make('section-options')
-                ->accordions([
+                ->accordions(fn () => array_filter([
                     Accordion::make('visual-options')
                         ->label(__('Visual Options'))
                         ->columns()
@@ -90,7 +89,8 @@ trait Schemata
                                 ->label(__('compact section')),
                         ]),
                     self::visibility($allSections),
-                ]),
+                    ...Bolt::getCustomSchema('section') ?? [],
+                ])),
         ];
     }
 
@@ -149,7 +149,7 @@ trait Schemata
 
     public static function getTabsSchema(): array
     {
-        $tabs= [
+        $tabs = [
             Tabs\Tab::make('title-slug-tab')
                 ->label(__('Title & Slug'))
                 ->columns()
@@ -340,7 +340,11 @@ trait Schemata
                 ]),
         ];
 
-        dd(array_values(Bolt::getCustomSchema('form')));
+        $customSchema = Bolt::getCustomSchema('form');
+
+        if ($customSchema !== null) {
+            $tabs[] = $customSchema;
+        }
 
         return $tabs;
     }

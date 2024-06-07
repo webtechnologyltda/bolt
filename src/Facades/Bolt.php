@@ -3,12 +3,15 @@
 namespace LaraZeus\Bolt\Facades;
 
 use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\Tabs\Tab;
 use Filament\Support\Facades\FilamentView;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Facade;
+use LaraZeus\Accordion\Forms\Accordion;
+use LaraZeus\Bolt\Contracts\CustomFormSchema;
 use LaraZeus\Bolt\Contracts\CustomSchema;
 
 class Bolt extends Facade
@@ -113,13 +116,30 @@ class Bolt extends Facade
         return class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class);
     }
 
-    public static function getCustomSchema(string $hook): array|null
+    public static function getCustomSchema(string $hook): Accordion | Tab | null | array
     {
-        $class = config('zeus-bolt.custom_schema.'.$hook);
-        if($class !== null){
+        $class = config('zeus-bolt.custom_schema.' . $hook);
+        if ($class !== null) {
             $getClass = new $class;
-            if($getClass instanceof CustomSchema){
-                return [$getClass->make()];
+            if ($hook === 'form' && $getClass instanceof CustomFormSchema) {
+                return $getClass->make();
+            }
+
+            if ($getClass instanceof CustomSchema) {
+                return $getClass->make();
+            }
+        }
+
+        return null;
+    }
+
+    public static function getHiddenCustomSchema(string $hook): null | array
+    {
+        $class = config('zeus-bolt.custom_schema.' . $hook);
+        if ($class !== null) {
+            $getClass = new $class;
+            if ($getClass instanceof CustomSchema) {
+                return $getClass->hidden();
             }
         }
 
