@@ -52,7 +52,7 @@ class ColorPicker extends FieldsContract
                         ]),
                     self::hintOptions(),
                     self::visibility($sections),
-                    ...Bolt::getCustomSchema('field') ?? [],
+                    Bolt::getCustomSchema('field') ?? [],
                 ]),
         ];
     }

@@ -89,7 +89,7 @@ trait Schemata
                                 ->label(__('compact section')),
                         ]),
                     self::visibility($allSections),
-                    ...Bolt::getCustomSchema('section') ?? [],
+                    Bolt::getCustomSchema('section') ?? [],
                 ])),
         ];
     }

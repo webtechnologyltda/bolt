@@ -10,6 +10,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Facade;
+use LaraZeus\Accordion\Forms\Accordion;
 use LaraZeus\Bolt\Contracts\CustomFormSchema;
 use LaraZeus\Bolt\Contracts\CustomSchema;
 
@@ -115,7 +116,7 @@ class Bolt extends Facade
         return class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class);
     }
 
-    public static function getCustomSchema(string $hook): Tab | null | array
+    public static function getCustomSchema(string $hook): Tab | Accordion | null
     {
         $class = config('zeus-bolt.custom_schema.' . $hook);
         if ($class !== null) {
