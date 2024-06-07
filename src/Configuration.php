@@ -12,6 +12,12 @@ trait Configuration
      */
     protected array $boltModels = [];
 
+    protected array $customSchema = [
+        'form' => null,
+        'section' => null,
+        'field' => null,
+    ];
+
     protected array $hideResources = [];
 
     /**
@@ -29,6 +35,23 @@ trait Configuration
     protected Closure | bool $showNavigationBadges = true;
 
     protected array $showNavigationBadgesArray = [];
+
+    public function customSchema(array $schema): static
+    {
+        $this->customSchema = $schema;
+
+        return $this;
+    }
+
+    public function getCustomSchema(): array
+    {
+        return $this->customSchema;
+    }
+
+    public static function getSchema(string $type): ?string
+    {
+        return (new static())::get()->getCustomSchema()[$type];
+    }
 
     public function boltModels(array $models): static
     {

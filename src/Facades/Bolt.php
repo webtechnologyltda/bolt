@@ -11,6 +11,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Facade;
 use LaraZeus\Accordion\Forms\Accordion;
+use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Contracts\CustomFormSchema;
 use LaraZeus\Bolt\Contracts\CustomSchema;
 
@@ -118,7 +119,7 @@ class Bolt extends Facade
 
     public static function getCustomSchema(string $hook): Tab | Accordion | null
     {
-        $class = config('zeus-bolt.custom_schema.' . $hook);
+        $class = BoltPlugin::getSchema($hook);
         if ($class !== null) {
             $getClass = new $class;
             if ($hook === 'form' && $getClass instanceof CustomFormSchema) {
@@ -135,7 +136,7 @@ class Bolt extends Facade
 
     public static function getHiddenCustomSchema(string $hook): ?array
     {
-        $class = config('zeus-bolt.custom_schema.' . $hook);
+        $class = BoltPlugin::getSchema($hook);
         if ($class !== null) {
             $getClass = new $class;
             if ($getClass instanceof CustomSchema) {
