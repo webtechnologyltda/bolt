@@ -51,6 +51,7 @@ class Radio extends FieldsContract
                     self::visibility($sections),
                     // @phpstan-ignore-next-line
                     ...Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::schema($field) : [],
+                    ...Bolt::getCustomSchema('field') ?? [],
                 ]),
         ];
     }
@@ -60,6 +61,7 @@ class Radio extends FieldsContract
         return [
             // @phpstan-ignore-next-line
             Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::hidden() : [],
+            ...Bolt::getHiddenCustomSchema('field') ?? [],
             self::hiddenVisibility(),
             self::hiddenHtmlID(),
             self::hiddenHintOptions(),

@@ -49,6 +49,7 @@ class CheckboxList extends FieldsContract
                     self::visibility($sections),
                     // @phpstan-ignore-next-line
                     ...Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::schema($field) : [],
+                    ...Bolt::getCustomSchema('field') ?? [],
                 ]),
         ];
     }
@@ -58,6 +59,7 @@ class CheckboxList extends FieldsContract
         return [
             // @phpstan-ignore-next-line
             Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::hidden() : [],
+            ...Bolt::getHiddenCustomSchema('field') ?? [],
             self::hiddenDataSource(),
             self::hiddenVisibility(),
             self::hiddenHtmlID(),

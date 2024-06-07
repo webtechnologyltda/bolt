@@ -45,6 +45,7 @@ class DatePicker extends FieldsContract
                     self::visibility($sections),
                     // @phpstan-ignore-next-line
                     ...Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::schema($field) : [],
+                    ...Bolt::getCustomSchema('field') ?? [],
                 ]),
         ];
     }
@@ -54,6 +55,7 @@ class DatePicker extends FieldsContract
         return [
             // @phpstan-ignore-next-line
             Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::hidden() : [],
+            ...Bolt::getHiddenCustomSchema('field') ?? [],
             self::hiddenHtmlID(),
             self::hiddenHintOptions(),
             self::hiddenRequired(),

@@ -42,8 +42,6 @@ class Paragraph extends FieldsContract
                             self::columnSpanFull(),
                             self::hintOptions(),
                         ]),
-                    // @phpstan-ignore-next-line
-                    ...Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::schema($field) : [],
                 ]),
         ];
     }
@@ -51,8 +49,6 @@ class Paragraph extends FieldsContract
     public static function getOptionsHidden(): array
     {
         return [
-            // @phpstan-ignore-next-line
-            Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::hidden() : [],
             self::hiddenHintOptions(),
             self::hiddenColumnSpanFull(),
         ];
