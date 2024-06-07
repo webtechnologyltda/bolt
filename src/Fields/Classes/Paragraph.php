@@ -6,7 +6,6 @@ use Filament\Forms\Components\Placeholder;
 use Illuminate\Support\HtmlString;
 use LaraZeus\Accordion\Forms\Accordion;
 use LaraZeus\Accordion\Forms\Accordions;
-use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Fields\FieldsContract;
 
 class Paragraph extends FieldsContract
