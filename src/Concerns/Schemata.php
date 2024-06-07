@@ -430,6 +430,7 @@ trait Schemata
             Hidden::make('options.visibility.active')->default(0)->nullable(),
             Hidden::make('options.visibility.fieldID')->nullable(),
             Hidden::make('options.visibility.values')->nullable(),
+            ...Bolt::getHiddenCustomSchema('section') ?? [],
         ];
     }
 

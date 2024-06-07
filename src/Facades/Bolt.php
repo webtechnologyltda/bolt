@@ -133,7 +133,7 @@ class Bolt extends Facade
         return null;
     }
 
-    public static function getHiddenCustomSchema(string $hook): null | array
+    public static function getHiddenCustomSchema(string $hook): ?array
     {
         $class = config('zeus-bolt.custom_schema.' . $hook);
         if ($class !== null) {
