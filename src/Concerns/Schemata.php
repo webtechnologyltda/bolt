@@ -462,7 +462,7 @@ trait Schemata
                 ->live()
                 ->default('\LaraZeus\Bolt\Fields\Classes\TextInput')
                 ->label(__('Field Type')),
-            /*Group::make()
+            Group::make()
                 ->schema(function (Get $get) {
                     $class = $get('type');
                     if (class_exists($class)) {
@@ -474,7 +474,7 @@ trait Schemata
                     }
 
                     return [];
-                }),*/
+                }),
         ];
     }
 }
