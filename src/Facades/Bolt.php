@@ -116,7 +116,7 @@ class Bolt extends Facade
         return class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class);
     }
 
-    public static function getCustomSchema(string $hook): Accordion | Tab | null | array
+    public static function getCustomSchema(string $hook): Tab | null | array
     {
         $class = config('zeus-bolt.custom_schema.' . $hook);
         if ($class !== null) {

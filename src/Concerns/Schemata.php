@@ -351,7 +351,7 @@ trait Schemata
 
     public static function getSectionsSchema(): array
     {
-        return [
+        return array_filter([
             TextInput::make('name')
                 ->columnSpanFull()
                 ->required()
@@ -431,7 +431,7 @@ trait Schemata
             Hidden::make('options.visibility.fieldID')->nullable(),
             Hidden::make('options.visibility.values')->nullable(),
             ...Bolt::getHiddenCustomSchema('section') ?? [],
-        ];
+        ]);
     }
 
     public static function getCleanOptionString(array $field): string
