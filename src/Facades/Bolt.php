@@ -9,6 +9,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Facade;
+use LaraZeus\Bolt\Contracts\CustomSchema;
 
 class Bolt extends Facade
 {
@@ -110,5 +111,18 @@ class Bolt extends Facade
     public static function hasPro(): bool
     {
         return class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class);
+    }
+
+    public static function getCustomSchema(string $hook): array|null
+    {
+        $class = config('zeus-bolt.custom_schema.'.$hook);
+        if($class !== null){
+            $getClass = new $class;
+            if($getClass instanceof CustomSchema){
+                return [$getClass->make()];
+            }
+        }
+
+        return null;
     }
 }

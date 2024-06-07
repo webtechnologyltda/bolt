@@ -27,6 +27,7 @@ use Illuminate\Support\Str;
 use LaraZeus\Accordion\Forms\Accordion;
 use LaraZeus\Accordion\Forms\Accordions;
 use LaraZeus\Bolt\BoltPlugin;
+use LaraZeus\Bolt\Contracts\CustomSchema;
 use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Models\Category;
 
@@ -148,7 +149,7 @@ trait Schemata
 
     public static function getTabsSchema(): array
     {
-        return [
+        $tabs= [
             Tabs\Tab::make('title-slug-tab')
                 ->label(__('Title & Slug'))
                 ->columns()
@@ -338,6 +339,10 @@ trait Schemata
                         ->label(__('Cover')),
                 ]),
         ];
+
+        dd(array_values(Bolt::getCustomSchema('form')));
+
+        return $tabs;
     }
 
     public static function getSectionsSchema(): array

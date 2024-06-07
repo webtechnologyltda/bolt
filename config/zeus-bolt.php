@@ -61,4 +61,10 @@ return [
     'show_presets' => false,
 
     'allow_design' => false,
+
+    'custom_schema' => [
+        'form' => null,
+        'section' => null,
+        'field' => null,
+    ],
 ];
