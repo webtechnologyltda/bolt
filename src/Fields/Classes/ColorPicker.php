@@ -52,7 +52,7 @@ class ColorPicker extends FieldsContract
                         ]),
                     self::hintOptions(),
                     self::visibility($sections),
-                    Bolt::getCustomSchema('field') ?? [],
+                    Bolt::getCustomSchema('field', resolve(static::class)) ?? [],
                 ]),
         ];
     }
@@ -60,7 +60,7 @@ class ColorPicker extends FieldsContract
     public static function getOptionsHidden(): array
     {
         return [
-            ...Bolt::getHiddenCustomSchema('field') ?? [],
+            ...Bolt::getHiddenCustomSchema('field', resolve(static::class)) ?? [],
             Hidden::make('options.colorType'),
             self::hiddenHtmlID(),
             self::hiddenHintOptions(),

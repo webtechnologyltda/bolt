@@ -47,7 +47,7 @@ class FileUpload extends FieldsContract
                         ]),
                     self::hintOptions(),
                     self::visibility($sections),
-                    Bolt::getCustomSchema('field') ?? [],
+                    Bolt::getCustomSchema('field', resolve(static::class)) ?? [],
                 ]),
         ];
     }
@@ -55,7 +55,7 @@ class FileUpload extends FieldsContract
     public static function getOptionsHidden(): array
     {
         return [
-            ...Bolt::getHiddenCustomSchema('field') ?? [],
+            ...Bolt::getHiddenCustomSchema('field', resolve(static::class)) ?? [],
             self::hiddenHtmlID(),
             self::hiddenHintOptions(),
             self::hiddenRequired(),

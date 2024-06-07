@@ -116,7 +116,7 @@ class TextInput extends FieldsContract
                     self::visibility($sections),
                     // @phpstan-ignore-next-line
                     ...Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::schema($field) : [],
-                    Bolt::getCustomSchema('field') ?? [],
+                    Bolt::getCustomSchema('field', resolve(static::class)) ?? [],
                 ]),
         ];
     }
@@ -126,7 +126,7 @@ class TextInput extends FieldsContract
         return [
             // @phpstan-ignore-next-line
             Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::hidden() : [],
-            ...Bolt::getHiddenCustomSchema('field') ?? [],
+            ...Bolt::getHiddenCustomSchema('field', resolve(static::class)) ?? [],
             self::hiddenVisibility(),
             self::hiddenHtmlID(),
             self::hiddenHintOptions(),

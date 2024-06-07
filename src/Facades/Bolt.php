@@ -14,6 +14,7 @@ use LaraZeus\Accordion\Forms\Accordion;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Contracts\CustomFormSchema;
 use LaraZeus\Bolt\Contracts\CustomSchema;
+use LaraZeus\Bolt\Fields\FieldsContract;
 
 class Bolt extends Facade
 {
@@ -117,7 +118,7 @@ class Bolt extends Facade
         return class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class);
     }
 
-    public static function getCustomSchema(string $hook): Tab | Accordion | null
+    public static function getCustomSchema(string $hook, ?FieldsContract $field = null): Tab | Accordion | null
     {
         $class = BoltPlugin::getSchema($hook);
         if ($class !== null) {
@@ -127,20 +128,20 @@ class Bolt extends Facade
             }
 
             if ($getClass instanceof CustomSchema) {
-                return $getClass->make();
+                return $getClass->make($field);
             }
         }
 
         return null;
     }
 
-    public static function getHiddenCustomSchema(string $hook): ?array
+    public static function getHiddenCustomSchema(string $hook, ?FieldsContract $field = null): ?array
     {
         $class = BoltPlugin::getSchema($hook);
         if ($class !== null) {
             $getClass = new $class;
             if ($getClass instanceof CustomSchema) {
-                return $getClass->hidden();
+                return $getClass->hidden($field);
             }
         }
 

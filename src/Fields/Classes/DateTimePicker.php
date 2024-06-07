@@ -45,7 +45,7 @@ class DateTimePicker extends FieldsContract
                     self::visibility($sections),
                     // @phpstan-ignore-next-line
                     ...Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::schema($field) : [],
-                    Bolt::getCustomSchema('field') ?? [],
+                    Bolt::getCustomSchema('field', resolve(static::class)) ?? [],
                 ]),
         ];
     }
@@ -55,7 +55,7 @@ class DateTimePicker extends FieldsContract
         return [
             // @phpstan-ignore-next-line
             Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::hidden() : [],
-            ...Bolt::getHiddenCustomSchema('field') ?? [],
+            ...Bolt::getHiddenCustomSchema('field', resolve(static::class)) ?? [],
             self::hiddenHtmlID(),
             self::hiddenHintOptions(),
             self::hiddenRequired(),
