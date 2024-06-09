@@ -4,6 +4,7 @@ namespace LaraZeus\Bolt\Concerns;
 
 use Filament\Facades\Filament;
 use Filament\Forms\Components\Actions\Action;
+use Filament\Forms\Components\Component;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
@@ -357,6 +358,22 @@ trait Schemata
                 ->orderColumn('ordering')
                 ->cloneable()
                 ->minItems(1)
+
+                ->cloneAction(fn (Action $action) => $action->action(function (Component $component) {
+                    $items = $component->getState();
+                    $originalItem = end($items);
+                    $clonedItem = array_merge($originalItem, [
+                        'name' => $originalItem['name'] . ' new',
+                        'options' => [
+                            'htmlId' => $originalItem['options']['htmlId'] . Str::random(2),
+                        ],
+                    ]);
+
+                    $items[] = $clonedItem;
+                    $component->state($items);
+
+                    return $items;
+                }))
                 ->collapsible()
                 ->collapsed(fn (string $operation) => $operation === 'edit')
                 ->grid([
