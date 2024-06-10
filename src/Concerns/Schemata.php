@@ -61,7 +61,7 @@ trait Schemata
                 ->label(__('Section Description')),
 
             Accordions::make('section-options')
-                ->accordions([
+                ->accordions(fn () => array_filter([
                     Accordion::make('visual-options')
                         ->label(__('Visual Options'))
                         ->columns()
@@ -90,7 +90,8 @@ trait Schemata
                                 ->label(__('compact section')),
                         ]),
                     self::visibility($allSections),
-                ]),
+                    Bolt::getCustomSchema('section') ?? [],
+                ])),
         ];
     }
 
@@ -149,7 +150,7 @@ trait Schemata
 
     public static function getTabsSchema(): array
     {
-        return [
+        $tabs = [
             Tabs\Tab::make('title-slug-tab')
                 ->label(__('Title & Slug'))
                 ->columns()
@@ -339,11 +340,19 @@ trait Schemata
                         ->label(__('Cover')),
                 ]),
         ];
+
+        $customSchema = Bolt::getCustomSchema('form');
+
+        if ($customSchema !== null) {
+            $tabs[] = $customSchema;
+        }
+
+        return $tabs;
     }
 
     public static function getSectionsSchema(): array
     {
-        return [
+        return array_filter([
             TextInput::make('name')
                 ->columnSpanFull()
                 ->required()
@@ -438,7 +447,8 @@ trait Schemata
             Hidden::make('options.visibility.active')->default(0)->nullable(),
             Hidden::make('options.visibility.fieldID')->nullable(),
             Hidden::make('options.visibility.values')->nullable(),
-        ];
+            ...Bolt::getHiddenCustomSchema('section') ?? [],
+        ]);
     }
 
     public static function getCleanOptionString(array $field): string
