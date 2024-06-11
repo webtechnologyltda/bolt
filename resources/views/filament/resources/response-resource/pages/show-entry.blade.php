@@ -9,7 +9,7 @@
                                 <p>{{ $resp->field->name ?? '' }}</p>
                                 <div class="items-center flex justify-between">
                                     <p class="font-semibold mb-2">
-                                        {!! ( new $resp->field->type )->getResponse($resp->field, $resp) !!}
+                                        {!! ( new $resp->field->type )->entry($resp->field, $resp) !!}
                                     </p>
                                     @if($resp->form->extensions === 'LaraZeus\\BoltPro\\Extensions\\Grades')
                                         <livewire:bolt-pro.grading :response="$resp" />
