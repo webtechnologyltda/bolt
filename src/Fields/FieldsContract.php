@@ -282,4 +282,9 @@ abstract class FieldsContract implements Arrayable, Fields
 
         return (new $field->type)->getResponse($field, $fieldResponse);
     }
+
+    public function entry(Field $field, FieldResponse $resp): string
+    {
+        return $this->getResponse($field, $resp);
+    }
 }
