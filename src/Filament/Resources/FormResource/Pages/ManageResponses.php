@@ -2,12 +2,14 @@
 
 namespace LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 
+use Filament\Forms\Components\DatePicker;
 use Filament\Resources\Pages\ManageRelatedRecords;
 use Filament\Tables;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Filament\Actions\SetResponseStatus;
@@ -99,6 +101,22 @@ class ManageResponses extends ManageRelatedRecords
                 Tables\Actions\RestoreAction::make(),
             ])
             ->filters([
+                Tables\Filters\Filter::make('created_at')
+                    ->form([
+                        DatePicker::make('created_from')->default(now()),
+                        DatePicker::make('created_until'),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['created_from'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                            )
+                            ->when(
+                                $data['created_until'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
+                            );
+                    }),
                 Tables\Filters\TrashedFilter::make(),
                 SelectFilter::make('status')
                     ->options(BoltPlugin::getModel('FormsStatus')::query()->pluck('label', 'key'))
