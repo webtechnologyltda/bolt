@@ -54,6 +54,7 @@ class ManageResponses extends ManageRelatedRecords
                 ->sortable()
                 ->badge()
                 ->label(__('status'))
+                ->formatStateUsing(fn($state) => __(str($state)->title()->toString()))
                 ->colors(BoltPlugin::getModel('FormsStatus')::pluck('key', 'color')->toArray())
                 ->icons(BoltPlugin::getModel('FormsStatus')::pluck('key', 'icon')->toArray())
                 ->grow(false)
@@ -128,6 +129,7 @@ class ManageResponses extends ManageRelatedRecords
                 Tables\Actions\ForceDeleteBulkAction::make(),
 
                 Tables\Actions\ExportBulkAction::make()
+                    ->label(__('Export Responses'))
                     ->exporter(ResponseExporter::class),
             ])
             ->recordUrl(

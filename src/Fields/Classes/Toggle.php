@@ -2,6 +2,7 @@
 
 namespace LaraZeus\Bolt\Fields\Classes;
 
+use Filament\Actions\Exports\ExportColumn;
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Hidden;
@@ -153,5 +154,18 @@ class Toggle extends FieldsContract
         $response = (int) $resp->response;
 
         return ($response === 1) ? __('yes') : __('no');
+    }
+
+    public function ExportColumn(Field $field): ?ExportColumn
+    {
+        return ExportColumn::make('zeusData.' . $field->options['htmlId'])
+            ->label($field->name)
+            ->state(function (Response $record) use ($field) {
+
+                $response = $record->fieldsResponses()->where('field_id', $field->id)->first();
+                $response = (int) $response->response;
+
+                return ($response === 1) ? __('yes') : __('no');
+            });
     }
 }
