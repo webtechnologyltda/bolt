@@ -2,6 +2,16 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.54 - 2024-06-11
+
+### What's Changed
+
+* allow for custom entry for responses by @atmonshi in https://github.com/lara-zeus/bolt/pull/304
+* fix toggle table column and use custom entry by @atmonshi in https://github.com/lara-zeus/bolt/pull/305
+* add created at filter for responses  by @atmonshi in https://github.com/lara-zeus/bolt/pull/306
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.53...v3.0.54
+
 ## v3.0.53 - 2024-06-10
 
 ### What's Changed
@@ -436,7 +446,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 ### What's Changed
 * Update doc and css by @atmonshi in https://github.com/lara-zeus/bolt/pull/218
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v2.1.27...v2.1.28
-
 ## 1.2.12 - 2023-08-14
 
 ### What's Changed
