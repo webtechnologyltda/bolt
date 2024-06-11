@@ -15,6 +15,7 @@ use LaraZeus\Accordion\Forms\Accordions;
 use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Fields\FieldsContract;
 use LaraZeus\Bolt\Models\Field;
+use LaraZeus\Bolt\Models\FieldResponse;
 use LaraZeus\Bolt\Models\Response;
 
 class Toggle extends FieldsContract
@@ -143,7 +144,14 @@ class Toggle extends FieldsContract
                         $query->where('response', 'like', '%' . $search . '%');
                     });
             })
-            ->getStateUsing(fn (Response $record) => $this->getFieldResponseValue($record, $field))
+            ->getStateUsing(fn (Response $record) => (int) $this->getFieldResponseValue($record, $field))
             ->toggleable();
+    }
+
+    public function entry(Field $field, FieldResponse $resp): string
+    {
+        $response = (int) $resp->response;
+
+        return ($response === 1) ? __('yes') : __('no');
     }
 }
