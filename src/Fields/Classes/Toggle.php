@@ -151,6 +151,7 @@ class Toggle extends FieldsContract
     public function entry(Field $field, FieldResponse $resp): string
     {
         $response = (int) $resp->response;
+
         return ($response === 1) ? __('yes') : __('no');
     }
 }
