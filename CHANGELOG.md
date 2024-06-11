@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.56 - 2024-06-11
+
+### What's Changed
+
+* set export toggle to yes no by @atmonshi in https://github.com/lara-zeus/bolt/pull/308
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.55...v3.0.56
+
 ## v3.0.55 - 2024-06-11
 
 ### What's Changed
@@ -456,7 +464,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v2.1.27...v2.1.28
 ## 1.2.12 - 2023-08-14
 ### What's Changed
-
 - change reactive to debounce by @atmonshi in https://github.com/lara-zeus/bolt/pull/119
 
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.2.11...1.2.12
