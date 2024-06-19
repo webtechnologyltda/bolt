@@ -4,6 +4,7 @@ namespace LaraZeus\Bolt\Fields\Classes;
 
 use LaraZeus\Accordion\Forms\Accordion;
 use LaraZeus\Accordion\Forms\Accordions;
+use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Fields\FieldsContract;
 use LaraZeus\Bolt\Models\Field;
 use LaraZeus\Bolt\Models\FieldResponse;
@@ -29,10 +30,11 @@ class CheckboxList extends FieldsContract
         return __('checkbox items from data source');
     }
 
-    public static function getOptions(?array $sections = null): array
+    public static function getOptions(?array $sections = null, ?array $field = null): array
     {
         return [
             self::dataSource(),
+
             Accordions::make('check-list-options')
                 ->accordions([
                     Accordion::make('general-options')
@@ -45,6 +47,9 @@ class CheckboxList extends FieldsContract
                         ]),
                     self::hintOptions(),
                     self::visibility($sections),
+                    // @phpstan-ignore-next-line
+                    ...Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::schema($field) : [],
+                    Bolt::getCustomSchema('field', resolve(static::class)) ?? [],
                 ]),
         ];
     }
@@ -52,6 +57,9 @@ class CheckboxList extends FieldsContract
     public static function getOptionsHidden(): array
     {
         return [
+            // @phpstan-ignore-next-line
+            Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::hidden() : [],
+            ...Bolt::getHiddenCustomSchema('field', resolve(static::class)) ?? [],
             self::hiddenDataSource(),
             self::hiddenVisibility(),
             self::hiddenHtmlID(),

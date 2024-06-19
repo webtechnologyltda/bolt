@@ -6,6 +6,7 @@ use Filament\Forms\Components\ColorPicker as ColorPickerAlias;
 use Filament\Forms\Components\Hidden;
 use LaraZeus\Accordion\Forms\Accordion;
 use LaraZeus\Accordion\Forms\Accordions;
+use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Fields\FieldsContract;
 
 class ColorPicker extends FieldsContract
@@ -51,6 +52,7 @@ class ColorPicker extends FieldsContract
                         ]),
                     self::hintOptions(),
                     self::visibility($sections),
+                    Bolt::getCustomSchema('field', resolve(static::class)) ?? [],
                 ]),
         ];
     }
@@ -58,6 +60,7 @@ class ColorPicker extends FieldsContract
     public static function getOptionsHidden(): array
     {
         return [
+            ...Bolt::getHiddenCustomSchema('field', resolve(static::class)) ?? [],
             Hidden::make('options.colorType'),
             self::hiddenHtmlID(),
             self::hiddenHintOptions(),

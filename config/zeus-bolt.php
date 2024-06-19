@@ -64,6 +64,8 @@ return [
 
     'uploadDirectory' => 'forms',
 
+    'uploadVisibility' => 'public',
+
     'show_presets' => false,
 
     'allow_design' => false,

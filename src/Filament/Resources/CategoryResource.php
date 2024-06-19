@@ -79,7 +79,8 @@ class CategoryResource extends BoltResource
                         Textarea::make('description')->maxLength(65535)->columnSpan(['sm' => 2])->label(__('Description')),
                         FileUpload::make('logo')
                             ->disk(config('zeus-bolt.uploadDisk'))
-                            ->directory(config('zeus-bolt.uploadDisk'))
+                            ->directory(config('zeus-bolt.uploadDirectory'))
+                            ->visibility(config('zeus-bolt.uploadVisibility'))
                             ->columnSpan(['sm' => 2])
                             ->label(__('logo')),
                     ]),
@@ -92,6 +93,7 @@ class CategoryResource extends BoltResource
             ->columns([
                 ImageColumn::make('logo')
                     ->disk(config('zeus-bolt.uploadDisk'))
+                    ->visibility(config('zeus-bolt.uploadVisibility'))
                     ->toggleable()
                     ->label(__('Logo')),
                 TextColumn::make('name')
