@@ -67,7 +67,12 @@ class Form extends Model
     protected static function booted(): void
     {
         static::deleting(function (Form $form) {
-            $canDelete = (bool) Extensions::init($form, 'canDelete', []);
+            $canDelete = Extensions::init($form, 'canDelete', []);
+
+            if ($canDelete === null) {
+                $canDelete = true;
+            }
+
             if (! $canDelete) {
                 Notification::make()
                     ->title(__('Can\'t delete a form linked to an Extensions'))

@@ -41,7 +41,12 @@ class Response extends Model
     protected static function booted(): void
     {
         static::deleting(function (Response $response) {
-            $canDelete = (bool) Extensions::init($response->form, 'canDeleteResponse', ['response' => $response]);
+            $canDelete = Extensions::init($response->form, 'canDeleteResponse', ['response' => $response]);
+
+            if ($canDelete === null) {
+                $canDelete = true;
+            }
+
             if (! $canDelete) {
                 Notification::make()
                     ->title(__('Can\'t delete a form linked to an Extensions'))
