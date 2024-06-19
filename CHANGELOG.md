@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.58 - 2024-06-19
+
+### What's Changed
+
+* prevent delete if the form or response is linked to Extension by @atmonshi in https://github.com/lara-zeus/bolt/pull/312
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.57...v3.0.58
+
 ## v3.0.57 - 2024-06-13
 
 ### What's Changed
@@ -474,7 +482,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 ### What's Changed
 - change reactive to debounce by @atmonshi in https://github.com/lara-zeus/bolt/pull/119
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.2.11...1.2.12
-
 ## 1.2.11 - 2023-08-06
 
 ### What's Changed
