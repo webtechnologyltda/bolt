@@ -52,14 +52,12 @@ class Response extends Model
             }
 
             if ($response->isForceDeleting()) {
-                $response->fieldsResponses()->withTrashed()->get()->each(function ($item) {
-                    $item->forceDelete();
-                });
+                $response->fieldsResponses()->withTrashed()->get()->each(fn ($item) => $item->forceDelete());
             } else {
-                $response->fieldsResponses->each(function ($item) {
-                    $item->delete();
-                });
+                $response->fieldsResponses->each(fn ($item) => $item->delete());
             }
+
+            return true;
         });
     }
 
