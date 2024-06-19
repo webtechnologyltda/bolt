@@ -2,6 +2,7 @@
 
 namespace LaraZeus\Bolt\Models;
 
+use Filament\Notifications\Notification;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use LaraZeus\Bolt\Concerns\HasUpdates;
 use LaraZeus\Bolt\Database\Factories\ResponseFactory;
+use LaraZeus\Bolt\Facades\Extensions;
 
 /**
  * @property string $updated_at
@@ -39,15 +41,28 @@ class Response extends Model
     protected static function booted(): void
     {
         static::deleting(function (Response $response) {
-            if ($response->isForceDeleting()) {
-                $response->fieldsResponses()->withTrashed()->get()->each(function ($item) {
-                    $item->forceDelete();
-                });
-            } else {
-                $response->fieldsResponses->each(function ($item) {
-                    $item->delete();
-                });
+            $canDelete = Extensions::init($response->form, 'canDeleteResponse', ['response' => $response]);
+
+            if ($canDelete === null) {
+                $canDelete = true;
             }
+
+            if (! $canDelete) {
+                Notification::make()
+                    ->title(__('Can\'t delete a form linked to an Extensions'))
+                    ->danger()
+                    ->send();
+
+                return false;
+            }
+
+            if ($response->isForceDeleting()) {
+                $response->fieldsResponses()->withTrashed()->get()->each(fn ($item) => $item->forceDelete());
+            } else {
+                $response->fieldsResponses->each(fn ($item) => $item->delete());
+            }
+
+            return true;
         });
     }
 
