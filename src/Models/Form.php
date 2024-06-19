@@ -78,7 +78,6 @@ class Form extends Model
             }
 
             if ($form->isForceDeleting()) {
-                // todo cant delete Responses if linked with item
                 $form->fieldsResponses()->withTrashed()->get()->each(fn ($item) => $item->forceDelete());
                 $form->responses()->withTrashed()->get()->each(fn ($item) => $item->forceDelete());
                 $form->sections()->withTrashed()->get()->each(function ($item) {
