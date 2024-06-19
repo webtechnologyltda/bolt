@@ -2,6 +2,7 @@
 
 namespace LaraZeus\Bolt\Models;
 
+use Filament\Notifications\Notification;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -58,7 +59,7 @@ class Form extends Model
         'user_id' => 'integer',
     ];
 
-    public function getTable()
+    public function getTable(): string
     {
         return config('zeus-bolt.table-prefix') . 'forms';
     }
@@ -66,33 +67,34 @@ class Form extends Model
     protected static function booted(): void
     {
         static::deleting(function (Form $form) {
+            $canDelete = (bool) Extensions::init($form, 'canDelete', []);
+            if (! $canDelete) {
+                Notification::make()
+                    ->title(__('Can\'t delete a form linked to an Extensions'))
+                    ->danger()
+                    ->send();
+
+                return false;
+            }
+
             if ($form->isForceDeleting()) {
-                $form->fieldsResponses()->withTrashed()->get()->each(function ($item) {
-                    $item->forceDelete();
-                });
-                $form->responses()->withTrashed()->get()->each(function ($item) {
-                    $item->forceDelete();
-                });
+                // todo cant delete Responses if linked with item
+                $form->fieldsResponses()->withTrashed()->get()->each(fn ($item) => $item->forceDelete());
+                $form->responses()->withTrashed()->get()->each(fn ($item) => $item->forceDelete());
                 $form->sections()->withTrashed()->get()->each(function ($item) {
-                    $item->fields()->withTrashed()->get()->each(function ($item) {
-                        $item->forceDelete();
-                    });
+                    $item->fields()->withTrashed()->get()->each(fn ($item) => $item->forceDelete());
                     $item->forceDelete();
                 });
             } else {
-                $form->fieldsResponses->each(function ($item) {
-                    $item->delete();
-                });
-                $form->responses->each(function ($item) {
-                    $item->delete();
-                });
+                $form->fieldsResponses->each(fn ($item) => $item->delete());
+                $form->responses->each(fn ($item) => $item->delete());
                 $form->sections->each(function ($item) {
-                    $item->fields->each(function ($item) {
-                        $item->delete();
-                    });
+                    $item->fields->each(fn ($item) => $item->delete());
                     $item->delete();
                 });
             }
+
+            return true;
         });
     }
 
