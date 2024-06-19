@@ -30,28 +30,6 @@ class BoltServiceProvider extends PackageServiceProvider
             ->hasRoute('web');
     }
 
-    public function packageBooted(): void
-    {
-        CoreServiceProvider::setThemePath('bolt');
-
-        Livewire::component('bolt.fill-form', FillForms::class);
-        Livewire::component('bolt.list-forms', ListForms::class);
-        Livewire::component('bolt.list-entries', ListEntries::class);
-    }
-
-    /**
-     * @return array<class-string>
-     */
-    protected function getCommands(): array
-    {
-        return [
-            PublishCommand::class,
-            ZeusFieldCommand::class,
-            ZeusDatasourceCommand::class,
-            InstallCommand::class,
-        ];
-    }
-
     /**
      * @return array<string>
      */
@@ -71,5 +49,27 @@ class BoltServiceProvider extends PackageServiceProvider
             'add_compact_to_section',
             'add_options_to_section',
         ];
+    }
+
+    /**
+     * @return array<class-string>
+     */
+    protected function getCommands(): array
+    {
+        return [
+            PublishCommand::class,
+            ZeusFieldCommand::class,
+            ZeusDatasourceCommand::class,
+            InstallCommand::class,
+        ];
+    }
+
+    public function packageBooted(): void
+    {
+        CoreServiceProvider::setThemePath('bolt');
+
+        Livewire::component('bolt.fill-form', FillForms::class);
+        Livewire::component('bolt.list-forms', ListForms::class);
+        Livewire::component('bolt.list-entries', ListEntries::class);
     }
 }
