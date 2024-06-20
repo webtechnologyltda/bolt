@@ -110,5 +110,7 @@
                 {{ \LaraZeus\Bolt\Facades\Bolt::renderHookBlade('zeus-form.after') }}
             @endif
         </x-filament-panels::form>
+
+        <x-filament-actions::modals/>
     @endif
 </div>
