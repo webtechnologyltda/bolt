@@ -2,6 +2,30 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.59 - 2024-06-20
+
+### What's Changed
+
+* [Feature] Filament Modal Form Component by @mohaphez in https://github.com/lara-zeus/bolt/pull/311
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.58...v3.0.59
+
+## v3.0.58 - 2024-06-19
+
+### What's Changed
+
+* prevent delete if the form or response is linked to Extension by @atmonshi in https://github.com/lara-zeus/bolt/pull/312
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.57...v3.0.58
+
+## v3.0.57 - 2024-06-13
+
+### What's Changed
+
+* up the accordion version by @atmonshi in https://github.com/lara-zeus/bolt/pull/309
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.56...v3.0.57
+
 ## v3.0.56 - 2024-06-11
 
 ### What's Changed
@@ -465,11 +489,8 @@ and you can remove the fork for `alperenersoy/filament-export`
 ## 1.2.12 - 2023-08-14
 ### What's Changed
 - change reactive to debounce by @atmonshi in https://github.com/lara-zeus/bolt/pull/119
-
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.2.11...1.2.12
-
 ## 1.2.11 - 2023-08-06
-
 ### What's Changed
 
 - add german translation by @grafst in https://github.com/lara-zeus/bolt/pull/107

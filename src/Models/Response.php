@@ -2,7 +2,8 @@
 
 namespace LaraZeus\Bolt\Models;
 
-use Illuminate\Database\Eloquent\Concerns\HasUlids;
+use Filament\Notifications\Notification;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use LaraZeus\Bolt\Concerns\HasUpdates;
 use LaraZeus\Bolt\Database\Factories\ResponseFactory;
+use LaraZeus\Bolt\Facades\Extensions;
 
 /**
  * @property string $updated_at
@@ -19,11 +21,11 @@ use LaraZeus\Bolt\Database\Factories\ResponseFactory;
  * @property string $notes
  * @property string $response
  * @property Form $form
+ * @property FieldResponse $fieldsResponses
  */
 class Response extends Model
 {
     use HasFactory;
-    use HasUlids;
     use HasUpdates;
     use SoftDeletes;
 
@@ -31,35 +33,48 @@ class Response extends Model
 
     protected $guarded = [];
 
+    public function getTable()
+    {
+        return config('zeus-bolt.table-prefix') . 'responses';
+    }
+
     protected static function booted(): void
     {
         static::deleting(function (Response $response) {
-            if ($response->isForceDeleting()) {
-                $response->fieldsResponses()->withTrashed()->get()->each(function ($item) {
-                    $item->forceDelete();
-                });
-            } else {
-                $response->fieldsResponses->each(function ($item) {
-                    $item->delete();
-                });
+            $canDelete = Extensions::init($response->form, 'canDeleteResponse', ['response' => $response]);
+
+            if ($canDelete === null) {
+                $canDelete = true;
             }
+
+            if (! $canDelete) {
+                Notification::make()
+                    ->title(__('Can\'t delete a form linked to an Extensions'))
+                    ->danger()
+                    ->send();
+
+                return false;
+            }
+
+            if ($response->isForceDeleting()) {
+                $response->fieldsResponses()->withTrashed()->get()->each(fn ($item) => $item->forceDelete());
+            } else {
+                $response->fieldsResponses->each(fn ($item) => $item->delete());
+            }
+
+            return true;
         });
+    }
+
+    protected static function newFactory(): Factory
+    {
+        return ResponseFactory::new();
     }
 
     /** @phpstan-return HasMany<FieldResponse> */
     public function fieldsResponses(): HasMany
     {
         return $this->hasMany(config('zeus-bolt.models.FieldResponse'));
-    }
-
-    protected static function newFactory(): ResponseFactory
-    {
-        return ResponseFactory::new();
-    }
-
-    public function getTable()
-    {
-        return config('zeus-bolt.table-prefix').'responses';
     }
 
     public function user(): BelongsTo
