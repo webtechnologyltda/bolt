@@ -129,7 +129,7 @@ trait Schemata
                                     return $query;
                                 }
 
-                                return BoltPlugin::getModel('Category')::query()->whereBelongsTo(Filament::getTenant());
+                                return config('zeus-bolt.models.Category')::query()->whereBelongsTo(Filament::getTenant());
                             },
                         )
                         ->helperText(__('optional, organize your forms into categories'))
@@ -147,7 +147,7 @@ trait Schemata
                                 }),
                             TextInput::make('slug')->required()->maxLength(255)->label(__('slug')),
                         ])
-                        ->createOptionAction(fn (Action $action) => $action->hidden(auth()->user()->cannot('create', BoltPlugin::getModel('Category'))))
+                        ->createOptionAction(fn (Action $action) => $action->hidden(auth()->user()->cannot('create', config('zeus-bolt.models.Category'))))
                         ->getOptionLabelFromRecordUsing(fn (Category $record) => $record->name),
                 ]),
 

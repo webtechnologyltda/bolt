@@ -11,7 +11,6 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Filament\Actions\SetResponseStatus;
 use LaraZeus\Bolt\Filament\Exports\ResponseExporter;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
@@ -30,6 +29,11 @@ class ManageResponses extends ManageRelatedRecords
 
     protected static ?string $navigationIcon = 'heroicon-o-document-chart-bar';
 
+    public static function getNavigationLabel(): string
+    {
+        return __('Entries Report');
+    }
+
     public function table(Table $table): Table
     {
         $getUserModel = config('auth.providers.users.model')::getBoltUserFullNameAttribute();
@@ -42,7 +46,7 @@ class ManageResponses extends ManageRelatedRecords
                 ->circular()
                 ->toggleable(),
 
-            TextColumn::make('user.' . $getUserModel)
+            TextColumn::make('user.'.$getUserModel)
                 ->label(__('Name'))
                 ->toggleable()
                 ->sortable()
@@ -55,8 +59,8 @@ class ManageResponses extends ManageRelatedRecords
                 ->badge()
                 ->label(__('status'))
                 ->formatStateUsing(fn ($state) => __(str($state)->title()->toString()))
-                ->colors(BoltPlugin::getModel('FormsStatus')::pluck('key', 'color')->toArray())
-                ->icons(BoltPlugin::getModel('FormsStatus')::pluck('key', 'icon')->toArray())
+                ->colors(config('zeus-bolt.models.FormsStatus')::pluck('key', 'color')->toArray())
+                ->icons(config('zeus-bolt.models.FormsStatus')::pluck('key', 'icon')->toArray())
                 ->grow(false)
                 ->searchable('status'),
 
@@ -87,7 +91,7 @@ class ManageResponses extends ManageRelatedRecords
 
         return $table
             ->query(
-                BoltPlugin::getModel('Response')::query()
+                config('zeus-bolt.models.Response')::query()
                     ->where('form_id', $this->record->id)
                     ->with(['fieldsResponses'])
                     ->withoutGlobalScopes([
@@ -120,7 +124,7 @@ class ManageResponses extends ManageRelatedRecords
                     }),
                 Tables\Filters\TrashedFilter::make(),
                 SelectFilter::make('status')
-                    ->options(BoltPlugin::getModel('FormsStatus')::query()->pluck('label', 'key'))
+                    ->options(config('zeus-bolt.models.FormsStatus')::query()->pluck('label', 'key'))
                     ->label(__('Status')),
             ])
             ->bulkActions([
@@ -138,11 +142,6 @@ class ManageResponses extends ManageRelatedRecords
                     'responseID' => $record,
                 ]),
             );
-    }
-
-    public static function getNavigationLabel(): string
-    {
-        return __('Entries Report');
     }
 
     public function getTitle(): string

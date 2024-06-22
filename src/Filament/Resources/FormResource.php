@@ -3,6 +3,7 @@
 namespace LaraZeus\Bolt\Filament\Resources;
 
 use Closure;
+use Exception;
 use Filament\Forms\Form;
 use Filament\Infolists\Components\IconEntry;
 use Filament\Infolists\Components\Section;
@@ -35,6 +36,9 @@ use LaraZeus\Bolt\Enums\Resources;
 use LaraZeus\Bolt\Filament\Actions\ReplicateFormAction;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 use LaraZeus\Bolt\Models\Form as ZeusForm;
+use LaraZeus\BoltPro\BoltProServiceProvider;
+use LaraZeus\BoltPro\Livewire\PrefilledForm;
+use LaraZeus\BoltPro\Livewire\ShareForm;
 use LaraZeus\ListGroup\Infolists\ListEntry;
 
 class FormResource extends BoltResource
@@ -48,14 +52,9 @@ class FormResource extends BoltResource
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static Closure | array | null $boltFormSchema = null;
+    protected static Closure|array|null $boltFormSchema = null;
 
     protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
-
-    public static function getModel(): string
-    {
-        return BoltPlugin::getModel('Form');
-    }
 
     public static function getNavigationBadge(): ?string
     {
@@ -63,7 +62,12 @@ class FormResource extends BoltResource
             return null;
         }
 
-        return (string) BoltPlugin::getModel('Form')::query()->count();
+        return (string) config('zeus-bolt.models.Form')::query()->count();
+    }
+
+    public static function getModel(): string
+    {
+        return config('zeus-bolt.models.Form');
     }
 
     public static function getModelLabel(): string
@@ -132,18 +136,13 @@ class FormResource extends BoltResource
         return $form->schema(static::$boltFormSchema ?? static::getMainFormSchema());
     }
 
-    public function getBoltFormSchema(): array | Closure | null
-    {
-        return static::$boltFormSchema;
-    }
-
-    public static function getBoltFormSchemaUsing(array | Closure | null $form): void
+    public static function getBoltFormSchemaUsing(array|Closure|null $form): void
     {
         static::$boltFormSchema = $form;
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public static function table(Table $table): Table
     {
@@ -173,7 +172,7 @@ class FormResource extends BoltResource
                     ->label(__('Inactive')),
 
                 SelectFilter::make('category_id')
-                    ->options(BoltPlugin::getModel('Category')::pluck('name', 'id'))
+                    ->options(config('zeus-bolt.models.Category')::pluck('name', 'id'))
                     ->label(__('Category')),
             ])
             ->bulkActions([
@@ -181,6 +180,34 @@ class FormResource extends BoltResource
                 ForceDeleteBulkAction::make(),
                 RestoreBulkAction::make(),
             ]);
+    }
+
+    public static function getActions(): array
+    {
+        $action = [
+            ViewAction::make(),
+            EditAction::make('edit'),
+            ReplicateFormAction::make(),
+            RestoreAction::make(),
+            DeleteAction::make(),
+            ForceDeleteAction::make(),
+
+            ActionGroup::make([
+                Action::make('entries')
+                    ->color('warning')
+                    ->label(__('Entries'))
+                    ->icon('clarity-data-cluster-line')
+                    ->tooltip(__('view all entries'))
+                    ->url(fn (ZeusForm $record): string => url('admin/responses?form_id='.$record->id)),
+            ])
+                ->dropdown(false),
+        ];
+
+        $advancedActions = $moreActions = [];
+
+        $moreActions[] = ActionGroup::make($advancedActions)->dropdown(false);
+
+        return [ActionGroup::make(array_merge($action, $moreActions))];
     }
 
     /** @phpstan-return Builder<ZeusForm> */
@@ -204,11 +231,11 @@ class FormResource extends BoltResource
             'viewResponse' => Pages\ViewResponse::route('/{record}/response/{responseID}'),
         ];
 
-        if (class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class)) {
+        if (class_exists(BoltProServiceProvider::class)) {
             //@phpstan-ignore-next-line
-            $pages['prefilled'] = \LaraZeus\BoltPro\Livewire\PrefilledForm::route('/{record}/prefilled');
+            $pages['prefilled'] = PrefilledForm::route('/{record}/prefilled');
             //@phpstan-ignore-next-line
-            $pages['share'] = \LaraZeus\BoltPro\Livewire\ShareForm::route('/{record}/share');
+            $pages['share'] = ShareForm::route('/{record}/share');
         }
 
         return $pages;
@@ -224,34 +251,6 @@ class FormResource extends BoltResource
         ];
 
         return $widgets;
-    }
-
-    public static function getActions(): array
-    {
-        $action = [
-            ViewAction::make(),
-            EditAction::make('edit'),
-            ReplicateFormAction::make(),
-            RestoreAction::make(),
-            DeleteAction::make(),
-            ForceDeleteAction::make(),
-
-            ActionGroup::make([
-                Action::make('entries')
-                    ->color('warning')
-                    ->label(__('Entries'))
-                    ->icon('clarity-data-cluster-line')
-                    ->tooltip(__('view all entries'))
-                    ->url(fn (ZeusForm $record): string => url('admin/responses?form_id=' . $record->id)),
-            ])
-                ->dropdown(false),
-        ];
-
-        $advancedActions = $moreActions = [];
-
-        $moreActions[] = ActionGroup::make($advancedActions)->dropdown(false);
-
-        return [ActionGroup::make(array_merge($action, $moreActions))];
     }
 
     public static function getRecordSubNavigation(Page $page): array
@@ -270,5 +269,10 @@ class FormResource extends BoltResource
             ...$formNavs,
             ...$respNavs,
         ]);
+    }
+
+    public function getBoltFormSchema(): array|Closure|null
+    {
+        return static::$boltFormSchema;
     }
 }

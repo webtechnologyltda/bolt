@@ -46,12 +46,12 @@ class CategoryResource extends BoltResource
             return null;
         }
 
-        return (string) BoltPlugin::getModel('Category')::query()->count();
+        return (string) config('zeus-bolt.models.Category')::query()->count();
     }
 
     public static function getModel(): string
     {
-        return BoltPlugin::getModel('Category');
+        return config('zeus-bolt.models.Category');
     }
 
     public static function form(Form $form): Form

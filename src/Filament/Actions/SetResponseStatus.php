@@ -6,7 +6,6 @@ use Closure;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Tables\Actions\Action;
-use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Models\Response;
 
 /**
@@ -19,6 +18,13 @@ class SetResponseStatus extends Action
     public static function getDefaultName(): ?string
     {
         return 'set-status';
+    }
+
+    public function mutateRecordDataUsing(?Closure $callback): static
+    {
+        $this->mutateRecordDataUsing = $callback;
+
+        return $this;
     }
 
     protected function setUp(): void
@@ -43,18 +49,11 @@ class SetResponseStatus extends Action
             Select::make('status')
                 ->label(__('status'))
                 ->default(fn (Response $record) => $record->status)
-                ->options(BoltPlugin::getModel('FormsStatus')::query()->pluck('label', 'key'))
+                ->options(config('zeus-bolt.models.FormsStatus')::query()->pluck('label', 'key'))
                 ->required(),
             Textarea::make('notes')
                 ->default(fn (Response $record) => $record->notes)
                 ->label(__('Notes')),
         ]);
-    }
-
-    public function mutateRecordDataUsing(?Closure $callback): static
-    {
-        $this->mutateRecordDataUsing = $callback;
-
-        return $this;
     }
 }

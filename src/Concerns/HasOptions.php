@@ -13,7 +13,6 @@ use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Guava\FilamentIconPicker\Forms\IconPicker;
 use LaraZeus\Accordion\Forms\Accordion;
-use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Fields\FieldsContract;
 
@@ -118,7 +117,7 @@ trait HasOptions
 
     public static function dataSource(): Grid
     {
-        $dataSources = BoltPlugin::getModel('Collection')::get()
+        $dataSources = config('zeus-bolt.models.Collection')::get()
             ->mapWithKeys(function ($item, $key) {
                 return [
                     $key => [
@@ -144,7 +143,7 @@ trait HasOptions
         return Grid::make()
             ->schema([
                 Select::make('options.dataSource')
-                    ->createOptionAction(fn (Action $action) => $action->hidden(auth()->user()->cannot('create', BoltPlugin::getModel('Collection'))))
+                    ->createOptionAction(fn (Action $action) => $action->hidden(auth()->user()->cannot('create', config('zeus-bolt.models.Collection'))))
                     ->required()
                     ->createOptionForm([
                         TextInput::make('name')
@@ -173,7 +172,7 @@ trait HasOptions
                             ]),
                     ])
                     ->createOptionUsing(function (array $data) {
-                        $collectionModel = BoltPlugin::getModel('Collection');
+                        $collectionModel = config('zeus-bolt.models.Collection');
                         $collection = new $collectionModel;
                         $collection->fill($data);
                         $collection->save();

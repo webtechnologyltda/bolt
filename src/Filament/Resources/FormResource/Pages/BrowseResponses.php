@@ -7,7 +7,6 @@ use Filament\Tables\Columns\ViewColumn;
 use Filament\Tables\Enums\ActionsPosition;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Filament\Actions\SetResponseStatus;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Models\Form;
@@ -29,7 +28,7 @@ class BrowseResponses extends ManageRelatedRecords
     {
         return $table
             ->paginated([1])
-            ->query(BoltPlugin::getModel('Response')::query()->where('form_id', $this->record->id))
+            ->query(config('zeus-bolt.models.Response')::query()->where('form_id', $this->record->id))
             ->columns([
                 ViewColumn::make('response')
                     ->label(__('Browse Entries'))
@@ -40,7 +39,7 @@ class BrowseResponses extends ManageRelatedRecords
             ], position: ActionsPosition::AfterContent)
             ->filters([
                 SelectFilter::make('status')
-                    ->options(BoltPlugin::getModel('FormsStatus')::query()->pluck('label', 'key'))
+                    ->options(config('zeus-bolt.models.FormsStatus')::query()->pluck('label', 'key'))
                     ->label(__('Status')),
             ]);
     }
