@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fb4441a09246d5eefbbe0d5c715e9640",
+    "content-hash": "2e9e47ba9bc8b43f5b12a5e99a0d2e78",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -129,6 +129,89 @@
                 "source": "https://github.com/archtechx/laravel-seo/tree/v0.10.1"
             },
             "time": "2024-05-03T22:09:30+00:00"
+        },
+        {
+            "name": "awcodes/filament-tiptap-editor",
+            "version": "v3.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/awcodes/filament-tiptap-editor.git",
+                "reference": "c749ed6cdc2e099e98a62b1efcc709d21ca7d64a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/awcodes/filament-tiptap-editor/zipball/c749ed6cdc2e099e98a62b1efcc709d21ca7d64a",
+                "reference": "c749ed6cdc2e099e98a62b1efcc709d21ca7d64a",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.1",
+                "spatie/laravel-package-tools": "^1.9.2",
+                "ueberdosis/tiptap-php": "^1.1"
+            },
+            "require-dev": {
+                "awcodes/html-faker": "^0.1.0",
+                "filament/filament": "^3.0",
+                "laravel/pint": "^1.0",
+                "nunomaduro/collision": "^7.0",
+                "orchestra/testbench": "^8.0",
+                "pestphp/pest": "^2.19",
+                "pestphp/pest-plugin-laravel": "^2.2",
+                "pestphp/pest-plugin-livewire": "^2.1",
+                "spatie/laravel-ray": "^1.26"
+            },
+            "type": "package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "FilamentTiptapEditor\\FilamentTiptapEditorServiceProvider"
+                    ]
+                },
+                "aliases": {
+                    "TiptapConverter": "FilamentTiptapEditor\\Facades\\TiptapConverter"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "FilamentTiptapEditor\\": "src/",
+                    "FilamentTiptapEditor\\Tests\\": "tests/src",
+                    "FilamentTiptapEditor\\Tests\\Database\\Factories\\": "tests/database/factories"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Adam Weston",
+                    "email": "awcodes1@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A Tiptap integration for Filament Admin/Forms.",
+            "keywords": [
+                "editor",
+                "filament",
+                "framework",
+                "laravel",
+                "tiptap",
+                "wysiwyg"
+            ],
+            "support": {
+                "issues": "https://github.com/awcodes/filament-tiptap-editor/issues",
+                "source": "https://github.com/awcodes/filament-tiptap-editor/tree/v3.4.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/awcodes",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-06-17T12:06:37+00:00"
         },
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -534,6 +617,151 @@
                 }
             ],
             "time": "2024-02-28T13:48:51+00:00"
+        },
+        {
+            "name": "codeat3/blade-fluentui-system-icons",
+            "version": "1.33.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/codeat3/blade-fluentui-system-icons.git",
+                "reference": "ea60020f7d9ba2c34884b2364dd5217f6b2a8050"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/codeat3/blade-fluentui-system-icons/zipball/ea60020f7d9ba2c34884b2364dd5217f6b2a8050",
+                "reference": "ea60020f7d9ba2c34884b2364dd5217f6b2a8050",
+                "shasum": ""
+            },
+            "require": {
+                "blade-ui-kit/blade-icons": "^1.1",
+                "illuminate/support": "^8.0|^9.0|^10.0|^11.0",
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "codeat3/blade-icon-generation-helpers": "0.8",
+                "codeat3/phpcs-styles": "^1.0",
+                "orchestra/testbench": "^6.0|^7.0|^8.0|^9.0",
+                "phpunit/phpunit": "^9.0|^10.5|^11.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Codeat3\\BladeFluentUiSystemIcons\\BladeFluentUiSystemIconsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Codeat3\\BladeFluentUiSystemIcons\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Swapnil Sarwe",
+                    "homepage": "https://swapnilsarwe.com"
+                },
+                {
+                    "name": "Dries Vints",
+                    "homepage": "https://driesvints.com"
+                }
+            ],
+            "description": "A package to easily make use of FluentUI System Icons in your Laravel Blade views.",
+            "homepage": "https://github.com/codeat3/blade-fluentui-system-icons",
+            "keywords": [
+                "FluentUI",
+                "blade",
+                "icons",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/codeat3/blade-fluentui-system-icons/issues",
+                "source": "https://github.com/codeat3/blade-fluentui-system-icons/tree/1.33.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/swapnilsarwe",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-02-28T10:20:44+00:00"
+        },
+        {
+            "name": "codeat3/blade-google-material-design-icons",
+            "version": "1.19.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/codeat3/blade-google-material-design-icons.git",
+                "reference": "7a20f3a763edc54dba69725660eff2b2e99f8dad"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/codeat3/blade-google-material-design-icons/zipball/7a20f3a763edc54dba69725660eff2b2e99f8dad",
+                "reference": "7a20f3a763edc54dba69725660eff2b2e99f8dad",
+                "shasum": ""
+            },
+            "require": {
+                "blade-ui-kit/blade-icons": "^1.1",
+                "illuminate/support": "^8.0|^9.0|^10.0|^11.0",
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "codeat3/blade-icon-generation-helpers": "^0.8",
+                "codeat3/phpcs-styles": "^1.0",
+                "orchestra/testbench": "^6.0|^7.0|^8.0|^9.0",
+                "phpunit/phpunit": "^9.0|^10.5|^11.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Codeat3\\BladeGoogleMaterialDesignIcons\\BladeGoogleMaterialDesignIconsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Codeat3\\BladeGoogleMaterialDesignIcons\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Swapnil Sarwe",
+                    "homepage": "https://swapnilsarwe.com"
+                },
+                {
+                    "name": "Dries Vints",
+                    "homepage": "https://driesvints.com"
+                }
+            ],
+            "description": "A package to easily make use of \"Google Fonts Material Icons\" in your Laravel Blade views.",
+            "homepage": "https://github.com/codeat3/blade-google-material-design-icons",
+            "keywords": [
+                "blade",
+                "google",
+                "icons",
+                "laravel",
+                "material"
+            ],
+            "support": {
+                "issues": "https://github.com/codeat3/blade-google-material-design-icons/issues",
+                "source": "https://github.com/codeat3/blade-google-material-design-icons/tree/1.19.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/swapnilsarwe",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-02-28T15:02:13+00:00"
         },
         {
             "name": "codeat3/blade-iconpark",
@@ -2489,16 +2717,16 @@
         },
         {
             "name": "lara-zeus/list-group",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lara-zeus/list-group.git",
-                "reference": "ed75fa899db579125938688df0e1f859fec973f9"
+                "reference": "8d2b3599a0a9dc625a3d9798325efac0980ffb8b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lara-zeus/list-group/zipball/ed75fa899db579125938688df0e1f859fec973f9",
-                "reference": "ed75fa899db579125938688df0e1f859fec973f9",
+                "url": "https://api.github.com/repos/lara-zeus/list-group/zipball/8d2b3599a0a9dc625a3d9798325efac0980ffb8b",
+                "reference": "8d2b3599a0a9dc625a3d9798325efac0980ffb8b",
                 "shasum": ""
             },
             "require": {
@@ -2507,9 +2735,9 @@
                 "spatie/laravel-package-tools": "^1.16"
             },
             "require-dev": {
+                "larastan/larastan": "^2.0",
                 "laravel/pint": "^1.0",
                 "nunomaduro/collision": "^7.0",
-                "nunomaduro/larastan": "^2.0.1",
                 "nunomaduro/phpinsights": "^2.8",
                 "orchestra/testbench": "^8.0",
                 "phpstan/extension-installer": "^1.1"
@@ -2572,20 +2800,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-04-03T10:13:39+00:00"
+            "time": "2024-06-20T09:27:06+00:00"
         },
         {
             "name": "laravel/framework",
-            "version": "v10.48.13",
+            "version": "v10.48.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "2c6816d697a4362c09c066118addda251b70b98a"
+                "reference": "27cb4736bb7e60a5311ec73160068dfbcf98336b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/2c6816d697a4362c09c066118addda251b70b98a",
-                "reference": "2c6816d697a4362c09c066118addda251b70b98a",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/27cb4736bb7e60a5311ec73160068dfbcf98336b",
+                "reference": "27cb4736bb7e60a5311ec73160068dfbcf98336b",
                 "shasum": ""
             },
             "require": {
@@ -2779,7 +3007,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2024-06-18T16:46:35+00:00"
+            "time": "2024-06-21T10:06:42+00:00"
         },
         {
             "name": "laravel/prompts",
@@ -3679,6 +3907,71 @@
                 "source": "https://github.com/Masterminds/html5-php/tree/2.9.0"
             },
             "time": "2024-03-31T07:05:07+00:00"
+        },
+        {
+            "name": "mckenziearts/blade-untitledui-icons",
+            "version": "v1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mckenziearts/blade-untitledui-icons.git",
+                "reference": "46c98a2f5c8fa41960a997b2e2cb0481e431240d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mckenziearts/blade-untitledui-icons/zipball/46c98a2f5c8fa41960a997b2e2cb0481e431240d",
+                "reference": "46c98a2f5c8fa41960a997b2e2cb0481e431240d",
+                "shasum": ""
+            },
+            "require": {
+                "blade-ui-kit/blade-icons": "^1.6",
+                "illuminate/support": "^9.0|^10.0|^11.0",
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^7.0|^8.0|^9.0",
+                "phpunit/phpunit": "^9.0|^10.5|^11.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Mckenziearts\\BladeUntitledUIIcons\\BladeUntitledUIIconsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Mckenziearts\\BladeUntitledUIIcons\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Arthur Monney",
+                    "homepage": "https://arthurmonney.me"
+                }
+            ],
+            "description": "A package to easily make use of UntitledUI icons in your Laravel Blade views.",
+            "homepage": "https://github.com/mckenziearts/blade-untitledui-icons",
+            "keywords": [
+                "Untitled UI",
+                "blade",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/mckenziearts/blade-untitledui-icons/issues",
+                "source": "https://github.com/mckenziearts/blade-untitledui-icons/tree/v1.3"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/mckenziearts",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-04-05T11:39:07+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -5021,6 +5314,84 @@
             "time": "2024-03-12T23:54:24+00:00"
         },
         {
+            "name": "scrivo/highlight.php",
+            "version": "v9.18.1.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/scrivo/highlight.php.git",
+                "reference": "d45585504777e6194a91dffc7270ca39833787f8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/scrivo/highlight.php/zipball/d45585504777e6194a91dffc7270ca39833787f8",
+                "reference": "d45585504777e6194a91dffc7270ca39833787f8",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8|^5.7",
+                "sabberworm/php-css-parser": "^8.3",
+                "symfony/finder": "^2.8|^3.4",
+                "symfony/var-dumper": "^2.8|^3.4"
+            },
+            "suggest": {
+                "ext-mbstring": "Allows highlighting code with unicode characters and supports language with unicode keywords"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "HighlightUtilities/functions.php"
+                ],
+                "psr-0": {
+                    "Highlight\\": "",
+                    "HighlightUtilities\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Geert Bergman",
+                    "homepage": "http://www.scrivo.org/",
+                    "role": "Project Author"
+                },
+                {
+                    "name": "Vladimir Jimenez",
+                    "homepage": "https://allejo.io",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Martin Folkers",
+                    "homepage": "https://twobrain.io",
+                    "role": "Contributor"
+                }
+            ],
+            "description": "Server side syntax highlighter that supports 185 languages. It's a PHP port of highlight.js",
+            "keywords": [
+                "code",
+                "highlight",
+                "highlight.js",
+                "highlight.php",
+                "syntax"
+            ],
+            "support": {
+                "issues": "https://github.com/scrivo/highlight.php/issues",
+                "source": "https://github.com/scrivo/highlight.php"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/allejo",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-12-03T06:45:28+00:00"
+        },
+        {
             "name": "spatie/color",
             "version": "1.5.3",
             "source": {
@@ -5279,6 +5650,69 @@
                 }
             ],
             "time": "2024-05-14T11:35:51+00:00"
+        },
+        {
+            "name": "spatie/shiki-php",
+            "version": "1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/shiki-php.git",
+                "reference": "34fe61405b405c735c82a9c56feffd3f7c5544ff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/shiki-php/zipball/34fe61405b405c735c82a9c56feffd3f7c5544ff",
+                "reference": "34fe61405b405c735c82a9c56feffd3f7c5544ff",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^v3.0",
+                "pestphp/pest": "^1.8",
+                "phpunit/phpunit": "^9.5",
+                "spatie/pest-plugin-snapshots": "^1.1",
+                "spatie/ray": "^1.10"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\ShikiPhp\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rias Van der Veken",
+                    "email": "rias@spatie.be",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Highlight code using Shiki in PHP",
+            "homepage": "https://github.com/spatie/shiki-php",
+            "keywords": [
+                "shiki",
+                "spatie"
+            ],
+            "support": {
+                "source": "https://github.com/spatie/shiki-php/tree/1.3.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-06-01T11:28:41+00:00"
         },
         {
             "name": "symfony/console",
@@ -7634,6 +8068,75 @@
                 "source": "https://github.com/tijsverkoyen/CssToInlineStyles/tree/v2.2.7"
             },
             "time": "2023-12-08T13:03:43+00:00"
+        },
+        {
+            "name": "ueberdosis/tiptap-php",
+            "version": "1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ueberdosis/tiptap-php.git",
+                "reference": "1d4be936f81b47514fd46ae506e74bc57cd26eef"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ueberdosis/tiptap-php/zipball/1d4be936f81b47514fd46ae506e74bc57cd26eef",
+                "reference": "1d4be936f81b47514fd46ae506e74bc57cd26eef",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4|^8.0",
+                "scrivo/highlight.php": "v9.18.1.9",
+                "spatie/shiki-php": "^1.3"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.5",
+                "pestphp/pest": "^1.21",
+                "phpunit/phpunit": "^9.5",
+                "vimeo/psalm": "^4.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Tiptap\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Hans Pagel",
+                    "email": "humans@tiptap.dev",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A PHP package to work with Tiptap output",
+            "homepage": "https://github.com/ueberdosis/tiptap-php",
+            "keywords": [
+                "prosemirror",
+                "tiptap",
+                "ueberdosis"
+            ],
+            "support": {
+                "issues": "https://github.com/ueberdosis/tiptap-php/issues",
+                "source": "https://github.com/ueberdosis/tiptap-php/tree/1.3.0"
+            },
+            "funding": [
+                {
+                    "url": "https://tiptap.dev/pricing",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/ueberdosis",
+                    "type": "github"
+                },
+                {
+                    "url": "https://opencollective.com/tiptap",
+                    "type": "open_collective"
+                }
+            ],
+            "time": "2023-06-25T19:44:51+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -12208,16 +12711,16 @@
         },
         {
             "name": "rector/rector",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "556509e2dcf527369892b7d411379c4a02f31859"
+                "reference": "c930cdb21294f10955ddfc31b720971e8333943d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/556509e2dcf527369892b7d411379c4a02f31859",
-                "reference": "556509e2dcf527369892b7d411379c4a02f31859",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/c930cdb21294f10955ddfc31b720971e8333943d",
+                "reference": "c930cdb21294f10955ddfc31b720971e8333943d",
                 "shasum": ""
             },
             "require": {
@@ -12255,7 +12758,7 @@
             ],
             "support": {
                 "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/1.1.0"
+                "source": "https://github.com/rectorphp/rector/tree/1.1.1"
             },
             "funding": [
                 {
@@ -12263,7 +12766,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-05-18T09:40:27+00:00"
+            "time": "2024-06-21T07:51:17+00:00"
         },
         {
             "name": "sebastian/cli-parser",

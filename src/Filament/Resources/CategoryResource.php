@@ -75,13 +75,13 @@ class CategoryResource extends BoltResource
                         TextInput::make('slug')->required()->maxLength(255)->label(__('slug')),
                         TextInput::make('ordering')->required()->numeric()->label(__('ordering')),
                         Toggle::make('is_active')->label(__('Is Active'))->default(1),
-                        TiptapEditor::make('description')
-                            ->maxLength(65535)
-                            ->profile('simple')
-                            ->directory('acampamentos')
-                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml'])
-                            ->columnSpan(['sm' => 2])
-                            ->label(__('Description')),
+                        //                        TiptapEditor::make('description')
+                        //                            ->maxLength(65535)
+                        //                            ->profile('simple')
+                        //                            ->directory('acampamentos')
+                        //                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml'])
+                        //                            ->columnSpan(['sm' => 2])
+                        //                            ->label(__('Description')),
                         FileUpload::make('logo')
                             ->disk(config('zeus-bolt.uploadDisk'))
                             ->directory(config('zeus-bolt.uploadDirectory'))

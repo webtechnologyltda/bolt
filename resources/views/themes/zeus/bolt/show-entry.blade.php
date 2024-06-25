@@ -1,3 +1,4 @@
+@php use Filament\Infolists\Infolist; @endphp
 <div x-data class="space-y-4 my-6 mx-4 w-full">
 
     <x-slot name="header">
@@ -23,7 +24,7 @@
                         <div class="py-2 text-ellipsis overflow-auto">
                             <p>{{ $resp->field->name }}</p>
                             <p class="font-semibold mb-2">{!! (new $resp->field->type())->getResponse($resp->field, $resp) !!}</p>
-                            <hr />
+                            <hr/>
                         </div>
                     @endforeach
                 </div>
@@ -45,7 +46,7 @@
                 <p class="flex flex-col">
                     <span class="text-base font-light">{{ __('created at') }}:</span>
                     <span
-                        class="font-semibold">{{ $response->created_at->format(\Filament\Infolists\Infolist::$defaultDateDisplayFormat) }}-{{ $response->created_at->format(\Filament\Infolists\Infolist::$defaultTimeDisplayFormat) }}</span>
+                        class="font-semibold">{{ $response->created_at->format(Infolist::$defaultDateDisplayFormat) }}-{{ $response->created_at->format(Infolist::$defaultTimeDisplayFormat) }}</span>
                 </p>
             </x-filament::section>
             <div>
@@ -64,7 +65,7 @@
                             <span>{{ __('status') }}</span>
                             @php $getStatues = $response->statusDetails() @endphp
                             <span class="{{ $getStatues['class'] }}"
-                                x-tooltip="{
+                                  x-tooltip="{
                                     content: @js(__('status')),
                                     theme: $store.theme,
                                   }">

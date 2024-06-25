@@ -58,7 +58,7 @@ return [
         ],
     ],
 
-    'defaultMailable' => \LaraZeus\Bolt\Mail\FormSubmission::class,
+    'defaultMailable' => FormSubmission::class,
 
     'uploadDisk' => 'public',
 
