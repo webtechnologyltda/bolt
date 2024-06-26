@@ -21,6 +21,7 @@
         <div class="space-y-4">
             <x-filament::section>
                 <x-slot name="heading" class="text-primary-600">
+                    @svg('heroicon-s-user', 'text-gray-700 dark:text-white w-6 h-6 inline mr-2')
                     {{ __('User Details') }}
                 </x-slot>
                 @if ($getRecord->user_id === null)
@@ -39,12 +40,14 @@
                 @endif
                 <p class="flex flex-col my-1 gap-1">
                     <span class="text-base font-light">{{ __('created at') }}:</span>
-                    <span class="font-semibold">{{ $getRecord->created_at->format('d/m/Y - H:i:s') }}</span>
+                    <span class="font-semibold">{{ $getRecord->created_at->format('d/M/Y H:i') }}</span>
                 </p>
             </x-filament::section>
             <x-filament::section>
                 <x-slot name="heading" class="text-primary-600">
-                    <p class="text-primary-600 font-semibold">{{ __('Entry Details') }}</p>
+                    <p class="my-3 mx-1 text-primary-600 font-semibold">
+                        @svg('gmdi-checklist-o', 'text-primary-600 w-6 h-6 inline mr-2')
+                        {{ __('Entry Details') }}</p>
                 </x-slot>
 
                 <div class="flex flex-col mb-4">
