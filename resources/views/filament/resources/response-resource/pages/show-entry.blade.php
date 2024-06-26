@@ -1,3 +1,4 @@
+@php use Filament\Infolists\Infolist; @endphp
 <x-filament::page>
     <div x-data class="space-y-4 my-6 mx-4 w-full">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -10,7 +11,7 @@
                                 <p class="font-semibold mb-2">
                                     {!! (new $resp->field->type())->getResponse($resp->field, $resp) !!}
                                 </p>
-                                <hr />
+                                <hr/>
                             </div>
                         @endif
                     @endforeach
@@ -26,8 +27,8 @@
                     @else
                         <div class="flex gap-2 items-center">
                             <x-filament::avatar class="rounded-full" size="lg" :src="$response->user->avatar"
-                                :alt="$response->user
-                                    ->{config('auth.providers.users.model')::getUserFullNameAttribute()} ?? ''" />
+                                                :alt="$response->user
+                                    ->{config('auth.providers.users.model')::getUserFullNameAttribute()} ?? ''"/>
                             <p class="flex flex-col gap-1">
                                 <span>{{ $response->user->{config('auth.providers.users.model')::getUserFullNameAttribute()} ?? '' }}</span>
                                 <span>{{ $response->user->email ?? '' }}</span>
@@ -37,7 +38,7 @@
                     <p class="flex flex-col my-1 gap-1">
                         <span class="text-base font-light">{{ __('created at') }}:</span>
                         <span
-                            class="font-semibold">{{ $response->created_at->format(\Filament\Infolists\Infolist::$defaultDateDisplayFormat) }}-{{ $response->created_at->format(\Filament\Infolists\Infolist::$defaultTimeDisplayFormat) }}</span>
+                            class="font-semibold">{{ $response->created_at->format(Infolist::$defaultDateDisplayFormat) }}-{{ $response->created_at->format(Infolist::$defaultTimeDisplayFormat) }}</span>
                     </p>
                 </x-filament::section>
                 <x-filament::section>
@@ -54,7 +55,7 @@
                         <span>{{ __('status') }}</span>
                         @php $getStatues = $response->statusDetails() @endphp
                         <span class="{{ $getStatues['class'] }}"
-                            x-tooltip="{
+                              x-tooltip="{
                                     content: @js(__('status')),
                                     theme: $store.theme,
                                   }">
