@@ -2,6 +2,15 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.61 - 2024-07-12
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.1.0 to 2.2.0 by @dependabot in https://github.com/lara-zeus/bolt/pull/315
+* add loading indicator for the form submit button by @atmonshi in https://github.com/lara-zeus/bolt/pull/317
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.60...v3.0.61
+
 ## v3.0.60 - 2024-07-03
 
 ### What's Changed
@@ -505,7 +514,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 ## 1.2.11 - 2023-08-06
 ### What's Changed
 - add german translation by @grafst in https://github.com/lara-zeus/bolt/pull/107
-
 ### New Contributors
 
 - @grafst made their first contribution in https://github.com/lara-zeus/bolt/pull/107
