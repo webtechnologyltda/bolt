@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.62 - 2024-07-17
+
+### What's Changed
+
+* fix if the field is from a preset by @atmonshi in https://github.com/lara-zeus/bolt/pull/318
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.61...v3.0.62
+
 ## v3.0.61 - 2024-07-12
 
 ### What's Changed
@@ -515,7 +523,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 ### What's Changed
 - add german translation by @grafst in https://github.com/lara-zeus/bolt/pull/107
 ### New Contributors
-
 - @grafst made their first contribution in https://github.com/lara-zeus/bolt/pull/107
 
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.2.10...1.2.11
