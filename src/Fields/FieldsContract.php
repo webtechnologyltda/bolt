@@ -90,7 +90,7 @@ abstract class FieldsContract implements Arrayable, Fields
                     return null;
                 }
 
-                if ($zeusField->section->form->extensions !== 'LaraZeus\\BoltPro\\Extensions\\Grades') {
+                if (!$zeusField instanceof FieldPreset && $zeusField->section->form->extensions !== 'LaraZeus\\BoltPro\\Extensions\\Grades') {
                     return null;
                 }
 
