@@ -2,6 +2,35 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.62 - 2024-07-17
+
+### What's Changed
+
+* fix if the field is from a preset by @atmonshi in https://github.com/lara-zeus/bolt/pull/318
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.61...v3.0.62
+
+## v3.0.61 - 2024-07-12
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.1.0 to 2.2.0 by @dependabot in https://github.com/lara-zeus/bolt/pull/315
+* add loading indicator for the form submit button by @atmonshi in https://github.com/lara-zeus/bolt/pull/317
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.60...v3.0.61
+
+## v3.0.60 - 2024-07-03
+
+### What's Changed
+
+* Added Spanish translations by @dkstudio86 in https://github.com/lara-zeus/bolt/pull/314
+
+### New Contributors
+
+* @dkstudio86 made their first contribution in https://github.com/lara-zeus/bolt/pull/314
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.59...v3.0.60
+
 ## v3.0.59 - 2024-06-20
 
 ### What's Changed
@@ -492,11 +521,8 @@ and you can remove the fork for `alperenersoy/filament-export`
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.2.11...1.2.12
 ## 1.2.11 - 2023-08-06
 ### What's Changed
-
 - add german translation by @grafst in https://github.com/lara-zeus/bolt/pull/107
-
 ### New Contributors
-
 - @grafst made their first contribution in https://github.com/lara-zeus/bolt/pull/107
 
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.2.10...1.2.11
