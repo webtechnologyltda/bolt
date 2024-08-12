@@ -50,7 +50,7 @@ trait Configuration
 
     public static function getSchema(string $type): ?string
     {
-        return (new static())::get()->getCustomSchema()[$type];
+        return (new static)::get()->getCustomSchema()[$type];
     }
 
     public function boltModels(array $models): static
@@ -69,7 +69,7 @@ trait Configuration
     {
         return array_merge(
             config('zeus-bolt.models'),
-            (new static())::get()->getBoltModels()
+            (new static)::get()->getBoltModels()
         )[$model];
     }
 
@@ -153,6 +153,6 @@ trait Configuration
 
     public static function getNavigationBadgesVisibility(?Resources $resource = null): bool
     {
-        return (new static())::get()->getShowNavigationBadges($resource);
+        return (new static)::get()->getShowNavigationBadges($resource);
     }
 }
