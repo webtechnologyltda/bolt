@@ -12,8 +12,21 @@ we use [tailwind Css](https://tailwindcss.com/) and custom themes by filament, m
 You need to add these files to your `tailwind.config.js` file in the `content` section.
 
 * frontend:
-  * `./vendor/lara-zeus/core/resources/views/**/*.blade.php`
-  * `./vendor/lara-zeus/bolt/resources/views/themes/**/*.blade.php`
+
+```js
+content: [
+    //...
+  './vendor/lara-zeus/core/resources/views/**/*.blade.php',
+  './vendor/lara-zeus/bolt/resources/views/themes/**/*.blade.php',
+]
+```
 
 * filament:
-  * `./vendor/lara-zeus/bolt/resources/views/filament/**/*.blade.php`
+
+```js
+content: [
+    //...
+  './vendor/lara-zeus/bolt/resources/views/filament/**/*.blade.php',
+  './vendor/lara-zeus/accordion/resources/views/**/*.blade.php',
+]
+```
