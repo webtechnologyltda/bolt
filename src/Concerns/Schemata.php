@@ -405,11 +405,10 @@ trait Schemata
                         ->icon('heroicon-m-cog')
                         ->modalIcon('heroicon-m-cog')
                         ->modalDescription(__('advanced fields settings'))
-                        ->fillForm(fn (
-                            $state,
-                            array $arguments,
-                            Repeater $component
-                        ) => $component->getItemState($arguments['item']))
+                        ->fillForm(
+                            fn (array $arguments, Repeater $component)
+                                => $component->getItemState($arguments['item'])
+                        )
                         ->form(function (Get $get, array $arguments, Repeater $component) {
                             $allSections = self::getVisibleFields($get('../../sections'), $arguments);
 
