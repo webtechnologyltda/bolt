@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.63 - 2024-08-16
+
+### What's Changed
+
+* hide visibility on create form by @atmonshi in https://github.com/lara-zeus/bolt/pull/319
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.62...v3.0.63
+
 ## v3.0.62 - 2024-07-17
 
 ### What's Changed
@@ -524,7 +532,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 - add german translation by @grafst in https://github.com/lara-zeus/bolt/pull/107
 ### New Contributors
 - @grafst made their first contribution in https://github.com/lara-zeus/bolt/pull/107
-
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.2.10...1.2.11
 
 ## 1.2.10 - 2023-07-13
