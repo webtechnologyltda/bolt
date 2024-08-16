@@ -33,8 +33,8 @@ trait HasOptions
         return Accordion::make('visibility-options')
             ->label(__('Conditional Visibility'))
             ->icon('iconpark-eyes')
-            ->visible(fn(Livewire $livewire)=>str($livewire->getName())
-                ->replace('-form','')
+            ->visible(fn (Livewire $livewire) => str($livewire->getName())
+                ->replace('-form', '')
                 ->explode('.')
                 ->last() === 'edit')
             ->schema([
