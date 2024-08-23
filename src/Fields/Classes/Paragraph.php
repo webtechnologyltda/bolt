@@ -41,6 +41,7 @@ class Paragraph extends FieldsContract
                             self::columnSpanFull(),
                             self::hintOptions(),
                         ]),
+                    self::visibility($sections),
                 ]),
         ];
     }
@@ -50,6 +51,7 @@ class Paragraph extends FieldsContract
         return [
             self::hiddenHintOptions(),
             self::hiddenColumnSpanFull(),
+            self::hiddenVisibility(),
         ];
     }
 
