@@ -28,7 +28,7 @@ class CollectionResource extends BoltResource
 
     public static function getModel(): string
     {
-        return BoltPlugin::getModel('Collection');
+        return config('zeus-bolt.models.Collection');
     }
 
     public static function getNavigationBadge(): ?string
@@ -37,7 +37,7 @@ class CollectionResource extends BoltResource
             return null;
         }
 
-        return (string) BoltPlugin::getModel('Collection')::query()->count();
+        return (string) config('zeus-bolt.models.Collection')::query()->count();
     }
 
     public static function getModelLabel(): string

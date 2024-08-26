@@ -13,6 +13,7 @@ use LaraZeus\Bolt\Events\FormSent;
 use LaraZeus\Bolt\Facades\Extensions;
 use LaraZeus\Bolt\Models\Form;
 use Livewire\Component;
+use Throwable;
 
 /**
  * @property mixed $form
@@ -21,6 +22,8 @@ class FillForms extends Component implements Forms\Contracts\HasForms
 {
     use Designer;
     use InteractsWithForms;
+
+    protected static ?string $boltFormDesigner = null;
 
     public Form $zeusForm;
 
@@ -32,32 +35,13 @@ class FillForms extends Component implements Forms\Contracts\HasForms
 
     public bool $inline = false;
 
-    protected static ?string $boltFormDesigner = null;
-
-    public function getBoltFormDesigner(): ?string
-    {
-        return static::$boltFormDesigner;
-    }
-
     public static function getBoltFormDesignerUsing(?string $form): void
     {
         static::$boltFormDesigner = $form;
     }
 
-    protected function getFormSchema(): array
-    {
-        $getDesignerClass = $this->getBoltFormDesigner() ?? Designer::class;
-
-        return $getDesignerClass::ui($this->zeusForm, $this->inline);
-    }
-
-    protected function getFormModel(): Form
-    {
-        return $this->zeusForm;
-    }
-
     /**
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function mount(
         mixed $slug,
@@ -129,6 +113,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
             foreach ($emails as $email) {
                 $mailable = config('zeus-bolt.defaultMailable');
                 Mail::to($email)->send(new $mailable($this->zeusForm, $response));
+
             }
         }
 
@@ -139,11 +124,11 @@ class FillForms extends Component implements Forms\Contracts\HasForms
     {
         if (! $this->inline) {
             seo()
-                ->title($this->zeusForm->name . ' - ' . __('Forms') . ' - ' . config('zeus.site_title', 'Laravel'))
-                ->description($this->zeusForm->description . ' - ' . config('zeus.site_description') . ' ' . config('zeus.site_title'))
+                ->title($this->zeusForm->name.' - '.__('Forms').' - '.config('zeus.site_title', 'Laravel'))
+                ->description($this->zeusForm->description.' - '.config('zeus.site_description').' '.config('zeus.site_title'))
                 ->site(config('zeus.site_title', 'Laravel'))
-                ->rawTag('favicon', '<link rel="icon" type="image/x-icon" href="' . asset('favicon/favicon.ico') . '">')
-                ->rawTag('<meta name="theme-color" content="' . config('zeus.site_color') . '" />')
+                ->rawTag('favicon', '<link rel="icon" type="image/x-icon" href="'.asset('favicon/favicon.ico').'">')
+                ->rawTag('<meta name="theme-color" content="'.config('zeus.site_color').'" />')
                 ->withUrl()
                 ->twitter();
         }
@@ -152,7 +137,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
             $this->zeusForm->need_login => 'zeus::errors.login-required',
             ! $this->zeusForm->date_available => 'zeus::errors.date-not-available',
             $this->zeusForm->onePerUser() => 'zeus::errors.one-entry-per-user',
-            default => app('boltTheme') . '.fill-forms',
+            default => app('boltTheme').'.fill-forms',
         };
 
         if ($this->inline) {
@@ -160,5 +145,22 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         }
 
         return view($view)->layout(config('zeus.layout'));
+    }
+
+    protected function getFormSchema(): array
+    {
+        $getDesignerClass = $this->getBoltFormDesigner() ?? Designer::class;
+
+        return $getDesignerClass::ui($this->zeusForm, $this->inline);
+    }
+
+    public function getBoltFormDesigner(): ?string
+    {
+        return static::$boltFormDesigner;
+    }
+
+    protected function getFormModel(): Form
+    {
+        return $this->zeusForm;
     }
 }

@@ -5,18 +5,22 @@ namespace LaraZeus\Bolt\Filament\Resources\FormResource\Widgets;
 use Filament\Widgets\ChartWidget;
 use Flowframe\Trend\Trend;
 use Flowframe\Trend\TrendValue;
-use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Models\Form;
 
 class ResponsesPerMonth extends ChartWidget
 {
-    public Form $record;
-
-    protected int | string | array $columnSpan = 'full';
-
     protected static ?string $maxHeight = '300px';
 
+    public Form $record;
+
     public ?string $filter = 'per_day';
+
+    protected int|string|array $columnSpan = 'full';
+
+    public function getHeading(): string
+    {
+        return __('Responses Count');
+    }
 
     protected function getType(): string
     {
@@ -32,16 +36,11 @@ class ResponsesPerMonth extends ChartWidget
         ];
     }
 
-    public function getHeading(): string
-    {
-        return __('Responses Count');
-    }
-
     protected function getData(): array
     {
         $label = null;
 
-        $data = Trend::model(BoltPlugin::getModel('Response'))
+        $data = Trend::model(config('zeus-bolt.models.Response'))
             ->between(
                 start: now()->startOfYear(),
                 end: now()->endOfYear(),

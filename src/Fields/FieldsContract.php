@@ -11,7 +11,6 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Concerns\HasHiddenOptions;
 use LaraZeus\Bolt\Concerns\HasOptions;
 use LaraZeus\Bolt\Contracts\Fields;
@@ -33,11 +32,66 @@ abstract class FieldsContract implements Arrayable, Fields
 
     public int $sort;
 
+    public static function getFieldCollectionItemsList(Field|FieldPreset|array $zeusField): Collection|array
+    {
+        if (is_array($zeusField)) {
+            $zeusField = (object) $zeusField;
+        }
+
+        $getCollection = collect();
+
+        //@phpstan-ignore-next-line
+        if (optional($zeusField->options)['dataSource'] === null) {
+            return $getCollection;
+        }
+
+        //@phpstan-ignore-next-line
+        if ($zeusField instanceof FieldPreset && is_string($zeusField->options)) {
+            //@phpstan-ignore-next-line
+            $zeusField->options = json_decode($zeusField->options, true);
+        }
+
+        // to not braking old dataSource structure
+        //@phpstan-ignore-next-line
+        if ((int) $zeusField->options['dataSource'] !== 0) {
+            //@phpstan-ignore-next-line
+            if ($zeusField instanceof FieldPreset) {
+                //@phpstan-ignore-next-line
+                $getCollection = \LaraZeus\BoltPro\Models\Collection::query()
+                    //@phpstan-ignore-next-line
+                    ->find($zeusField->options['dataSource'] ?? 0)
+                    ->values;
+                //@phpstan-ignore-next-line
+                $getCollection = collect(json_decode($getCollection, true))
+                    ->pluck('itemValue', 'itemKey');
+            } else {
+                $getCollection = config('zeus-bolt.models.Collection')::query()
+                    ->find($zeusField->options['dataSource'] ?? 0);
+                if ($getCollection === null) {
+                    $getCollection = collect();
+                } else {
+                    $getCollection = $getCollection->values->pluck('itemValue', 'itemKey');
+                }
+            }
+        } else {
+            if (class_exists($zeusField->options['dataSource'])) {
+                //@phpstan-ignore-next-line
+                $dataSourceClass = new $zeusField->options['dataSource'];
+                $getCollection = $dataSourceClass->getQuery()->pluck(
+                    $dataSourceClass->getValuesUsing(),
+                    $dataSourceClass->getKeysUsing()
+                );
+            }
+        }
+
+        return $getCollection;
+    }
+
     public function toArray(): array
     {
         return [
             'disabled' => $this->disabled,
-            'class' => '\\' . get_called_class(),
+            'class' => '\\'.get_called_class(),
             'renderClass' => $this->renderClass,
             'hasOptions' => $this->hasOptions(),
             'code' => class_basename($this),
@@ -46,6 +100,11 @@ abstract class FieldsContract implements Arrayable, Fields
             'description' => $this->description(),
             'icon' => $this->icon(),
         ];
+    }
+
+    public function hasOptions(): bool
+    {
+        return method_exists(get_called_class(), 'getOptions');
     }
 
     public function title(): string
@@ -63,17 +122,8 @@ abstract class FieldsContract implements Arrayable, Fields
         return 'iconpark-aligntextcenter-o';
     }
 
-    public function hasOptions(): bool
-    {
-        return method_exists(get_called_class(), 'getOptions');
-    }
-
-    public function getResponse(Field $field, FieldResponse $resp): string
-    {
-        return $resp->response;
-    }
-
     // @phpstan-ignore-next-line
+
     public function appendFilamentComponentsOptions($component, $zeusField, bool $hasVisibility = false)
     {
         if (is_string($zeusField->options)) {
@@ -95,7 +145,7 @@ abstract class FieldsContract implements Arrayable, Fields
                     return null;
                 }
 
-                return optional($zeusField->options)['grades']['points'] ?? 0 . ' ' . __('marks');
+                return optional($zeusField->options)['grades']['points'] ?? 0 .' '.__('marks');
             })
             ->helperText($zeusField->description);
 
@@ -136,7 +186,7 @@ abstract class FieldsContract implements Arrayable, Fields
                     return true;
                 }
 
-                $relatedFieldArray = Arr::wrap($get('zeusData.' . $relatedField));
+                $relatedFieldArray = Arr::wrap($get('zeusData.'.$relatedField));
                 if (in_array($relatedFieldValues, $relatedFieldArray)) {
                     return true;
                 }
@@ -167,7 +217,7 @@ abstract class FieldsContract implements Arrayable, Fields
 
         // to not braking old dataSource structure
         if ((int) $field->options['dataSource'] !== 0) {
-            $response = BoltPlugin::getModel('Collection')::query()
+            $response = config('zeus-bolt.models.Collection')::query()
                 ->find($field->options['dataSource'])
                 ?->values
                 ->whereIn('itemKey', $response)
@@ -185,70 +235,16 @@ abstract class FieldsContract implements Arrayable, Fields
     }
 
     //@phpstan-ignore-next-line
-    public static function getFieldCollectionItemsList(Field | FieldPreset | array $zeusField): Collection | array
-    {
-        if (is_array($zeusField)) {
-            $zeusField = (object) $zeusField;
-        }
-
-        $getCollection = collect();
-
-        //@phpstan-ignore-next-line
-        if (optional($zeusField->options)['dataSource'] === null) {
-            return $getCollection;
-        }
-
-        //@phpstan-ignore-next-line
-        if ($zeusField instanceof FieldPreset && is_string($zeusField->options)) {
-            //@phpstan-ignore-next-line
-            $zeusField->options = json_decode($zeusField->options, true);
-        }
-
-        // to not braking old dataSource structure
-        //@phpstan-ignore-next-line
-        if ((int) $zeusField->options['dataSource'] !== 0) {
-            //@phpstan-ignore-next-line
-            if ($zeusField instanceof FieldPreset) {
-                //@phpstan-ignore-next-line
-                $getCollection = \LaraZeus\BoltPro\Models\Collection::query()
-                    //@phpstan-ignore-next-line
-                    ->find($zeusField->options['dataSource'] ?? 0)
-                    ->values;
-                //@phpstan-ignore-next-line
-                $getCollection = collect(json_decode($getCollection, true))
-                    ->pluck('itemValue', 'itemKey');
-            } else {
-                $getCollection = BoltPlugin::getModel('Collection')::query()
-                    ->find($zeusField->options['dataSource'] ?? 0);
-                if ($getCollection === null) {
-                    $getCollection = collect();
-                } else {
-                    $getCollection = $getCollection->values->pluck('itemValue', 'itemKey');
-                }
-            }
-        } else {
-            if (class_exists($zeusField->options['dataSource'])) {
-                //@phpstan-ignore-next-line
-                $dataSourceClass = new $zeusField->options['dataSource'];
-                $getCollection = $dataSourceClass->getQuery()->pluck(
-                    $dataSourceClass->getValuesUsing(),
-                    $dataSourceClass->getKeysUsing()
-                );
-            }
-        }
-
-        return $getCollection;
-    }
 
     public function TableColumn(Field $field): ?Column
     {
-        return TextColumn::make('zeusData.' . $field->id)
+        return TextColumn::make('zeusData.'.$field->id)
             ->label($field->name)
             ->sortable(false)
             ->searchable(query: function (Builder $query, string $search): Builder {
                 return $query
                     ->whereHas('fieldsResponses', function ($query) use ($search) {
-                        $query->where('response', 'like', '%' . $search . '%');
+                        $query->where('response', 'like', '%'.$search.'%');
                     });
             })
             ->getStateUsing(fn (Response $record) => $this->getFieldResponseValue($record, $field))
@@ -256,9 +252,24 @@ abstract class FieldsContract implements Arrayable, Fields
             ->toggleable();
     }
 
+    public function getFieldResponseValue(Response $record, Field $field): string
+    {
+        $fieldResponse = $record->fieldsResponses->where('field_id', $field->id)->first();
+        if ($fieldResponse === null) {
+            return '';
+        }
+
+        return (new $field->type)->getResponse($field, $fieldResponse);
+    }
+
+    public function getResponse(Field $field, FieldResponse $resp): string
+    {
+        return $resp->response;
+    }
+
     public function ExportColumn(Field $field): ?ExportColumn
     {
-        return ExportColumn::make('zeusData.' . $field->options['htmlId'])
+        return ExportColumn::make('zeusData.'.$field->options['htmlId'])
             ->label($field->name)
             ->state(function (Response $record) use ($field) {
 
@@ -272,16 +283,6 @@ abstract class FieldsContract implements Arrayable, Fields
 
                 return $response->response;
             });
-    }
-
-    public function getFieldResponseValue(Response $record, Field $field): string
-    {
-        $fieldResponse = $record->fieldsResponses->where('field_id', $field->id)->first();
-        if ($fieldResponse === null) {
-            return '';
-        }
-
-        return (new $field->type)->getResponse($field, $fieldResponse);
     }
 
     public function entry(Field $field, FieldResponse $resp): string

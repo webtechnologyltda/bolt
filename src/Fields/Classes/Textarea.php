@@ -10,7 +10,6 @@ use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use LaraZeus\Accordion\Forms\Accordion;
 use LaraZeus\Accordion\Forms\Accordions;
-use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Fields\FieldsContract;
 use LaraZeus\Bolt\Models\Field;
 use LaraZeus\Bolt\Models\FieldResponse;
@@ -22,22 +21,7 @@ class Textarea extends FieldsContract
 
     public int $sort = 8;
 
-    public function title(): string
-    {
-        return __('Textarea');
-    }
-
-    public function icon(): string
-    {
-        return 'tabler-text-size';
-    }
-
-    public function description(): string
-    {
-        return __('multi line textarea');
-    }
-
-    public static function getOptions(?array $sections = null, ?array $field = null): array
+    public static function getOptions(?array $sections = null): array
     {
         return [
             Accordions::make('check-list-options')
@@ -65,19 +49,18 @@ class Textarea extends FieldsContract
                         ]),
                     self::hintOptions(),
                     self::visibility($sections),
-                    // @phpstan-ignore-next-line
-                    ...Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::schema($field) : [],
-                    Bolt::getCustomSchema('field', resolve(static::class)) ?? [],
                 ]),
         ];
+    }
+
+    public function icon(): string
+    {
+        return 'untitledui-text-align-left';
     }
 
     public static function getOptionsHidden(): array
     {
         return [
-            // @phpstan-ignore-next-line
-            Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::hidden() : [],
-            ...Bolt::getHiddenCustomSchema('field', resolve(static::class)) ?? [],
             self::hiddenVisibility(),
             self::hiddenHtmlID(),
             self::hiddenHintOptions(),
@@ -90,7 +73,18 @@ class Textarea extends FieldsContract
         ];
     }
 
+    public function title(): string
+    {
+        return __('Textarea');
+    }
+
+    public function description(): string
+    {
+        return __('multi line textarea');
+    }
+
     // @phpstan-ignore-next-line
+
     public function appendFilamentComponentsOptions($component, $zeusField, bool $hasVisibility = false)
     {
         parent::appendFilamentComponentsOptions($component, $zeusField, $hasVisibility);
@@ -118,13 +112,12 @@ class Textarea extends FieldsContract
 
     public function TableColumn(Field $field): ?Column
     {
-        return TextColumn::make('zeusData.' . $field->id)
-            ->sortable(false)
+        return TextColumn::make('zeusData.'.$field->id)
             ->label($field->name)
             ->searchable(query: function (Builder $query, string $search): Builder {
                 return $query
                     ->whereHas('fieldsResponses', function ($query) use ($search) {
-                        $query->where('response', 'like', '%' . $search . '%');
+                        $query->where('response', 'like', '%'.$search.'%');
                     });
             })
             ->getStateUsing(fn (Response $record) => $this->getFieldResponseValue($record, $field))

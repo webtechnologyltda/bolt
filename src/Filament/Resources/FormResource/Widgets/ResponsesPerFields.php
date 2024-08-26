@@ -3,7 +3,6 @@
 namespace LaraZeus\Bolt\Filament\Resources\FormResource\Widgets;
 
 use Filament\Widgets\ChartWidget;
-use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Models\Form;
 
 class ResponsesPerFields extends ChartWidget
@@ -12,7 +11,7 @@ class ResponsesPerFields extends ChartWidget
 
     protected static ?string $maxHeight = '300px';
 
-    protected int | string | array $columnSpan = [
+    protected int|string|array $columnSpan = [
         'lg' => 1,
         'md' => 2,
     ];
@@ -52,7 +51,7 @@ class ResponsesPerFields extends ChartWidget
     {
         $dataset = [];
 
-        $form = BoltPlugin::getModel('Form')::query()
+        $form = config('zeus-bolt.models.Form')::query()
             ->with(['fields', 'fieldsResponses'])
             ->where('id', $this->record->id)
             ->first();

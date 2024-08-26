@@ -3,7 +3,6 @@
 namespace LaraZeus\Bolt\Fields\Classes;
 
 use Filament\Forms\Components\Placeholder;
-use Illuminate\Support\HtmlString;
 use LaraZeus\Accordion\Forms\Accordion;
 use LaraZeus\Accordion\Forms\Accordions;
 use LaraZeus\Bolt\Fields\FieldsContract;
@@ -14,22 +13,7 @@ class Paragraph extends FieldsContract
 
     public int $sort = 10;
 
-    public function title(): string
-    {
-        return __('Paragraph');
-    }
-
-    public function icon(): string
-    {
-        return 'tabler-text-recognition';
-    }
-
-    public function description(): string
-    {
-        return __('display a paragraph in your form');
-    }
-
-    public static function getOptions(?array $sections = null, ?array $field = null): array
+    public static function getOptions(): array
     {
         return [
             Accordions::make('check-list-options')
@@ -41,9 +25,14 @@ class Paragraph extends FieldsContract
                             self::columnSpanFull(),
                             self::hintOptions(),
                         ]),
-                    self::visibility($sections),
+
                 ]),
         ];
+    }
+
+    public function icon(): string
+    {
+        return 'untitledui-message-text-square';
     }
 
     public static function getOptionsHidden(): array
@@ -51,17 +40,16 @@ class Paragraph extends FieldsContract
         return [
             self::hiddenHintOptions(),
             self::hiddenColumnSpanFull(),
-            self::hiddenVisibility(),
         ];
     }
 
-    // @phpstan-ignore-next-line
-    public function appendFilamentComponentsOptions($component, $zeusField, bool $hasVisibility = false)
+    public function title(): string
     {
-        parent::appendFilamentComponentsOptions($component, $zeusField, $hasVisibility);
+        return __('Paragraph');
+    }
 
-        return $component
-            ->helperText('')
-            ->content(new HtmlString($zeusField->description));
+    public function description(): string
+    {
+        return __('display a paragraph in your form');
     }
 }

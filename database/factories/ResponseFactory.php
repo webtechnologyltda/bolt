@@ -3,7 +3,6 @@
 namespace LaraZeus\Bolt\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Models\Response;
 
 class ResponseFactory extends Factory
@@ -13,7 +12,7 @@ class ResponseFactory extends Factory
     public function definition(): array
     {
         return [
-            'form_id' => BoltPlugin::getModel('Form')::factory(),
+            'form_id' => config('zeus-bolt.models.Form')::factory(),
             'status' => 'NEW',
             'user_id' => 1,
             'notes' => $this->faker->text(),

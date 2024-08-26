@@ -4,7 +4,7 @@ namespace LaraZeus\Bolt\Models;
 
 use Filament\Notifications\Notification;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -41,6 +41,7 @@ class Form extends Model
     use HasActive;
     use HasFactory;
     use HasTranslations;
+    use HasUlids;
     use HasUpdates;
     use SoftDeletes;
 
@@ -61,7 +62,7 @@ class Form extends Model
 
     public function getTable(): string
     {
-        return config('zeus-bolt.table-prefix') . 'forms';
+        return config('zeus-bolt.table-prefix').'forms';
     }
 
     protected static function booted(): void
@@ -107,7 +108,7 @@ class Form extends Model
         return 'slug';
     }
 
-    protected static function newFactory(): Factory
+    protected static function newFactory(): FormFactory
     {
         return FormFactory::new();
     }
@@ -190,7 +191,7 @@ class Form extends Model
         );
     }
 
-    public function getUrl(): string | array
+    public function getUrl(): string|array
     {
         if ($this->extensions === null) {
             return route('bolt.form.show', ['slug' => $this->slug]);
