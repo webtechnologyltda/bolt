@@ -6,6 +6,7 @@ use Filament\Actions\Action;
 use Filament\Actions\LocaleSwitcher;
 use Filament\Resources\Pages\ViewRecord;
 use Illuminate\Contracts\Support\Htmlable;
+use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Models\Form;
 
@@ -31,11 +32,11 @@ class ViewForm extends ViewRecord
     protected function getHeaderActions(): array
     {
         return [
-            // LocaleSwitcher::make(),
+            LocaleSwitcher::make(),
             Action::make('open')
-                ->label(__('View Form'))
+                ->label(__('Open'))
                 ->icon('heroicon-o-arrow-top-right-on-square')
-                ->tooltip(__('View Form'))
+                ->tooltip(__('open form'))
                 ->color('warning')
                 ->url(fn () => route('bolt.form.show', $this->record))
                 ->visible(fn (Form $record) => $record->extensions === null)
@@ -51,6 +52,11 @@ class ViewForm extends ViewRecord
             FormResource\Widgets\ResponsesPerStatus::class,
             FormResource\Widgets\ResponsesPerFields::class,
         ];
+
+        if (Bolt::hasPro()) {
+            //@phpstan-ignore-next-line
+            $widgets[] = \LaraZeus\BoltPro\Widgets\ResponsesCharts::class;
+        }
 
         return $widgets;
     }

@@ -10,15 +10,12 @@ trait Configuration
     /**
      * you can overwrite any model and use your own
      */
-    protected array $boltModels = [
-        'Category' => \LaraZeus\Bolt\Models\Category::class,
-        'Collection' => \LaraZeus\Bolt\Models\Collection::class,
-        'Field' => \LaraZeus\Bolt\Models\Field::class,
-        'FieldResponse' => \LaraZeus\Bolt\Models\FieldResponse::class,
-        'Form' => \LaraZeus\Bolt\Models\Form::class,
-        'FormsStatus' => \LaraZeus\Bolt\Models\FormsStatus::class,
-        'Response' => \LaraZeus\Bolt\Models\Response::class,
-        'Section' => \LaraZeus\Bolt\Models\Section::class,
+    protected array $boltModels = [];
+
+    protected array $customSchema = [
+        'form' => null,
+        'section' => null,
+        'field' => null,
     ];
 
     protected array $hideResources = [];
@@ -39,6 +36,23 @@ trait Configuration
 
     protected array $showNavigationBadgesArray = [];
 
+    public function customSchema(array $schema): static
+    {
+        $this->customSchema = $schema;
+
+        return $this;
+    }
+
+    public function getCustomSchema(): array
+    {
+        return $this->customSchema;
+    }
+
+    public static function getSchema(string $type): ?string
+    {
+        return (new static)::get()->getCustomSchema()[$type];
+    }
+
     public function boltModels(array $models): static
     {
         $this->boltModels = $models;
@@ -55,7 +69,7 @@ trait Configuration
     {
         return array_merge(
             config('zeus-bolt.models'),
-            (new static())::get()->getBoltModels()
+            (new static)::get()->getBoltModels()
         )[$model];
     }
 
@@ -139,6 +153,6 @@ trait Configuration
 
     public static function getNavigationBadgesVisibility(?Resources $resource = null): bool
     {
-        return (new static())::get()->getShowNavigationBadges($resource);
+        return (new static)::get()->getShowNavigationBadges($resource);
     }
 }

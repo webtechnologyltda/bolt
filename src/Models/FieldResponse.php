@@ -2,7 +2,7 @@
 
 namespace LaraZeus\Bolt\Models;
 
-use Illuminate\Database\Eloquent\Concerns\HasUlids;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -14,25 +14,25 @@ use LaraZeus\Bolt\Database\Factories\FieldResponseFactory;
  * @property string $updated_at
  * @property int $field_id
  * @property int $form_id
+ * @property int $grade
  */
 class FieldResponse extends Model
 {
     use HasFactory;
-    use HasUlids;
     use SoftDeletes;
 
     protected $with = ['field'];
 
     protected $guarded = [];
 
-    protected static function newFactory(): FieldResponseFactory
-    {
-        return FieldResponseFactory::new();
-    }
-
     public function getTable()
     {
-        return config('zeus-bolt.table-prefix').'field_responses';
+        return config('zeus-bolt.table-prefix') . 'field_responses';
+    }
+
+    protected static function newFactory(): Factory
+    {
+        return FieldResponseFactory::new();
     }
 
     /** @return BelongsTo<Field, FieldResponse> */
