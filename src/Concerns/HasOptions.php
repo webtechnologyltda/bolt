@@ -15,6 +15,7 @@ use Guava\FilamentIconPicker\Forms\IconPicker;
 use LaraZeus\Accordion\Forms\Accordion;
 use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Fields\FieldsContract;
+use Livewire\Component as Livewire;
 
 trait HasOptions
 {
@@ -31,6 +32,10 @@ trait HasOptions
         return Accordion::make('visibility-options')
             ->label(__('Conditional Visibility'))
             ->icon('iconpark-eyes')
+            ->visible(fn (Livewire $livewire) => str($livewire->getName())
+                ->replace('-form', '')
+                ->explode('.')
+                ->last() === 'edit')
             ->schema([
                 Toggle::make('options.visibility.active')
                     ->live()

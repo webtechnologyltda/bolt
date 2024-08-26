@@ -33,12 +33,12 @@ You will need a separate license for the Advanced Tables plugin to activate thes
 
 ## Screenshots
 
-![](https://larazeus.com/images/screenshots/bolt-pro/screen-3.png)
-![](https://larazeus.com/images/screenshots/bolt-pro/screen-1.png)
-![](https://larazeus.com/images/screenshots/bolt-pro/screen-2.png)
-![](https://larazeus.com/images/screenshots/bolt-pro/pre-01.png)
-![](https://larazeus.com/images/screenshots/bolt-pro/pre-02.png)
-![](https://larazeus.com/images/screenshots/bolt-pro/pro-01.png)
+![](https://larazeus.com/images/screenshots/bolt-pro/screen-3.webp)
+![](https://larazeus.com/images/screenshots/bolt-pro/screen-1.webp)
+![](https://larazeus.com/images/screenshots/bolt-pro/screen-2.webp)
+![](https://larazeus.com/images/screenshots/bolt-pro/pre-01.webp)
+![](https://larazeus.com/images/screenshots/bolt-pro/pre-02.webp)
+![](https://larazeus.com/images/screenshots/bolt-pro/pro-01.webp)
 
 ## More Details
 

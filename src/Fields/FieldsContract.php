@@ -140,6 +140,7 @@ abstract class FieldsContract implements Arrayable, Fields
                     return null;
                 }
 
+                //@phpstan-ignore-next-line
                 if (! $zeusField instanceof FieldPreset && $zeusField->section->form->extensions !== 'LaraZeus\\BoltPro\\Extensions\\Grades') {
                     return null;
                 }
