@@ -12,7 +12,7 @@
                             <p class="font-semibold mb-2">
                                 {!! (new $resp->field->type())->getResponse($resp->field, $resp) !!}
                             </p>
-                            <hr />
+                            <hr/>
                         </div>
                     @endif
                 @endforeach
@@ -21,14 +21,17 @@
         <div class="space-y-4">
             <x-filament::section>
                 <x-slot name="heading" class="text-primary-600">
+                    @svg('heroicon-s-user', 'text-gray-700 dark:text-white w-6 h-6 inline mr-2')
                     {{ __('User Details') }}
                 </x-slot>
                 @if ($getRecord->user_id === null)
                     <span>{{ __('By') }} {{ __('Visitor') }}</span>
                 @else
                     <div class="flex gap-2 items-center">
-                        <x-filament::avatar class="rounded-full" size="lg" :src="$getRecord->user->avatar" :alt="$getRecord->user
-                            ->{config('auth.providers.users.model')::getUserFullNameAttribute()} ?? ''" />
+                        @if($getRecord->user->avatar)
+                            <x-filament::avatar class="rounded-full" size="lg" :src="$getRecord->user->avatar" :alt="$getRecord->user
+                                ->{config('auth.providers.users.model')::getUserFullNameAttribute()} ?? ''"/>
+                        @endif
                         <p class="flex flex-col gap-1">
                             <span>{{ $getRecord->user->{config('auth.providers.users.model')::getUserFullNameAttribute()} ?? '' }}</span>
                             <span>{{ $getRecord->user->email ?? '' }}</span>
@@ -37,12 +40,14 @@
                 @endif
                 <p class="flex flex-col my-1 gap-1">
                     <span class="text-base font-light">{{ __('created at') }}:</span>
-                    <span class="font-semibold">{{ $getRecord->created_at->format('d/m/Y - H:i:s') }}</span>
+                    <span class="font-semibold">{{ $getRecord->created_at->format('d/M/Y H:i') }}</span>
                 </p>
             </x-filament::section>
             <x-filament::section>
                 <x-slot name="heading" class="text-primary-600">
-                    <p class="text-primary-600 font-semibold">{{ __('Entry Details') }}</p>
+                    <p class="my-3 mx-1 text-primary-600 font-semibold">
+                        @svg('gmdi-checklist-o', 'text-primary-600 w-6 h-6 inline mr-2')
+                        {{ __('Entry Details') }}</p>
                 </x-slot>
 
                 <div class="flex flex-col mb-4">
@@ -54,7 +59,7 @@
                     <span>{{ __('status') }}</span>
                     @php $getStatues = $getRecord->statusDetails() @endphp
                     <span class="{{ $getStatues['class'] }}"
-                        x-tooltip="{
+                          x-tooltip="{
                                     content: @js(__('status')),
                                     theme: $store.theme,
                                   }">

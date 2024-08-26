@@ -19,21 +19,6 @@ class TextInput extends FieldsContract
 
     public int $sort = 1;
 
-    public function title(): string
-    {
-        return __('Text Input');
-    }
-
-    public function icon(): string
-    {
-        return 'tabler-input-search';
-    }
-
-    public function description(): string
-    {
-        return __('text input');
-    }
-
     public static function getOptions(?array $sections = null): array
     {
         return [
@@ -117,6 +102,11 @@ class TextInput extends FieldsContract
         ];
     }
 
+    public function icon(): string
+    {
+        return 'untitledui-text-input';
+    }
+
     public static function getOptionsHidden(): array
     {
         return [
@@ -141,7 +131,18 @@ class TextInput extends FieldsContract
         ];
     }
 
+    public function title(): string
+    {
+        return __('Text Input');
+    }
+
+    public function description(): string
+    {
+        return __('text input');
+    }
+
     // @phpstan-ignore-next-line
+
     public function appendFilamentComponentsOptions($component, $zeusField, bool $hasVisibility = false)
     {
         parent::appendFilamentComponentsOptions($component, $zeusField, $hasVisibility);

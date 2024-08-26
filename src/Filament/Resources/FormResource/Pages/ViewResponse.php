@@ -7,7 +7,6 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Resources\Pages\ViewRecord;
 use Illuminate\Contracts\Support\Htmlable;
-use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Models\Form;
 use LaraZeus\Bolt\Models\Response;
@@ -25,7 +24,7 @@ class ViewResponse extends ViewRecord
 
     protected static string $resource = FormResource::class;
 
-    public function mount(int | string $record): void
+    public function mount(int|string $record): void
     {
         parent::mount($record);
 
@@ -46,7 +45,7 @@ class ViewResponse extends ViewRecord
                     Select::make('status')
                         ->label(__('status'))
                         ->default(fn () => $this->response->status)
-                        ->options(BoltPlugin::getModel('FormsStatus')::query()->pluck('label', 'key'))
+                        ->options(config('zeus-bolt.models.FormsStatus')::query()->pluck('label', 'key'))
                         ->required(),
                     Textarea::make('notes')
                         ->default(fn () => $this->response->notes)
@@ -60,9 +59,9 @@ class ViewResponse extends ViewRecord
         ];
     }
 
-    public function getTitle(): string | Htmlable
+    public function getTitle(): string|Htmlable
     {
-        return __('view response #') . $this->response->id;
+        return __('view response #').$this->response->id;
     }
 
     public function getBreadcrumbs(): array

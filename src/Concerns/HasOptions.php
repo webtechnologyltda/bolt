@@ -13,7 +13,6 @@ use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Guava\FilamentIconPicker\Forms\IconPicker;
 use LaraZeus\Accordion\Forms\Accordion;
-use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Fields\FieldsContract;
 
@@ -40,6 +39,7 @@ trait HasOptions
                 Select::make('options.visibility.fieldID')
                     ->label(__('show when the field:'))
                     ->live()
+                    ->searchable(false)
                     ->visible(fn (Get $get): bool => ! empty($get('options.visibility.active')))
                     ->required(fn (Get $get): bool => ! empty($get('options.visibility.active')))
                     ->options(optional($getFields)->pluck('name', 'id')),
@@ -47,6 +47,7 @@ trait HasOptions
                 Select::make('options.visibility.values')
                     ->label(__('has the value:'))
                     ->live()
+                    ->searchable(false)
                     ->required(fn (Get $get): bool => ! empty($get('options.visibility.fieldID')))
                     ->visible(fn (Get $get): bool => ! empty($get('options.visibility.fieldID')))
                     ->options(function (Get $get) use ($getFields) {
@@ -116,7 +117,7 @@ trait HasOptions
 
     public static function dataSource(): Grid
     {
-        $dataSources = BoltPlugin::getModel('Collection')::get()
+        $dataSources = config('zeus-bolt.models.Collection')::get()
             ->mapWithKeys(function ($item, $key) {
                 return [
                     $key => [
@@ -125,6 +126,7 @@ trait HasOptions
                     ],
                 ];
             })
+            ->toBase()
             ->merge(
                 Bolt::availableDataSource()
                     ->mapWithKeys(function ($item, $key) {
@@ -141,7 +143,7 @@ trait HasOptions
         return Grid::make()
             ->schema([
                 Select::make('options.dataSource')
-                    ->createOptionAction(fn (Action $action) => $action->hidden(auth()->user()->cannot('create', BoltPlugin::getModel('Collection'))))
+                    ->createOptionAction(fn (Action $action) => $action->hidden(auth()->user()->cannot('create', config('zeus-bolt.models.Collection'))))
                     ->required()
                     ->createOptionForm([
                         TextInput::make('name')
@@ -170,7 +172,7 @@ trait HasOptions
                             ]),
                     ])
                     ->createOptionUsing(function (array $data) {
-                        $collectionModel = BoltPlugin::getModel('Collection');
+                        $collectionModel = config('zeus-bolt.models.Collection');
                         $collection = new $collectionModel;
                         $collection->fill($data);
                         $collection->save();

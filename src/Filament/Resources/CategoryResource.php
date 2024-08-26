@@ -4,7 +4,6 @@ namespace LaraZeus\Bolt\Filament\Resources;
 
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
@@ -35,16 +34,11 @@ use LaraZeus\Bolt\Models\Category;
 
 class CategoryResource extends BoltResource
 {
-    protected static ?string $navigationIcon = 'clarity-tags-line';
+    protected static ?string $navigationIcon = 'iconpark-camp';
 
-    protected static ?int $navigationSort = 4;
+    protected static ?int $navigationSort = 0;
 
     protected static ?string $recordTitleAttribute = 'name';
-
-    public static function getModel(): string
-    {
-        return BoltPlugin::getModel('Category');
-    }
 
     public static function getNavigationBadge(): ?string
     {
@@ -52,7 +46,12 @@ class CategoryResource extends BoltResource
             return null;
         }
 
-        return (string) BoltPlugin::getModel('Category')::query()->count();
+        return (string) config('zeus-bolt.models.Category')::query()->count();
+    }
+
+    public static function getModel(): string
+    {
+        return config('zeus-bolt.models.Category');
     }
 
     public static function form(Form $form): Form
@@ -76,10 +75,17 @@ class CategoryResource extends BoltResource
                         TextInput::make('slug')->required()->maxLength(255)->label(__('slug')),
                         TextInput::make('ordering')->required()->numeric()->label(__('ordering')),
                         Toggle::make('is_active')->label(__('Is Active'))->default(1),
-                        Textarea::make('description')->maxLength(65535)->columnSpan(['sm' => 2])->label(__('Description')),
+                        //                        TiptapEditor::make('description')
+                        //                            ->maxLength(65535)
+                        //                            ->profile('simple')
+                        //                            ->directory('acampamentos')
+                        //                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml'])
+                        //                            ->columnSpan(['sm' => 2])
+                        //                            ->label(__('Description')),
                         FileUpload::make('logo')
                             ->disk(config('zeus-bolt.uploadDisk'))
-                            ->directory(config('zeus-bolt.uploadDisk'))
+                            ->directory(config('zeus-bolt.uploadDirectory'))
+                            ->visibility(config('zeus-bolt.uploadVisibility'))
                             ->columnSpan(['sm' => 2])
                             ->label(__('logo')),
                     ]),
@@ -92,6 +98,9 @@ class CategoryResource extends BoltResource
             ->columns([
                 ImageColumn::make('logo')
                     ->disk(config('zeus-bolt.uploadDisk'))
+                    ->visibility(config('zeus-bolt.uploadVisibility'))
+                    ->square()
+                    ->wrap()
                     ->toggleable()
                     ->label(__('Logo')),
                 TextColumn::make('name')

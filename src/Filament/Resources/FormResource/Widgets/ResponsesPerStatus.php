@@ -3,7 +3,6 @@
 namespace LaraZeus\Bolt\Filament\Resources\FormResource\Widgets;
 
 use Filament\Widgets\ChartWidget;
-use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Models\Form;
 
 class ResponsesPerStatus extends ChartWidget
@@ -33,7 +32,7 @@ class ResponsesPerStatus extends ChartWidget
         ],
     ];
 
-    protected int | string | array $columnSpan = [
+    protected int|string|array $columnSpan = [
         'lg' => 1,
         'md' => 2,
     ];
@@ -46,9 +45,9 @@ class ResponsesPerStatus extends ChartWidget
     protected function getData(): array
     {
         $dataset = [];
-        $statuses = BoltPlugin::getModel('FormsStatus')::get();
+        $statuses = config('zeus-bolt.models.FormsStatus')::get();
 
-        $form = BoltPlugin::getModel('Form')::query()
+        $form = config('zeus-bolt.models.Form')::query()
             ->with(['responses'])
             ->where('id', $this->record->id)
             ->first();

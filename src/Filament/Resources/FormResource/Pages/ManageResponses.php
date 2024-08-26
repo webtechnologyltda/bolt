@@ -2,14 +2,15 @@
 
 namespace LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 
+use Filament\Forms\Components\DatePicker;
 use Filament\Resources\Pages\ManageRelatedRecords;
 use Filament\Tables;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Filament\Actions\SetResponseStatus;
 use LaraZeus\Bolt\Filament\Exports\ResponseExporter;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
@@ -28,17 +29,24 @@ class ManageResponses extends ManageRelatedRecords
 
     protected static ?string $navigationIcon = 'heroicon-o-document-chart-bar';
 
+    public static function getNavigationLabel(): string
+    {
+        return __('Entries Report');
+    }
+
     public function table(Table $table): Table
     {
         $getUserModel = config('auth.providers.users.model')::getBoltUserFullNameAttribute();
 
         $mainColumns = [
             ImageColumn::make('user.avatar')
+                ->sortable(false)
+                ->searchable(false)
                 ->label(__('Avatar'))
                 ->circular()
                 ->toggleable(),
 
-            TextColumn::make('user.' . $getUserModel)
+            TextColumn::make('user.'.$getUserModel)
                 ->label(__('Name'))
                 ->toggleable()
                 ->sortable()
@@ -50,8 +58,9 @@ class ManageResponses extends ManageRelatedRecords
                 ->sortable()
                 ->badge()
                 ->label(__('status'))
-                ->colors(BoltPlugin::getModel('FormsStatus')::pluck('key', 'color')->toArray())
-                ->icons(BoltPlugin::getModel('FormsStatus')::pluck('key', 'icon')->toArray())
+                ->formatStateUsing(fn ($state) => __(str($state)->title()->toString()))
+                ->colors(config('zeus-bolt.models.FormsStatus')::pluck('key', 'color')->toArray())
+                ->icons(config('zeus-bolt.models.FormsStatus')::pluck('key', 'icon')->toArray())
                 ->grow(false)
                 ->searchable('status'),
 
@@ -82,7 +91,7 @@ class ManageResponses extends ManageRelatedRecords
 
         return $table
             ->query(
-                BoltPlugin::getModel('Response')::query()
+                config('zeus-bolt.models.Response')::query()
                     ->where('form_id', $this->record->id)
                     ->with(['fieldsResponses'])
                     ->withoutGlobalScopes([
@@ -97,9 +106,25 @@ class ManageResponses extends ManageRelatedRecords
                 Tables\Actions\RestoreAction::make(),
             ])
             ->filters([
+                Tables\Filters\Filter::make('created_at')
+                    ->form([
+                        DatePicker::make('created_from')->label(__('Created from')),
+                        DatePicker::make('created_until')->label(__('Created until')),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['created_from'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                            )
+                            ->when(
+                                $data['created_until'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
+                            );
+                    }),
                 Tables\Filters\TrashedFilter::make(),
                 SelectFilter::make('status')
-                    ->options(BoltPlugin::getModel('FormsStatus')::query()->pluck('label', 'key'))
+                    ->options(config('zeus-bolt.models.FormsStatus')::query()->pluck('label', 'key'))
                     ->label(__('Status')),
             ])
             ->bulkActions([
@@ -108,6 +133,7 @@ class ManageResponses extends ManageRelatedRecords
                 Tables\Actions\ForceDeleteBulkAction::make(),
 
                 Tables\Actions\ExportBulkAction::make()
+                    ->label(__('Export Responses'))
                     ->exporter(ResponseExporter::class),
             ])
             ->recordUrl(
@@ -116,11 +142,6 @@ class ManageResponses extends ManageRelatedRecords
                     'responseID' => $record,
                 ]),
             );
-    }
-
-    public static function getNavigationLabel(): string
-    {
-        return __('Entries Report');
     }
 
     public function getTitle(): string

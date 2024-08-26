@@ -58,11 +58,13 @@ return [
         ],
     ],
 
-    'defaultMailable' => \LaraZeus\Bolt\Mail\FormSubmission::class,
+    'defaultMailable' => FormSubmission::class,
 
     'uploadDisk' => 'public',
 
     'uploadDirectory' => 'forms',
+
+    'uploadVisibility' => 'public',
 
     'show_presets' => false,
 
