@@ -118,6 +118,7 @@ trait Schemata
                         ->label(__('Form Slug')),
 
                     Select::make('category_id')
+                        ->visible(Filament::getTenant() === null)
                         ->label(__('Category'))
                         ->searchable()
                         ->preload()
@@ -125,11 +126,11 @@ trait Schemata
                             'category',
                             'name',
                             modifyQueryUsing: function (Builder $query) {
-                                if (Filament::getTenant() === null) {
+//                                if (Filament::getTenant() === null) {
                                     return $query;
-                                }
+//                                }
 
-                                return config('zeus-bolt.models.Category')::query()->whereBelongsTo(Filament::getTenant());
+//                                return config('zeus-bolt.models.Category')::query()->whereBelongsTo(Filament::getTenant());
                             },
                         )
                         ->helperText(__('optional, organize your forms into categories'))

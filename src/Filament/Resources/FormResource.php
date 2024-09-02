@@ -40,6 +40,7 @@ use LaraZeus\BoltPro\BoltProServiceProvider;
 use LaraZeus\BoltPro\Livewire\PrefilledForm;
 use LaraZeus\BoltPro\Livewire\ShareForm;
 use LaraZeus\ListGroup\Infolists\ListEntry;
+use Filament\Facades\Filament;
 
 class FormResource extends BoltResource
 {
@@ -62,7 +63,11 @@ class FormResource extends BoltResource
             return null;
         }
 
-        return (string) config('zeus-bolt.models.Form')::query()->count();
+        if(Filament::getTenant() === null) {
+            return (string)config('zeus-bolt.models.Form')::query()->count();
+        } else {
+            return (string)config('zeus-bolt.models.Form')::query()->whereBelongsTo(Filament::getTenant())->count();
+        }
     }
 
     public static function getModel(): string
@@ -159,6 +164,7 @@ class FormResource extends BoltResource
                 TextColumn::make('responses_count')->counts('responses')->label(__('Responses Count'))->sortable()->toggleable(),
             ])
             ->actions(static::getActions())
+            ->defaultSort('ordering')
             ->filters([
                 TrashedFilter::make(),
                 Filter::make('is_active')
@@ -198,7 +204,14 @@ class FormResource extends BoltResource
                     ->label(__('Entries'))
                     ->icon('clarity-data-cluster-line')
                     ->tooltip(__('view all entries'))
-                    ->url(fn (ZeusForm $record): string => url('admin/responses?form_id='.$record->id)),
+                    ->url(function (ZeusForm $record): string {
+                        if (Filament::getTenant() === null) {
+
+                            return url(Filament::getCurrentPanel()->getId() . '/' . Filament::getTenant() . '/responses?form_id=' . $record->id);
+                        }else{
+                            return url(Filament::getCurrentPanel()->getId().'/responses?form_id='.$record->id);
+                        }
+                    }),
             ])
                 ->dropdown(false),
         ];
