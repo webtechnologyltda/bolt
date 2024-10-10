@@ -411,15 +411,6 @@ trait Schemata
                 ->required()
                 ->searchable()
                 ->preload()
-                //->options(Bolt::availableFields()->pluck('title', 'class'))
-
-                /*->getSearchResultsUsing(function (string $search) {
-                    $users = Bolt::availableFields()->where('title', 'like', "%{$search}%");
-
-                    return $users->mapWithKeys(function ($user) {
-                        return [$user->getKey() => static::getCleanOptionString($user)];
-                    })->toArray();
-                })*/
                 ->allowHtml()
                 ->extraAttributes(['class' => 'field-type'])
                 ->options(function (): array {
@@ -429,8 +420,21 @@ trait Schemata
                         })
                         ->toArray();
                 })
+                ->getSearchResultsUsing(function (string $search): array {
+                    return Bolt::availableFields()
+                        ->filter(fn ($user) => Str::contains(strtolower($user['title']), strtolower($search)))
+                        ->mapWithKeys(function ($user) {
+                            return [$user['class'] => static::getCleanOptionString($user)];
+                        })
+                        ->toArray();
+                })
+                ->default(function () {
+                    return Bolt::availableFields()
+                        ->mapWithKeys(function ($user) {
+                            return [$user['class'] => static::getCleanOptionString($user)];
+                        })->first();
+                })
                 ->live()
-                ->default('\LaraZeus\Bolt\Fields\Classes\TextInput')
                 ->label(__('Field Type')),
             Grid::make()
                 ->columns([

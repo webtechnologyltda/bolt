@@ -69,4 +69,8 @@ return [
     'show_presets' => false,
 
     'allow_design' => false,
+
+    'tenants' => [
+        'allow_tenants' => false,
+    ]
 ];
