@@ -5,6 +5,7 @@ namespace LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 use Filament\Actions\Action;
 use Filament\Actions\LocaleSwitcher;
 use Filament\Resources\Pages\EditRecord;
+use Filament\Resources\Pages\EditRecord\Concerns\Translatable;
 use Illuminate\Contracts\Support\Htmlable;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
@@ -15,7 +16,7 @@ use LaraZeus\Bolt\Models\Form;
  */
 class EditForm extends EditRecord
 {
-    use EditRecord\Concerns\Translatable;
+    use Translatable;
 
     protected static string $resource = FormResource::class;
 

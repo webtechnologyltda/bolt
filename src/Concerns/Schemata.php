@@ -121,15 +121,14 @@ trait Schemata
                         ->label(__('Category'))
                         ->searchable()
                         ->preload()
+                        ->visible(fn () : bool => Filament::getTenant() === null)
+                        ->default(fn () => Filament::getTenant())
+                        ->disabledOn('edit')
                         ->relationship(
                             'category',
                             'name',
                             modifyQueryUsing: function (Builder $query) {
-                                if (Filament::getTenant() === null) {
-                                    return $query;
-                                }
-
-                                return config('zeus-bolt.models.Category')::query()->whereBelongsTo(Filament::getTenant());
+                                return $query;
                             },
                         )
                         ->helperText(__('optional, organize your forms into categories'))
@@ -318,7 +317,6 @@ trait Schemata
                 ->cloneable()
                 ->minItems(1)
                 ->collapsible()
-                //->collapsed(fn (string $operation) => $operation === 'edit')
                 ->grid([
                     'default' => 1,
                     'md' => 2,

@@ -2,6 +2,7 @@
 
 namespace LaraZeus\Bolt\Filament\Resources;
 
+use Filament\Facades\Filament;
 use Closure;
 use Exception;
 use Filament\Forms\Form;
@@ -23,7 +24,7 @@ use Filament\Tables\Actions\RestoreBulkAction;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
@@ -58,11 +59,11 @@ class FormResource extends BoltResource
 
     public static function getNavigationBadge(): ?string
     {
-        if (! BoltPlugin::getNavigationBadgesVisibility(Resources::FormResource)) {
+        if (! BoltPlugin::getNavigationBadgesVisibility(Resources::FormResource) || Filament::getTenant() !== null) {
             return null;
         }
 
-        return (string) config('zeus-bolt.models.Form')::query()->count();
+        return (string)config('zeus-bolt.models.Form')::query()->count();
     }
 
     public static function getModel(): string
@@ -161,15 +162,8 @@ class FormResource extends BoltResource
             ->actions(static::getActions())
             ->filters([
                 TrashedFilter::make(),
-                Filter::make('is_active')
-                    ->toggle()
-                    ->query(fn (Builder $query): Builder => $query->where('is_active', true))
+                TernaryFilter::make('is_active')
                     ->label(__('Is Active')),
-
-                Filter::make('not_active')
-                    ->toggle()
-                    ->query(fn (Builder $query): Builder => $query->where('is_active', false))
-                    ->label(__('Inactive')),
 
                 SelectFilter::make('category_id')
                     ->options(config('zeus-bolt.models.Category')::pluck('name', 'id'))

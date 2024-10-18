@@ -3,6 +3,8 @@
 namespace LaraZeus\Bolt\Filament\Resources;
 
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -24,12 +26,14 @@ use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Enums\Resources;
 use LaraZeus\Bolt\Filament\Resources\CategoryResource\Pages\CreateCategory;
 use LaraZeus\Bolt\Filament\Resources\CategoryResource\Pages\EditCategory;
 use LaraZeus\Bolt\Filament\Resources\CategoryResource\Pages\ListCategories;
+use LaraZeus\Bolt\Filament\Resources\CategoryResource\RelationManagers\UsersRelationManager;
 use LaraZeus\Bolt\Models\Category;
 
 class CategoryResource extends BoltResource
@@ -59,11 +63,44 @@ class CategoryResource extends BoltResource
         return $form
             ->schema([
                 Section::make()
-                    ->columns(2)
+                    ->columns([
+                        'default' => 1,
+                        'lg' => 4
+                    ])
                     ->schema([
+
+                        FileUpload::make('logo')
+                            ->disk(config('zeus-bolt.uploadDisk'))
+                            ->directory(config('zeus-bolt.uploadDirectory'))
+                            ->visibility(config('zeus-bolt.uploadVisibility'))
+                            ->columnSpan(['sm' => 5])
+                            ->avatar()
+                            ->hiddenLabel()
+                            ->label('Foto de identificação')
+                            ->optimize('webp')
+                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml'])
+                            ->placeholder(fn () => new HtmlString('<span><a class="text-primary-600 font-bold">Clique aqui</a></br>Para adicionar uma foto</span>'))
+                            ->resize(15)
+                            ->alignCenter()
+                            ->imageEditor()
+                            ->imagePreviewHeight('250px')
+                            ->previewable(true)
+                            ->columnSpan(1)
+                            ->imageCropAspectRatio('1:1')
+                            ->loadingIndicatorPosition('center')
+                            ->panelAspectRatio('1:1')
+                            ->removeUploadedFileButtonPosition('top-center')
+                            ->uploadButtonPosition('center')
+                            ->uploadProgressIndicatorPosition('center')
+                            ->imageEditorMode(2)
+                            ->panelLayout('integrated')
+                            ->extraInputAttributes(['height' => '250'])
+                            ->imageEditorEmptyFillColor('#000000'),
+
                         TextInput::make('name')
                             ->required()
                             ->maxLength(255)
+                            ->columnSpan(['sm' => 1, 'lg' => 3])
                             ->live(onBlur: true)
                             ->label(__('Name'))
                             ->afterStateUpdated(function (Set $set, $state, $context) {
@@ -72,22 +109,25 @@ class CategoryResource extends BoltResource
                                 }
                                 $set('slug', Str::slug($state));
                             }),
-                        TextInput::make('slug')->required()->maxLength(255)->label(__('slug')),
-                        TextInput::make('ordering')->required()->numeric()->label(__('ordering')),
-                        Toggle::make('is_active')->label(__('Is Active'))->default(1),
-                        //                        TiptapEditor::make('description')
-                        //                            ->maxLength(65535)
-                        //                            ->profile('simple')
-                        //                            ->directory('acampamentos')
-                        //                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml'])
-                        //                            ->columnSpan(['sm' => 2])
-                        //                            ->label(__('Description')),
-                        FileUpload::make('logo')
-                            ->disk(config('zeus-bolt.uploadDisk'))
-                            ->directory(config('zeus-bolt.uploadDirectory'))
-                            ->visibility(config('zeus-bolt.uploadVisibility'))
-                            ->columnSpan(['sm' => 2])
-                            ->label(__('logo')),
+
+                        TextInput::make('slug')
+                            ->required()
+                            ->maxLength(255)
+                            ->label(__('slug'))
+                            ->columnSpan(['sm' => 1, 'lg' => 1]),
+
+                        Hidden::make('ordering')
+                            ->default(Category::query()->count()),
+
+                        RichEditor::make('description')
+                            ->maxLength(65535)
+                            ->columnSpanFull()
+                            ->label(__('Description')),
+
+                        Toggle::make('is_active')
+                            ->columnSpanFull()
+                            ->label(__('Is Active'))
+                            ->default(1),
                     ]),
             ]);
     }

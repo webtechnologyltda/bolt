@@ -2,6 +2,7 @@
 
 namespace LaraZeus\Bolt\Filament\Resources;
 
+use Filament\Facades\Filament;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -33,7 +34,7 @@ class CollectionResource extends BoltResource
 
     public static function getNavigationBadge(): ?string
     {
-        if (! BoltPlugin::getNavigationBadgesVisibility(Resources::CollectionResource)) {
+        if (! BoltPlugin::getNavigationBadgesVisibility(Resources::CollectionResource) || Filament::getTenant() !== null) {
             return null;
         }
 
